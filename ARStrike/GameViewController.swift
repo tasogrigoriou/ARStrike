@@ -18,6 +18,7 @@ class GameViewController: UIViewController {
     
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
+    var initialFire: Bool = true
     
     var gamePortal = GamePortal()
     
@@ -86,11 +87,13 @@ class GameViewController: UIViewController {
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         
+        tapGestureRecognizer?.delegate = self
+        longPressGestureRecognizer?.delegate = self
+        
+        tapGestureRecognizer!.isEnabled = false
+        
         longPressGestureRecognizer!.minimumPressDuration = 0.0
         longPressGestureRecognizer!.isEnabled = false
-        
-//        tapGestureRecognizer.cancelsTouchesInView = false
-        tapGestureRecognizer!.isEnabled = false
         
         sceneView.addGestureRecognizer(tapGestureRecognizer!)
         sceneView.addGestureRecognizer(longPressGestureRecognizer!)
@@ -121,7 +124,7 @@ class GameViewController: UIViewController {
             return
         case .lookingForSurface:
             // Start tracking the world
-            configuration.planeDetection = [.horizontal]
+            configuration.planeDetection = [.vertical]
             options = [.resetTracking, .removeExistingAnchors]
             
             // Only reset session if not already running
@@ -136,7 +139,7 @@ class GameViewController: UIViewController {
             // more init
             return
         case .gameInProgress:
-            tapGestureRecognizer?.isEnabled = false
+            tapGestureRecognizer?.isEnabled = true
             longPressGestureRecognizer?.isEnabled = true
             return
         }
@@ -157,7 +160,7 @@ class GameViewController: UIViewController {
         // Perform hit testing only when ARKit tracking is in a good state.
         if case .normal = frame.camera.trackingState {
 
-            if let result = sceneView.hitTest(screenCenter, types: [.estimatedHorizontalPlane, .existingPlaneUsingExtent]).first {
+            if let result = sceneView.hitTest(screenCenter, types: [.estimatedVerticalPlane, .existingPlaneUsingExtent]).first {
                 // Ignore results that are too close to the camera when initially placing
                 guard result.distance > 0.5 || sessionState == .placingPortal else { return }
                 
@@ -183,12 +186,17 @@ class GameViewController: UIViewController {
     }
 }
 
-extension GameViewController {
+extension GameViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        if let _ = sceneView.hitTest(gesture.location(in: sceneView),
-                                                 types: [.existingPlaneUsingGeometry, .estimatedHorizontalPlane]).first {
+        if sessionState == .gameInProgress {
+            fireBullets()
+        } else {
             if gamePortal.anchor == nil {
-                gamePortal.anchor = ARAnchor(name: "Portal", transform: gamePortal.simdTransform)
+                gamePortal.anchor = ARAnchor(name: GamePortal.name, transform: gamePortal.simdTransform)
                 sceneView.session.add(anchor: gamePortal.anchor!)
                 
                 sessionState = .setupLevel
@@ -198,16 +206,16 @@ extension GameViewController {
     
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
-            timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(handleTimer), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
         } else if gesture.state == .ended || gesture.state == .cancelled {
             timer?.invalidate()
             timer = nil
         }
     }
     
-    @objc private func handleTimer() {
+    @objc private func fireBullets() {
         if sessionState == .gameInProgress {
-            gameManager?.handleLongPress(with: sceneView.session.currentFrame)
+            gameManager?.fireBullets(frame: sceneView.session.currentFrame)
         }
     }
 }
@@ -221,20 +229,12 @@ extension GameViewController: ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        if anchor == gamePortal.anchor {
-            DispatchQueue.main.async {
-//                self.sessionState = .setupLevel // If portal anchor was added, setup the level.
-            }
-            
-            return gamePortal // We already created a node for the board anchor
-        } else {
-            return nil 
-        }
+        return anchor == gamePortal.anchor ? gamePortal : nil // Return the portal if we already created an anchor
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         gamePortal.portalNode.removeFromParentNode()
-        if let name = anchor.name, name.hasPrefix("Portal") {
+        if let name = anchor.name, name.hasPrefix(GamePortal.name) {
             node.addChildNode(gamePortal.portalNode)
         }
     }
@@ -242,11 +242,13 @@ extension GameViewController: ARSCNViewDelegate {
 
 extension GameViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        if sessionState == .gameInProgress { return }
+        if sessionState == .gameInProgress {
+            mappingStatusLabel.text = "FIRE!"
+            return
+        }
         
         // Update game board placement in physical world
         if gameManager != nil {
-            // this is main thread calling into init code
             updateGamePortal(frame: frame)
         }
         
@@ -293,13 +295,11 @@ extension ARFrame.WorldMappingStatus: CustomStringConvertible {
     public var description: String {
         switch self {
         case .notAvailable:
-            return "Not Available"
-        case .limited:
-            return "Limited"
-        case .extending:
-            return "Extending"
+            return "Tracking unavailable."
+        case .limited, .extending:
+            return "Point straight ahead to place portal"
         case .mapped:
-            return "Mapped"
+            return "Tap to place portal"
         }
     }
 }

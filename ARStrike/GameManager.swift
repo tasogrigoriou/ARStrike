@@ -70,32 +70,31 @@ class GameManager: NSObject {
         }
     }
     
-    func handleLongPress(with frame: ARFrame?) {
+    func fireBullets(frame: ARFrame?) {
         guard let currentFrame = frame else { return }
         
         var translation = matrix_identity_float4x4
         translation.columns.3.z = -0.3
         
-        let box = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0)
+//        let box = SCNSphere(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0)
+        let bullet = SCNSphere(radius: 0.02)
         
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.yellow
         
-        let boxNode = SCNNode(geometry: box)
-        boxNode.name = "Bullet"
-        boxNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-        boxNode.physicsBody!.categoryBitMask = GameEntityType.bullet.rawValue
-        boxNode.physicsBody!.contactTestBitMask = GameEntityType.enemy.rawValue
-        boxNode.physicsBody!.isAffectedByGravity = false
+        let bulletNode = SCNNode(geometry: bullet)
+        bulletNode.name = "Bullet"
+        bulletNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        bulletNode.physicsBody!.categoryBitMask = GameEntityType.bullet.rawValue
+        bulletNode.physicsBody!.contactTestBitMask = GameEntityType.enemy.rawValue
+        bulletNode.physicsBody!.isAffectedByGravity = false
         
-        boxNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+        bulletNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
         
-        let forceVector = SCNVector3(boxNode.worldFront.x * 2, boxNode.worldFront.y * 2, boxNode.worldFront.z * 2)
+        let forceVector = SCNVector3(bulletNode.worldFront.x * 4, bulletNode.worldFront.y * 4, bulletNode.worldFront.z * 4)
         
-        boxNode.physicsBody?.applyForce(forceVector, asImpulse: true)
-        sceneView.scene.rootNode.addChildNode(boxNode)
-        
-        print("bullet shot")
+        bulletNode.physicsBody?.applyForce(forceVector, asImpulse: true)
+        sceneView.scene.rootNode.addChildNode(bulletNode)
     }
     
 }

@@ -13,6 +13,9 @@ import SceneKit
 class GamePortal: SCNNode {
     
     // MARK: - Configuration Properties
+    
+    static let name: String = "Portal"
+    
     /// The minimum size of the board in meters
     static let minimumScale: Float = 0.3
     
@@ -25,7 +28,7 @@ class GamePortal: SCNNode {
     
     var portalNode = GamePortal.loadPortal()
     
-    var distance: Float = 7.0
+    var distance: Float = 10.0
     
     /// The game board's most recent positions.
     private var recentPositions: [float3] = []
