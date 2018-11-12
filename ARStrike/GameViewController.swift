@@ -200,6 +200,8 @@ extension GameViewController: UIGestureRecognizerDelegate {
                 sceneView.session.add(anchor: gamePortal.anchor!)
                 
                 sessionState = .setupLevel
+                
+                print("test")
             }
         }
     }
