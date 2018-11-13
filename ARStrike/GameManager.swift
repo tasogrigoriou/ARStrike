@@ -74,14 +74,16 @@ class GameManager: NSObject {
         guard let currentFrame = frame else { return }
         
         var translation = matrix_identity_float4x4
-//        translation.columns.3.z = -0.3
         
-        translation.columns.3.z = -0.7
-        translation.columns.3.x = 0.15
-        translation.columns.3.y = 0.1
+//        translation.columns.3.z = -0.7
+//        translation.columns.3.x = 0.15
+//        translation.columns.3.y = 0.1
+//        translation.columns.3.xyz = float3(-0.7, 0.15, 0.1)
+        
+        translation.columns.3.xyz = weaponNode.simdPosition
         
 //        let box = SCNSphere(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0)
-        let bullet = SCNSphere(radius: 0.02)
+        let bullet = SCNSphere(radius: 0.03)
         
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.yellow
@@ -94,10 +96,12 @@ class GameManager: NSObject {
         bulletNode.physicsBody!.isAffectedByGravity = false
         
         // Calculate bullet initial position within the scene
-        let position = weaponNode.convertPosition(weaponNode.position, to: bulletNode)
-        bulletNode.position = position
+//        let position = weaponNode.convertPosition(weaponNode.position, to: bulletNode)
+//        bulletNode.position = position
         
-        bulletNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+//        bulletNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
+        bulletNode.simdTransform = currentFrame.camera.transform + translation
+//        bulletNode.simdTransform = currentFrame.camera.transform
         
         let forceVector = SCNVector3(bulletNode.worldFront.x * 50, bulletNode.worldFront.y * 50, bulletNode.worldFront.z * 50)
         

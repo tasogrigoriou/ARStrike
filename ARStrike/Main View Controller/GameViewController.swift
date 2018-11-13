@@ -18,7 +18,6 @@ class GameViewController: UIViewController {
     
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
-    var initialFire: Bool = true
     
     var gamePortal = GamePortal()
     var gameWeapon = GameWeapon()
@@ -88,8 +87,8 @@ class GameViewController: UIViewController {
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         
-        tapGestureRecognizer?.delegate = self
-        longPressGestureRecognizer?.delegate = self
+        tapGestureRecognizer!.delegate = self
+        longPressGestureRecognizer!.delegate = self
         
         tapGestureRecognizer!.isEnabled = false
         
@@ -166,7 +165,6 @@ class GameViewController: UIViewController {
                 guard result.distance > 0.5 || sessionState == .placingPortal else { return }
                 
                 sessionState = .placingPortal
-                gamePortal.update(with: result, camera: frame.camera)
             } else {
                 sessionState = .lookingForSurface
             }

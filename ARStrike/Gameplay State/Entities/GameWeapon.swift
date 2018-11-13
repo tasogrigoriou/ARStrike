@@ -15,12 +15,6 @@ class GameWeapon: SCNNode {
     // MARK: - Configuration Properties
     static let name: String = "Weapon"
     
-    /// The minimum size of the board in meters
-    static let minimumScale: Float = 0.3
-    
-    /// The maximum size of the board in meters
-    static let maximumScale: Float = 11.0 // 15x27m @ 10, 1.5m x 2.7m @ 1
-    
     // MARK: - Properties
     /// The PortalAnchor in the scene
     var anchor: ARAnchor?
@@ -30,21 +24,9 @@ class GameWeapon: SCNNode {
     let weaponPosition = SCNVector3(1.25, -6, -8)
     let distance: Float = 15.0
     
-    /// The level's preferred size.
-    /// This is used both to set the aspect ratio and to determine
-    /// the default size.
-    var preferredSize = CGSize(width: 0.5, height: 0.7)
-    
-    /// The aspect ratio of the level.
-    var aspectRatio: Float { return Float(preferredSize.height / preferredSize.width) }
-    
     // MARK: - Initialization
     override init() {
         super.init()
-        
-        // Set initial game portal scale
-        simdScale = float3(GameWeapon.minimumScale)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
