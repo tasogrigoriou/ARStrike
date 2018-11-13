@@ -21,6 +21,7 @@ class GameViewController: UIViewController {
     var initialFire: Bool = true
     
     var gamePortal = GamePortal()
+    var gameWeapon = GameWeapon()
     
     var gameManager: GameManager? {
         didSet {
@@ -178,11 +179,27 @@ class GameViewController: UIViewController {
         GameClock.setLevelStartTime()
         gameManager.start()
         
+        addGameWeaponNode()
+        
         sessionState = .gameInProgress
     }
     
     private func createGameManager() {
         gameManager = GameManager(sceneView: sceneView)
+    }
+    
+    private func addGamePortalNode() {
+        if let cameraNode = sceneView.pointOfView {
+            sceneView.scene.rootNode.addChildNode(gamePortal.portalNode)
+            gamePortal.portalNode.simdPosition = cameraNode.simdWorldFront * gamePortal.distance
+        }
+    }
+    
+    private func addGameWeaponNode() {
+        if let cameraNode = sceneView.pointOfView {
+            cameraNode.addChildNode(gameWeapon.weaponNode)
+            gameWeapon.weaponNode.position = SCNVector3(1.5, -6, -9)
+        }
     }
 }
 
@@ -199,9 +216,12 @@ extension GameViewController: UIGestureRecognizerDelegate {
                 gamePortal.anchor = ARAnchor(name: GamePortal.name, transform: gamePortal.simdTransform)
                 sceneView.session.add(anchor: gamePortal.anchor!)
                 
-                sessionState = .setupLevel
+                if gameWeapon.anchor == nil, let cameraNode = sceneView.pointOfView {
+                    gameWeapon.anchor = ARAnchor(name: GameWeapon.name, transform: cameraNode.simdTransform)
+                    sceneView.session.add(anchor: gameWeapon.anchor!)
+                }
                 
-                print("test")
+                sessionState = .setupLevel
             }
         }
     }
@@ -257,13 +277,8 @@ extension GameViewController: ARSessionDelegate {
         switch frame.worldMappingStatus {
         case .notAvailable, .limited:
             tapGestureRecognizer?.isEnabled = false
-        case .extending:
-            tapGestureRecognizer?.isEnabled = false
-        case .mapped:
-            if let cameraNode = sceneView.pointOfView {
-                sceneView.scene.rootNode.addChildNode(gamePortal.portalNode)
-                gamePortal.portalNode.simdPosition = cameraNode.simdWorldFront * gamePortal.distance
-            }
+        case .extending, .mapped:
+            addGamePortalNode()
             tapGestureRecognizer?.isEnabled = true
         }
         mappingStatusLabel.text = frame.worldMappingStatus.description
@@ -297,7 +312,7 @@ extension ARFrame.WorldMappingStatus: CustomStringConvertible {
     public var description: String {
         switch self {
         case .notAvailable:
-            return "Tracking unavailable."
+            return "Tracking unavailable"
         case .limited, .extending:
             return "Point straight ahead to place portal"
         case .mapped:

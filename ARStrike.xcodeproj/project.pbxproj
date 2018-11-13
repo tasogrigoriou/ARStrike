@@ -24,6 +24,7 @@
 		9D41D9852198DE7C00716EA5 /* GameClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9842198DE7C00716EA5 /* GameClock.swift */; };
 		9D41D9892198EEA700716EA5 /* CameraSetup.scn in Resources */ = {isa = PBXBuildFile; fileRef = 9D41D9882198EEA700716EA5 /* CameraSetup.scn */; };
 		9D4AB22A2199660B009E558E /* simd+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB2292199660B009E558E /* simd+helpers.swift */; };
+		9D4AB22E219A3019009E558E /* GameWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB22D219A3019009E558E /* GameWeapon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		9D41D9842198DE7C00716EA5 /* GameClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameClock.swift; sourceTree = "<group>"; };
 		9D41D9882198EEA700716EA5 /* CameraSetup.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = CameraSetup.scn; sourceTree = "<group>"; };
 		9D4AB2292199660B009E558E /* simd+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd+helpers.swift"; sourceTree = "<group>"; };
+		9D4AB22D219A3019009E558E /* GameWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWeapon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +127,7 @@
 				9D41D9842198DE7C00716EA5 /* GameClock.swift */,
 				9D41D9802198289C00716EA5 /* GamePortal.swift */,
 				9D41D98221982CBC00716EA5 /* PortalAnchor.swift */,
+				9D4AB22D219A3019009E558E /* GameWeapon.swift */,
 				9D41D97A219822CC00716EA5 /* GamePlayer.swift */,
 				9D41D97C219822D200716EA5 /* GameEnemy.swift */,
 				9D41D97E2198265700716EA5 /* BulletComponent.swift */,
@@ -288,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D4AB22E219A3019009E558E /* GameWeapon.swift in Sources */,
 				9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */,
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
 				9D41D98321982CBC00716EA5 /* PortalAnchor.swift in Sources */,
