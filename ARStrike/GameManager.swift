@@ -70,11 +70,15 @@ class GameManager: NSObject {
         }
     }
     
-    func fireBullets(frame: ARFrame?) {
+    func fireBullets(weaponNode: SCNNode, frame: ARFrame?) {
         guard let currentFrame = frame else { return }
         
         var translation = matrix_identity_float4x4
-        translation.columns.3.z = -0.3
+//        translation.columns.3.z = -0.3
+        
+        translation.columns.3.z = -0.7
+        translation.columns.3.x = 0.15
+        translation.columns.3.y = 0.1
         
 //        let box = SCNSphere(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0)
         let bullet = SCNSphere(radius: 0.02)
@@ -89,9 +93,13 @@ class GameManager: NSObject {
         bulletNode.physicsBody!.contactTestBitMask = GameEntityType.enemy.rawValue
         bulletNode.physicsBody!.isAffectedByGravity = false
         
+        // Calculate bullet initial position within the scene
+        let position = weaponNode.convertPosition(weaponNode.position, to: bulletNode)
+        bulletNode.position = position
+        
         bulletNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
         
-        let forceVector = SCNVector3(bulletNode.worldFront.x * 4, bulletNode.worldFront.y * 4, bulletNode.worldFront.z * 4)
+        let forceVector = SCNVector3(bulletNode.worldFront.x * 50, bulletNode.worldFront.y * 50, bulletNode.worldFront.z * 50)
         
         bulletNode.physicsBody?.applyForce(forceVector, asImpulse: true)
         sceneView.scene.rootNode.addChildNode(bulletNode)

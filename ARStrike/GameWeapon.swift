@@ -27,7 +27,7 @@ class GameWeapon: SCNNode {
     
     var weaponNode = GameWeapon.loadWeapon()
     
-    let weaponPosition = SCNVector3(0, 0, 10)
+    let weaponPosition = SCNVector3(1.25, -6, -8)
     let distance: Float = 15.0
     
     /// The level's preferred size.

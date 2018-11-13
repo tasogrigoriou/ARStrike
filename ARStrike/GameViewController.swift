@@ -198,7 +198,7 @@ class GameViewController: UIViewController {
     private func addGameWeaponNode() {
         if let cameraNode = sceneView.pointOfView {
             cameraNode.addChildNode(gameWeapon.weaponNode)
-            gameWeapon.weaponNode.position = SCNVector3(1.5, -6, -9)
+            gameWeapon.weaponNode.position = gameWeapon.weaponPosition
         }
     }
 }
@@ -237,7 +237,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
     
     @objc private func fireBullets() {
         if sessionState == .gameInProgress {
-            gameManager?.fireBullets(frame: sceneView.session.currentFrame)
+            gameManager?.fireBullets(weaponNode: gameWeapon.weaponNode, frame: sceneView.session.currentFrame)
         }
     }
 }
