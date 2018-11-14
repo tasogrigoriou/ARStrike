@@ -1,5 +1,5 @@
 //
-//  simd+helpers.swift
+//  simd+Helpers.swift
 //  ARStrike
 //
 //  Created by Taso Grigoriou on 11/11/18.

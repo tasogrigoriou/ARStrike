@@ -32,7 +32,7 @@ class GameManager: NSObject {
     var level: GameLevel = .one // default level
     private let sceneView: ARSCNView
     
-    private var enemies: Set<GameEnemy> = []
+    private var enemies: Set<Enemy> = []
     
     private(set) var isInitialized = false
     
@@ -64,7 +64,6 @@ class GameManager: NSObject {
         
     }
     
-    // MARK: update
     // Called from rendering loop once per frame
     func update(timeDelta: TimeInterval) {
         for enemy in enemies {
@@ -76,10 +75,9 @@ class GameManager: NSObject {
         guard let currentFrame = frame else { return }
         
         var translation = matrix_identity_float4x4
-//        translation.columns.3.xyz = float3(-0.7, 0.15, 0.1)
-        translation.columns.3.xyz = weaponNode.simdPosition
+        translation.columns.3.xyz = float3(weaponNode.position.x, 0.6, weaponNode.position.z)
         
-        let bullet = SCNSphere(radius: 0.05)
+        let bullet = SCNSphere(radius: 0.5)
         
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.yellow
@@ -91,11 +89,9 @@ class GameManager: NSObject {
         bulletNode.physicsBody!.contactTestBitMask = GameEntityType.enemy.rawValue
         bulletNode.physicsBody!.isAffectedByGravity = false
         
-//        bulletNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
-//        bulletNode.simdTransform = currentFrame.camera.transform + translation
-        bulletNode.simdTransform = currentFrame.camera.transform
+        bulletNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
         
-        let forceVector = SCNVector3(bulletNode.worldFront.x * 50, bulletNode.worldFront.y * 50, bulletNode.worldFront.z * 50)
+        let forceVector = SCNVector3(bulletNode.worldFront.x * 100, bulletNode.worldFront.y * 100, bulletNode.worldFront.z * 100)
         
         bulletNode.physicsBody?.applyForce(forceVector, asImpulse: true)
         sceneView.scene.rootNode.addChildNode(bulletNode)

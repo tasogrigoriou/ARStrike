@@ -16,13 +16,13 @@
 		9D41D9602196AB9800716EA5 /* ARStrikeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D95F2196AB9800716EA5 /* ARStrikeTests.swift */; };
 		9D41D96B2196AB9800716EA5 /* ARStrikeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D96A2196AB9800716EA5 /* ARStrikeUITests.swift */; };
 		9D41D97921980B0200716EA5 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D97821980B0200716EA5 /* GameManager.swift */; };
-		9D41D97B219822CC00716EA5 /* GamePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D97A219822CC00716EA5 /* GamePlayer.swift */; };
-		9D41D97D219822D200716EA5 /* GameEnemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D97C219822D200716EA5 /* GameEnemy.swift */; };
+		9D41D97D219822D200716EA5 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D97C219822D200716EA5 /* Enemy.swift */; };
 		9D41D97F2198265700716EA5 /* BulletComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D97E2198265700716EA5 /* BulletComponent.swift */; };
-		9D41D9812198289C00716EA5 /* GamePortal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9802198289C00716EA5 /* GamePortal.swift */; };
+		9D41D9812198289C00716EA5 /* Portal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9802198289C00716EA5 /* Portal.swift */; };
 		9D41D9852198DE7C00716EA5 /* GameClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9842198DE7C00716EA5 /* GameClock.swift */; };
-		9D4AB22A2199660B009E558E /* simd+helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB2292199660B009E558E /* simd+helpers.swift */; };
-		9D4AB22E219A3019009E558E /* GameWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB22D219A3019009E558E /* GameWeapon.swift */; };
+		9D4AB22A2199660B009E558E /* simd+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB2292199660B009E558E /* simd+Helpers.swift */; };
+		9D4AB22E219A3019009E558E /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB22D219A3019009E558E /* Weapon.swift */; };
+		9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,13 +58,13 @@
 		9D41D96A2196AB9800716EA5 /* ARStrikeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARStrikeUITests.swift; sourceTree = "<group>"; };
 		9D41D96C2196AB9800716EA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D41D97821980B0200716EA5 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
-		9D41D97A219822CC00716EA5 /* GamePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePlayer.swift; sourceTree = "<group>"; };
-		9D41D97C219822D200716EA5 /* GameEnemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEnemy.swift; sourceTree = "<group>"; };
+		9D41D97C219822D200716EA5 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		9D41D97E2198265700716EA5 /* BulletComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletComponent.swift; sourceTree = "<group>"; };
-		9D41D9802198289C00716EA5 /* GamePortal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePortal.swift; sourceTree = "<group>"; };
+		9D41D9802198289C00716EA5 /* Portal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portal.swift; sourceTree = "<group>"; };
 		9D41D9842198DE7C00716EA5 /* GameClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameClock.swift; sourceTree = "<group>"; };
-		9D4AB2292199660B009E558E /* simd+helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd+helpers.swift"; sourceTree = "<group>"; };
-		9D4AB22D219A3019009E558E /* GameWeapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWeapon.swift; sourceTree = "<group>"; };
+		9D4AB2292199660B009E558E /* simd+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd+Helpers.swift"; sourceTree = "<group>"; };
+		9D4AB22D219A3019009E558E /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
+		9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +122,7 @@
 				9D4AB236219B7F9B009E558E /* Gameplay State */,
 				9D41D97821980B0200716EA5 /* GameManager.swift */,
 				9D41D9842198DE7C00716EA5 /* GameClock.swift */,
-				9D41D9802198289C00716EA5 /* GamePortal.swift */,
+				9D41D9802198289C00716EA5 /* Portal.swift */,
 				9D4AB231219B7F1D009E558E /* Utilities */,
 			);
 			path = ARStrike;
@@ -149,7 +149,8 @@
 		9D4AB231219B7F1D009E558E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				9D4AB2292199660B009E558E /* simd+helpers.swift */,
+				9D4AB2292199660B009E558E /* simd+Helpers.swift */,
+				9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -157,9 +158,8 @@
 		9D4AB232219B7F26009E558E /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				9D4AB22D219A3019009E558E /* GameWeapon.swift */,
-				9D41D97A219822CC00716EA5 /* GamePlayer.swift */,
-				9D41D97C219822D200716EA5 /* GameEnemy.swift */,
+				9D4AB22D219A3019009E558E /* Weapon.swift */,
+				9D41D97C219822D200716EA5 /* Enemy.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -348,16 +348,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D4AB22E219A3019009E558E /* GameWeapon.swift in Sources */,
+				9D4AB22E219A3019009E558E /* Weapon.swift in Sources */,
 				9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */,
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
 				9D41D9852198DE7C00716EA5 /* GameClock.swift in Sources */,
-				9D41D97B219822CC00716EA5 /* GamePlayer.swift in Sources */,
 				9D41D97F2198265700716EA5 /* BulletComponent.swift in Sources */,
-				9D4AB22A2199660B009E558E /* simd+helpers.swift in Sources */,
-				9D41D97D219822D200716EA5 /* GameEnemy.swift in Sources */,
-				9D41D9812198289C00716EA5 /* GamePortal.swift in Sources */,
+				9D4AB22A2199660B009E558E /* simd+Helpers.swift in Sources */,
+				9D41D97D219822D200716EA5 /* Enemy.swift in Sources */,
+				9D41D9812198289C00716EA5 /* Portal.swift in Sources */,
 				9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */,
+				9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

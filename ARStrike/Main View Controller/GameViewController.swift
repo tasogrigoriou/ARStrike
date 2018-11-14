@@ -19,8 +19,8 @@ class GameViewController: UIViewController {
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
     
-    var gamePortal = GamePortal()
-    var gameWeapon = GameWeapon()
+    var portal = Portal()
+    var weapon = Weapon()
     
     var gameManager: GameManager? {
         didSet {
@@ -168,16 +168,16 @@ class GameViewController: UIViewController {
     }
     
     private func addGamePortalNode() {
-        if let cameraNode = sceneView.pointOfView {
-            sceneView.scene.rootNode.addChildNode(gamePortal.node)
-            gamePortal.node.simdPosition = cameraNode.simdWorldFront * gamePortal.distance
+        if let cameraNode = sceneView.pointOfView, let portalNode = portal.node {
+            sceneView.scene.rootNode.addChildNode(portalNode)
+            portalNode.simdPosition = cameraNode.simdWorldFront * portal.distance
         }
     }
     
     private func addGameWeaponNode() {
-        if let cameraNode = sceneView.pointOfView {
-            cameraNode.addChildNode(gameWeapon.node)
-            gameWeapon.node.position = gameWeapon.defaultPosition
+        if let cameraNode = sceneView.pointOfView, let weaponNode = weapon.node {
+            cameraNode.addChildNode(weaponNode)
+            weaponNode.position = weapon.defaultPosition
         }
     }
 }
@@ -191,13 +191,17 @@ extension GameViewController: UIGestureRecognizerDelegate {
         if sessionState == .gameInProgress {
             fireBullets()
         } else {
-            if gamePortal.anchor == nil {
-                gamePortal.anchor = ARAnchor(name: GamePortal.name, transform: gamePortal.simdTransform)
-                sceneView.session.add(anchor: gamePortal.anchor!)
+            if portal.anchor == nil {
+                portal.anchor = ARAnchor(name: Portal.name, transform: portal.simdTransform)
+                sceneView.session.add(anchor: portal.anchor!)
                 
-                if gameWeapon.anchor == nil, let cameraNode = sceneView.pointOfView {
-                    gameWeapon.anchor = ARAnchor(name: GameWeapon.name, transform: cameraNode.simdTransform)
-                    sceneView.session.add(anchor: gameWeapon.anchor!)
+                if weapon.anchor == nil, let cameraNode = sceneView.pointOfView {
+//                    var translation = matrix_identity_float4x4
+//                    translation.columns.3.z = -15.5
+//                    let transform = matrix_multiply(cameraNode.simdTransform, translation)
+//                    weapon.anchor = ARAnchor(name: Weapon.name, transform: transform)
+                    weapon.anchor = ARAnchor(name: Weapon.name, transform: cameraNode.simdTransform)
+                    sceneView.session.add(anchor: weapon.anchor!)
                 }
                 
                 sessionState = .setupLevel
@@ -207,7 +211,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
     
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
-            timer = Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
         } else if gesture.state == .ended || gesture.state == .cancelled {
             timer?.invalidate()
             timer = nil
@@ -215,8 +219,8 @@ extension GameViewController: UIGestureRecognizerDelegate {
     }
     
     @objc private func fireBullets() {
-        if sessionState == .gameInProgress {
-            gameManager?.fireBullets(weaponNode: gameWeapon.node, frame: sceneView.session.currentFrame)
+        if sessionState == .gameInProgress, let weaponNode = weapon.node {
+            gameManager?.fireBullets(weaponNode: weaponNode, frame: sceneView.session.currentFrame)
         }
     }
 }
@@ -230,13 +234,14 @@ extension GameViewController: ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        return anchor == gamePortal.anchor ? gamePortal : nil // Return the portal if we already created an anchor
+        return anchor == portal.anchor ? portal : nil // Return the portal if we already created an anchor
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        gamePortal.node.removeFromParentNode()
-        if let name = anchor.name, name.hasPrefix(GamePortal.name) {
-            node.addChildNode(gamePortal.node)
+        guard let portalNode = portal.node else { return }
+        portalNode.removeFromParentNode()
+        if let name = anchor.name, name.hasPrefix(Portal.name) {
+            node.addChildNode(portalNode)
         }
     }
 }

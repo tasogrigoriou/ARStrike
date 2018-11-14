@@ -10,6 +10,9 @@ import Foundation
 import SceneKit
 import GameplayKit
 
-class GameEnemy: GKEntity {
+class Enemy: SCNNode {
     
+    func update(deltaTime seconds: TimeInterval) {
+        
+    }
 }
