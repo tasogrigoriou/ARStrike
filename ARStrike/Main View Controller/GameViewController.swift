@@ -37,7 +37,6 @@ class GameViewController: UIViewController {
         didSet {
             configureView()
             configureARSession()
-            print("sessionState = \(sessionState)")
         }
     }
     
@@ -196,7 +195,7 @@ class GameViewController: UIViewController {
     private func addGameWeaponNode() {
         if let cameraNode = sceneView.pointOfView {
             cameraNode.addChildNode(gameWeapon.weaponNode)
-            gameWeapon.weaponNode.position = gameWeapon.weaponPosition
+            gameWeapon.weaponNode.position = gameWeapon.defaultPosition
         }
     }
 }

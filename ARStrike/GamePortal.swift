@@ -11,14 +11,9 @@ import ARKit
 import SceneKit
 
 class GamePortal: SCNNode {
-    
-    // MARK: - Configuration Properties
     static let name: String = "Portal"
     
-    // MARK: - Properties
-    /// The PortalAnchor in the scene
     var anchor: ARAnchor?
-    
     var portalNode = GamePortal.loadPortal()
     
     var distance: Float = 10.0

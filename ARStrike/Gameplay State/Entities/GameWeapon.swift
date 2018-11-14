@@ -11,17 +11,12 @@ import ARKit
 import SceneKit
 
 class GameWeapon: SCNNode {
-    
-    // MARK: - Configuration Properties
     static let name: String = "Weapon"
     
-    // MARK: - Properties
-    /// The PortalAnchor in the scene
     var anchor: ARAnchor?
-    
     var weaponNode = GameWeapon.loadWeapon()
     
-    let weaponPosition = SCNVector3(1.25, -6, -8)
+    let defaultPosition = SCNVector3(1.25, -6, -8) // place on bottom right corner of screen (w.r.t. camera)
     let distance: Float = 15.0
     
     // MARK: - Initialization
