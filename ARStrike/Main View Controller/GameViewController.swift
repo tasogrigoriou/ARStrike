@@ -24,7 +24,7 @@ class GameViewController: UIViewController {
     
     var gameManager: GameManager? {
         didSet {
-            guard let manager = gameManager else {
+            guard let _ = gameManager else {
                 sessionState = .initialSetup
                 return
             }
@@ -77,8 +77,6 @@ class GameViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        // Pause the view's AR session.
         sceneView.session.pause()
     }
     
@@ -118,25 +116,16 @@ class GameViewController: UIViewController {
     func configureARSession() {
         let configuration = ARWorldTrackingConfiguration()
         let options: ARSession.RunOptions
+        
         switch sessionState {
-        case .initialSetup:
+        case .initialSetup, .placingPortal, .setupLevel:
             return
         case .lookingForSurface:
-            // Start tracking the world
             configuration.planeDetection = [.vertical]
             options = [.resetTracking, .removeExistingAnchors]
-            
-            // Only reset session if not already running
             if sceneView.isPlaying {
                 return
             }
-        case .placingPortal:
-            // we've found at least one surface, but should keep looking.
-            // so no change to the running session
-            return
-        case .setupLevel:
-            // more init
-            return
         case .gameInProgress:
             tapGestureRecognizer?.isEnabled = true
             longPressGestureRecognizer?.isEnabled = true
@@ -148,21 +137,14 @@ class GameViewController: UIViewController {
     
     func updateGamePortal(frame: ARFrame) {
         if sessionState == .setupLevel {
-            // this will advance the session state
             setupLevel()
             return
         }
-        
-        // Only automatically update portal when looking for surface or placing board
         guard attemptingPortalPlacement else { return }
         
-        // Perform hit testing only when ARKit tracking is in a good state.
         if case .normal = frame.camera.trackingState {
-
             if let result = sceneView.hitTest(screenCenter, types: [.estimatedVerticalPlane, .existingPlaneUsingExtent]).first {
-                // Ignore results that are too close to the camera when initially placing
                 guard result.distance > 0.5 || sessionState == .placingPortal else { return }
-                
                 sessionState = .placingPortal
             } else {
                 sessionState = .lookingForSurface
@@ -187,15 +169,15 @@ class GameViewController: UIViewController {
     
     private func addGamePortalNode() {
         if let cameraNode = sceneView.pointOfView {
-            sceneView.scene.rootNode.addChildNode(gamePortal.portalNode)
-            gamePortal.portalNode.simdPosition = cameraNode.simdWorldFront * gamePortal.distance
+            sceneView.scene.rootNode.addChildNode(gamePortal.node)
+            gamePortal.node.simdPosition = cameraNode.simdWorldFront * gamePortal.distance
         }
     }
     
     private func addGameWeaponNode() {
         if let cameraNode = sceneView.pointOfView {
-            cameraNode.addChildNode(gameWeapon.weaponNode)
-            gameWeapon.weaponNode.position = gameWeapon.defaultPosition
+            cameraNode.addChildNode(gameWeapon.node)
+            gameWeapon.node.position = gameWeapon.defaultPosition
         }
     }
 }
@@ -234,7 +216,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
     
     @objc private func fireBullets() {
         if sessionState == .gameInProgress {
-            gameManager?.fireBullets(weaponNode: gameWeapon.weaponNode, frame: sceneView.session.currentFrame)
+            gameManager?.fireBullets(weaponNode: gameWeapon.node, frame: sceneView.session.currentFrame)
         }
     }
 }
@@ -252,9 +234,9 @@ extension GameViewController: ARSCNViewDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        gamePortal.portalNode.removeFromParentNode()
+        gamePortal.node.removeFromParentNode()
         if let name = anchor.name, name.hasPrefix(GamePortal.name) {
-            node.addChildNode(gamePortal.portalNode)
+            node.addChildNode(gamePortal.node)
         }
     }
 }
@@ -266,7 +248,6 @@ extension GameViewController: ARSessionDelegate {
             return
         }
         
-        // Update game board placement in physical world
         if gameManager != nil {
             updateGamePortal(frame: frame)
         }
@@ -288,21 +269,6 @@ enum SessionState {
     case placingPortal
     case setupLevel
     case gameInProgress
-    
-    var localizedInstruction: String? {
-        switch self {
-        case .initialSetup:
-            return nil
-        case .lookingForSurface:
-            return NSLocalizedString("Find a flat surface to place the game.", comment: "")
-        case .placingPortal:
-            return NSLocalizedString("Scale, rotate or move the portal.", comment: "")
-        case .setupLevel:
-            return nil
-        case .gameInProgress:
-            return nil
-        }
-    }
 }
 
 extension ARFrame.WorldMappingStatus: CustomStringConvertible {

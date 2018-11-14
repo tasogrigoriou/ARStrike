@@ -27,20 +27,4 @@ class BulletComponent: GKComponent {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setGrabMode(state: Bool) {
-        currentPos = bullet.simdPosition
-    }
-    
-    override func update(deltaTime seconds: TimeInterval) {
-        // add force in direction to rest point
-        let offset = restPos - currentPos
-        let force = offset * 1000.0 - vel * 10.0
-        
-        vel += force * Float(seconds)
-        currentPos += vel * Float(seconds)
-        bullet.simdPosition = currentPos
-        
-        bullet.eulerAngles.x *= 0.9 // bring back to 0
-    }
 }

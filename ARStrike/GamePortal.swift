@@ -11,10 +11,10 @@ import ARKit
 import SceneKit
 
 class GamePortal: SCNNode {
-    static let name: String = "Portal"
+    static let name: String = NSStringFromClass(GamePortal.self)
     
     var anchor: ARAnchor?
-    var portalNode = GamePortal.loadPortal()
+    var node = GamePortal.loadPortal()
     
     var distance: Float = 10.0
     

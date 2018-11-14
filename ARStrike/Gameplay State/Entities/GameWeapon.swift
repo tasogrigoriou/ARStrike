@@ -14,7 +14,7 @@ class GameWeapon: SCNNode {
     static let name: String = "Weapon"
     
     var anchor: ARAnchor?
-    var weaponNode = GameWeapon.loadWeapon()
+    var node = GameWeapon.loadWeapon()
     
     let defaultPosition = SCNVector3(1.25, -6, -8) // place on bottom right corner of screen (w.r.t. camera)
     let distance: Float = 15.0

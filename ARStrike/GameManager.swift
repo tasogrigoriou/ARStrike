@@ -16,20 +16,25 @@ import ARKit
 import GameplayKit
 
 enum GameEntityType: Int {
-    case bullet = 1
-    case enemy = 2
+    case enemy = 1
+    case enemyBullet
+    case playerBullet
+}
+
+enum GameLevel {
+    case one
+    case two
+    case three
 }
 
 class GameManager: NSObject {
     
-    let level = 1 // default level
+    var level: GameLevel = .one // default level
     private let sceneView: ARSCNView
     
-    // don't execute any code from SCNView renderer until this is true
-    private(set) var isInitialized = false
+    private var enemies: Set<GameEnemy> = []
     
-    private let player = GamePlayer()
-    private var enemies = Set<GameEnemy>()
+    private(set) var isInitialized = false
     
     // Physics
 //    private let interactionManager = InteractionManager()
@@ -41,30 +46,27 @@ class GameManager: NSObject {
         sceneView.scene.physicsWorld.contactDelegate = self
     }
     
-    // Initializes all the objects and interactions for the game, and prepares
-    // to process user input.
+    // Initializes all the objects and interactions for the game, and prepares to process user input.
     func start() {
-        // Now we initialize all the game objects and interactions for the game.
+        initializeLevel()
         
-//        initializeGameObjectPool()
-//
-//        initializeLevel()
-//        initBehaviors()
-//
-//        // Initialize interactions that add objects to the level
-//        initializeInteractions()
-//
 //        delegate?.managerDidStartGame()
-//
 //        startGameMusicEverywhere()
         
         isInitialized = true
     }
     
+    private func initializeLevel() {
+      initializeEnemiesForLevel(level)
+    }
+    
+    private func initializeEnemiesForLevel(_ level: GameLevel) {
+        
+    }
+    
     // MARK: update
     // Called from rendering loop once per frame
     func update(timeDelta: TimeInterval) {
-        player.update(deltaTime: timeDelta)
         for enemy in enemies {
             enemy.update(deltaTime: timeDelta)
         }
@@ -77,7 +79,7 @@ class GameManager: NSObject {
 //        translation.columns.3.xyz = float3(-0.7, 0.15, 0.1)
         translation.columns.3.xyz = weaponNode.simdPosition
         
-        let bullet = SCNSphere(radius: 0.03)
+        let bullet = SCNSphere(radius: 0.05)
         
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.yellow
@@ -85,7 +87,7 @@ class GameManager: NSObject {
         let bulletNode = SCNNode(geometry: bullet)
         bulletNode.name = "Bullet"
         bulletNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
-        bulletNode.physicsBody!.categoryBitMask = GameEntityType.bullet.rawValue
+        bulletNode.physicsBody!.categoryBitMask = GameEntityType.playerBullet.rawValue
         bulletNode.physicsBody!.contactTestBitMask = GameEntityType.enemy.rawValue
         bulletNode.physicsBody!.isAffectedByGravity = false
         
