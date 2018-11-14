@@ -24,12 +24,12 @@ class GameViewController: UIViewController {
     
     var gameManager: GameManager? {
         didSet {
-            guard let _ = gameManager else {
+            guard let manager = gameManager else {
                 sessionState = .initialSetup
                 return
             }
             sessionState = .lookingForSurface
-//            manager.delegate = self
+            manager.delegate = self
         }
     }
     
@@ -58,15 +58,14 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupGestureRecognizers()
-        
         createGameManager()
         
-        // Set the view's delegate
+        setupGestureRecognizers()
+        
         sceneView.delegate = self
+        sceneView.session.delegate = self
         
         sessionState = .initialSetup
-        sceneView.session.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,31 +154,53 @@ class GameViewController: UIViewController {
     func setupLevel() {
         guard let gameManager = gameManager, sessionState == .setupLevel else { return }
         
+        addWeaponNode()
+        
         GameClock.setLevelStartTime()
         gameManager.start()
-        
-        addGameWeaponNode()
         
         sessionState = .gameInProgress
     }
     
     private func createGameManager() {
-        gameManager = GameManager(sceneView: sceneView)
+        gameManager = GameManager(scene: sceneView.scene)
     }
     
-    private func addGamePortalNode() {
+    private func addPortalNode() {
         if let cameraNode = sceneView.pointOfView, let portalNode = portal.node {
             sceneView.scene.rootNode.addChildNode(portalNode)
             portalNode.simdPosition = cameraNode.simdWorldFront * portal.distance
         }
     }
     
-    private func addGameWeaponNode() {
+    private func addWeaponNode() {
         if let cameraNode = sceneView.pointOfView, let weaponNode = weapon.node {
             cameraNode.addChildNode(weaponNode)
             weaponNode.position = weapon.defaultPosition
         }
     }
+    
+    private func addPortalAnchor() {
+        if portal.anchor == nil {
+            portal.anchor = ARAnchor(name: Portal.name, transform: portal.simdTransform)
+            sceneView.session.add(anchor: portal.anchor!)
+        }
+    }
+    
+    private func addWeaponAnchor() {
+        if weapon.anchor == nil, let cameraNode = sceneView.pointOfView {
+//            var translation = matrix_identity_float4x4
+//            translation.columns.3.z = -15.5
+//            let transform = matrix_multiply(cameraNode.simdTransform, translation)
+//            weapon.anchor = ARAnchor(name: Weapon.name, transform: transform)
+            weapon.anchor = ARAnchor(name: Weapon.name, transform: cameraNode.simdTransform)
+            sceneView.session.add(anchor: weapon.anchor!)
+        }
+    }
+}
+
+extension GameViewController: GameManagerDelegate {
+    
 }
 
 extension GameViewController: UIGestureRecognizerDelegate {
@@ -191,27 +212,16 @@ extension GameViewController: UIGestureRecognizerDelegate {
         if sessionState == .gameInProgress {
             fireBullets()
         } else {
-            if portal.anchor == nil {
-                portal.anchor = ARAnchor(name: Portal.name, transform: portal.simdTransform)
-                sceneView.session.add(anchor: portal.anchor!)
+            addPortalAnchor()
+            addWeaponAnchor()
                 
-                if weapon.anchor == nil, let cameraNode = sceneView.pointOfView {
-//                    var translation = matrix_identity_float4x4
-//                    translation.columns.3.z = -15.5
-//                    let transform = matrix_multiply(cameraNode.simdTransform, translation)
-//                    weapon.anchor = ARAnchor(name: Weapon.name, transform: transform)
-                    weapon.anchor = ARAnchor(name: Weapon.name, transform: cameraNode.simdTransform)
-                    sceneView.session.add(anchor: weapon.anchor!)
-                }
-                
-                sessionState = .setupLevel
-            }
+            sessionState = .setupLevel
         }
     }
     
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
-            timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
         } else if gesture.state == .ended || gesture.state == .cancelled {
             timer?.invalidate()
             timer = nil
@@ -261,7 +271,7 @@ extension GameViewController: ARSessionDelegate {
         case .notAvailable, .limited:
             tapGestureRecognizer?.isEnabled = false
         case .extending, .mapped:
-            addGamePortalNode()
+            addPortalNode()
             tapGestureRecognizer?.isEnabled = true
         }
         mappingStatusLabel.text = frame.worldMappingStatus.description

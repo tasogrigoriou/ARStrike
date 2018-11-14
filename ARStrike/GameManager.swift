@@ -15,6 +15,10 @@ import SceneKit
 import ARKit
 import GameplayKit
 
+protocol GameManagerDelegate: class {
+    
+}
+
 enum GameEntityType: Int {
     case enemy = 1
     case enemyBullet
@@ -30,20 +34,21 @@ enum GameLevel {
 class GameManager: NSObject {
     
     var level: GameLevel = .one // default level
-    private let sceneView: ARSCNView
+    private let scene: SCNScene
     
     private var enemies: Set<Enemy> = []
     
+    weak var delegate: GameManagerDelegate?
     private(set) var isInitialized = false
     
     // Physics
 //    private let interactionManager = InteractionManager()
 //    private let gameObjectManager = GameObjectManager()
     
-    init(sceneView: ARSCNView) {
-        self.sceneView = sceneView
+    init(scene: SCNScene) {
+        self.scene = scene
         super.init()
-        sceneView.scene.physicsWorld.contactDelegate = self
+        self.scene.physicsWorld.contactDelegate = self
     }
     
     // Initializes all the objects and interactions for the game, and prepares to process user input.
@@ -75,26 +80,27 @@ class GameManager: NSObject {
         guard let currentFrame = frame else { return }
         
         var translation = matrix_identity_float4x4
-        translation.columns.3.xyz = float3(weaponNode.position.x, 0.6, weaponNode.position.z)
-        
-        let bullet = SCNSphere(radius: 0.5)
+        translation.columns.3.xyz = float3(weaponNode.position.x, 0.75, weaponNode.position.z)
         
         let material = SCNMaterial()
         material.diffuse.contents = UIColor.yellow
+        
+        let bullet = SCNSphere(radius: 0.5)
+        bullet.materials = [material]
         
         let bulletNode = SCNNode(geometry: bullet)
         bulletNode.name = "Bullet"
         bulletNode.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         bulletNode.physicsBody!.categoryBitMask = GameEntityType.playerBullet.rawValue
-        bulletNode.physicsBody!.contactTestBitMask = GameEntityType.enemy.rawValue
+        bulletNode.physicsBody!.contactTestBitMask = GameEntityType.enemy.rawValue | GameEntityType.enemyBullet.rawValue
         bulletNode.physicsBody!.isAffectedByGravity = false
-        
+                
         bulletNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
         
-        let forceVector = SCNVector3(bulletNode.worldFront.x * 100, bulletNode.worldFront.y * 100, bulletNode.worldFront.z * 100)
+        let forceVector = SCNVector3(bulletNode.worldFront.x * 300, bulletNode.worldFront.y * 300, bulletNode.worldFront.z * 300)
         
         bulletNode.physicsBody?.applyForce(forceVector, asImpulse: true)
-        sceneView.scene.rootNode.addChildNode(bulletNode)
+        scene.rootNode.addChildNode(bulletNode)
     }
     
 }
