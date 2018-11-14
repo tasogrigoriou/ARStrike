@@ -155,6 +155,7 @@ class GameViewController: UIViewController {
         guard let gameManager = gameManager, sessionState == .setupLevel else { return }
         
         addWeaponNode()
+        addCrosshairNode()
         
         GameClock.setLevelStartTime()
         gameManager.start()
@@ -180,6 +181,17 @@ class GameViewController: UIViewController {
         }
     }
     
+    private func addCrosshairNode() {
+        if let cameraNode = sceneView.pointOfView {
+            let image = UIImage(named: "crosshairIMG")
+            let crosshairNode = SCNNode(geometry: SCNPlane(width: 1, height: 1))
+            crosshairNode.geometry?.firstMaterial?.diffuse.contents = image
+            cameraNode.addChildNode(crosshairNode)
+            crosshairNode.simdPosition = cameraNode.simdWorldFront * simd_float3(0, 0, -10)
+            
+        }
+    }
+    
     private func addPortalAnchor() {
         if portal.anchor == nil {
             portal.anchor = ARAnchor(name: Portal.name, transform: portal.simdTransform)
@@ -195,6 +207,13 @@ class GameViewController: UIViewController {
 //            weapon.anchor = ARAnchor(name: Weapon.name, transform: transform)
             weapon.anchor = ARAnchor(name: Weapon.name, transform: cameraNode.simdTransform)
             sceneView.session.add(anchor: weapon.anchor!)
+        }
+    }
+    
+    private func addCrosshairAnchor() {
+        if weapon.anchor == nil, let cameraNode = sceneView.pointOfView {
+            let crosshairAnchor = ARAnchor(name: "crosshair", transform: cameraNode.simdTransform)
+            sceneView.session.add(anchor: crosshairAnchor)
         }
     }
 }
@@ -214,6 +233,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
         } else {
             addPortalAnchor()
             addWeaponAnchor()
+            addCrosshairAnchor()
                 
             sessionState = .setupLevel
         }
