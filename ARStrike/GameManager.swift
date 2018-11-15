@@ -39,7 +39,9 @@ class GameManager: NSObject {
     private var enemies: Set<Enemy> = []
     
     weak var delegate: GameManagerDelegate?
+    
     private(set) var isInitialized = false
+    private(set) var isAnimating = false
     
     // Physics
 //    private let interactionManager = InteractionManager()
@@ -80,12 +82,12 @@ class GameManager: NSObject {
         guard let currentFrame = frame else { return }
         
         var translation = matrix_identity_float4x4
-        translation.columns.3.xyz = float3(weaponNode.position.x, 0.75, weaponNode.position.z)
+        translation.columns.3.xyz = float3(weaponNode.position.x + 6.0, -weaponNode.position.y - 1, weaponNode.position.z)
         
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.yellow
+        material.diffuse.contents = UIColor.red
         
-        let bullet = SCNSphere(radius: 0.5)
+        let bullet = SCNSphere(radius: 3.0)
         bullet.materials = [material]
         
         let bulletNode = SCNNode(geometry: bullet)
@@ -97,7 +99,29 @@ class GameManager: NSObject {
                 
         bulletNode.simdTransform = matrix_multiply(currentFrame.camera.transform, translation)
         
-        let forceVector = SCNVector3(bulletNode.worldFront.x * 300, bulletNode.worldFront.y * 300, bulletNode.worldFront.z * 300)
+        let velocity: Float = 3000
+        let forceVector = SCNVector3(bulletNode.worldFront.x * velocity, bulletNode.worldFront.y * velocity, bulletNode.worldFront.z * velocity)
+        
+        print(bulletNode.worldFront)
+        print()
+        print(weaponNode.worldFront)
+        
+        let oldValue = weaponNode.eulerAngles
+        let newValue = SCNVector3Make(oldValue.x + 0.3, oldValue.y - 0.0, oldValue.z - 0.15)
+        
+        if !isAnimating {
+            isAnimating = true
+            SCNTransaction.animate(duration: 0.13, animations: {
+                            SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeOut)
+                weaponNode.eulerAngles = newValue
+            }, completion: {
+                SCNTransaction.animate(duration: 0.13, animations: {
+                                    SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeOut)
+                    weaponNode.eulerAngles = oldValue
+                    self.isAnimating = false
+                })
+            })
+        }
         
         bulletNode.physicsBody?.applyForce(forceVector, asImpulse: true)
         scene.rootNode.addChildNode(bulletNode)

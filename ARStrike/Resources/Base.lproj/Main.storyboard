@@ -26,6 +26,13 @@
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crosshairIMG" translatesAutoresizingMaskIntoConstraints="NO" id="kyr-ML-BiC">
+                                <rect key="frame" x="172.5" y="318.5" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="CNc-n7-2tR"/>
+                                    <constraint firstAttribute="width" constant="30" id="vcN-85-GMx"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -36,11 +43,14 @@
                             <constraint firstItem="Xre-pD-3cS" firstAttribute="centerX" secondItem="m8S-Nx-1T3" secondAttribute="centerX" id="LPs-Ne-Wgv"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" id="Tcy-Vp-pSG"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="trailing" secondItem="pFH-m9-fIB" secondAttribute="trailing" id="YPt-Pr-aIa"/>
+                            <constraint firstItem="kyr-ML-BiC" firstAttribute="centerY" secondItem="m8S-Nx-1T3" secondAttribute="centerY" id="ZYw-TG-nQK"/>
+                            <constraint firstItem="kyr-ML-BiC" firstAttribute="centerX" secondItem="m8S-Nx-1T3" secondAttribute="centerX" id="eN7-Kj-3TO"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="bottom" secondItem="m8S-Nx-1T3" secondAttribute="bottom" id="t5s-Lg-fNy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pFH-m9-fIB"/>
                     </view>
                     <connections>
+                        <outlet property="crosshair" destination="kyr-ML-BiC" id="sEk-2N-aVp"/>
                         <outlet property="mappingStatusLabel" destination="Xre-pD-3cS" id="31v-2N-eV9"/>
                         <outlet property="sceneView" destination="rnX-fn-tAQ" id="7w8-Rw-433"/>
                     </connections>
@@ -50,4 +60,7 @@
             <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="crosshairIMG" width="64" height="64"/>
+    </resources>
 </document>

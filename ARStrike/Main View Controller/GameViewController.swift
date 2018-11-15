@@ -15,6 +15,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var sceneView: ARSCNView!
     @IBOutlet weak var mappingStatusLabel: UILabel!
+    @IBOutlet weak var crosshair: UIImageView!
     
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
@@ -44,6 +45,8 @@ class GameViewController: UIViewController {
         let bounds = sceneView.bounds
         return CGPoint(x: bounds.midX, y: bounds.midY)
     }
+    
+    let crosshairPosition = SCNVector3(0, 0, -20)
     
     var canAdjustBoard: Bool {
         return sessionState == .placingPortal
@@ -87,9 +90,9 @@ class GameViewController: UIViewController {
         longPressGestureRecognizer!.delegate = self
         
         tapGestureRecognizer!.isEnabled = false
+        longPressGestureRecognizer!.isEnabled = false
         
         longPressGestureRecognizer!.minimumPressDuration = 0.0
-        longPressGestureRecognizer!.isEnabled = false
         
         sceneView.addGestureRecognizer(tapGestureRecognizer!)
         sceneView.addGestureRecognizer(longPressGestureRecognizer!)
@@ -107,9 +110,9 @@ class GameViewController: UIViewController {
         // see high poly-count and LOD transitions - wireframe overlay
         debugOptions.insert(SCNDebugOptions.showWireframe)
 
-        sceneView.debugOptions = debugOptions
+//        sceneView.debugOptions = debugOptions
 
-        sceneView.showsStatistics = true
+//        sceneView.showsStatistics = true
     }
     
     func configureARSession() {
@@ -155,7 +158,8 @@ class GameViewController: UIViewController {
         guard let gameManager = gameManager, sessionState == .setupLevel else { return }
         
         addWeaponNode()
-        addCrosshairNode()
+        
+        crosshair.alpha = 0.5
         
         GameClock.setLevelStartTime()
         gameManager.start()
@@ -177,18 +181,10 @@ class GameViewController: UIViewController {
     private func addWeaponNode() {
         if let cameraNode = sceneView.pointOfView, let weaponNode = weapon.node {
             cameraNode.addChildNode(weaponNode)
-            weaponNode.position = weapon.defaultPosition
-        }
-    }
-    
-    private func addCrosshairNode() {
-        if let cameraNode = sceneView.pointOfView {
-            let image = UIImage(named: "crosshairIMG")
-            let crosshairNode = SCNNode(geometry: SCNPlane(width: 1, height: 1))
-            crosshairNode.geometry?.firstMaterial?.diffuse.contents = image
-            cameraNode.addChildNode(crosshairNode)
-            crosshairNode.simdPosition = cameraNode.simdWorldFront * simd_float3(0, 0, -10)
             
+            // position is relative to parent node (camera)
+            // i.e. vector of (0, 0, 0) implies same position as parent node
+            weaponNode.position = weapon.defaultPosition
         }
     }
     
@@ -209,13 +205,6 @@ class GameViewController: UIViewController {
             sceneView.session.add(anchor: weapon.anchor!)
         }
     }
-    
-    private func addCrosshairAnchor() {
-        if weapon.anchor == nil, let cameraNode = sceneView.pointOfView {
-            let crosshairAnchor = ARAnchor(name: "crosshair", transform: cameraNode.simdTransform)
-            sceneView.session.add(anchor: crosshairAnchor)
-        }
-    }
 }
 
 extension GameViewController: GameManagerDelegate {
@@ -233,7 +222,6 @@ extension GameViewController: UIGestureRecognizerDelegate {
         } else {
             addPortalAnchor()
             addWeaponAnchor()
-            addCrosshairAnchor()
                 
             sessionState = .setupLevel
         }
@@ -241,7 +229,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
     
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
-            timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
         } else if gesture.state == .ended || gesture.state == .cancelled {
             timer?.invalidate()
             timer = nil
