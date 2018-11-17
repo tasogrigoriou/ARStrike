@@ -23,6 +23,7 @@
 		9D4AB22A2199660B009E558E /* simd+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB2292199660B009E558E /* simd+Helpers.swift */; };
 		9D4AB22E219A3019009E558E /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB22D219A3019009E558E /* Weapon.swift */; };
 		9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */; };
+		9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		9D4AB2292199660B009E558E /* simd+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd+Helpers.swift"; sourceTree = "<group>"; };
 		9D4AB22D219A3019009E558E /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Helpers.swift"; sourceTree = "<group>"; };
+		9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Materials.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 			children = (
 				9D4AB2292199660B009E558E /* simd+Helpers.swift */,
 				9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */,
+				9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				9D41D97F2198265700716EA5 /* BulletComponent.swift in Sources */,
 				9D4AB22A2199660B009E558E /* simd+Helpers.swift in Sources */,
 				9D41D97D219822D200716EA5 /* Enemy.swift in Sources */,
+				9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */,
 				9D41D9812198289C00716EA5 /* Portal.swift in Sources */,
 				9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */,
 				9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */,

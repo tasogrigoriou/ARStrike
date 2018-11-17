@@ -107,15 +107,15 @@ class GameManager: NSObject {
         print(weaponNode.worldFront)
         
         let oldValue = weaponNode.eulerAngles
-        let newValue = SCNVector3Make(oldValue.x + 0.3, oldValue.y - 0.0, oldValue.z - 0.15)
+        let newValue = SCNVector3Make(oldValue.x, oldValue.y + 0.1, oldValue.z - 0.15) // cock back 
         
         if !isAnimating {
             isAnimating = true
-            SCNTransaction.animate(duration: 0.13, animations: {
+            SCNTransaction.animate(duration: 0.12, animations: {
                             SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeOut)
                 weaponNode.eulerAngles = newValue
             }, completion: {
-                SCNTransaction.animate(duration: 0.13, animations: {
+                SCNTransaction.animate(duration: 0.12, animations: {
                                     SCNTransaction.animationTimingFunction = CAMediaTimingFunction(name: .easeOut)
                     weaponNode.eulerAngles = oldValue
                     self.isAnimating = false

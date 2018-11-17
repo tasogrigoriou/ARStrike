@@ -50,4 +50,50 @@ extension SCNNode {
         referenceNode.load()
         return referenceNode
     }
+    
+    static func loadSCNAsset(modelFileName: String) -> SCNNode? {
+        let assetPaths = [
+            "art.scnassets/",
+            "art.scnassets/Chicken/",
+            "art.scnassets/HandGun/",
+            "art.scnassets/PixelGun/",
+            "art.scnassets/PickleRick/",
+            "art.scnassets/PortalGun/",
+            "art.scnassets/Ship/",
+            "art.scnassets/Tank/"
+        ]
+        
+        let assetExtensions = [
+            "scn",
+            "scnp"
+        ]
+        
+        var nodeRefSearch: SCNReferenceNode?
+        for path in assetPaths {
+            for ext in assetExtensions {
+                if let url = Bundle.main.url(forResource: path + modelFileName, withExtension: ext) {
+                    nodeRefSearch = SCNReferenceNode(url: url)
+                    if nodeRefSearch != nil { break }
+                }
+            }
+            if nodeRefSearch != nil { break }
+        }
+        
+        guard let nodeRef = nodeRefSearch else {
+            return nil
+        }
+        
+        // this does the load, default policy is load immediate
+        nodeRef.load()
+        
+        // if geo not nested under a physics shape
+        guard let node = nodeRef.childNodes.first else {
+            return nil
+        }
+        
+        // walk down the scenegraph and update all children
+        node.fixMaterials()
+        
+        return node
+    }
 }

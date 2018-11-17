@@ -1,0 +1,25 @@
+newmtl Brow_blinnSG
+illum 4
+Kd 0.50 0.50 0.50
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl Highpoly_Highpoly_blinnSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd Highpoly_TXTR.tif
+bump Highpoly_NM.tif -bm 1
+Ni 1.00
+Ks 0.50 0.50 0.50
+newmtl eye_4_eye_4_blinnSG
+illum 4
+Kd 0.00 0.00 0.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+map_Kd eye_4_TXTR.tif
+bump eye_4_NM.tif -bm 1
+Ni 1.00
+Ks 0.50 0.50 0.50

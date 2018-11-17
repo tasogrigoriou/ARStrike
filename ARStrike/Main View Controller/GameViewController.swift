@@ -46,8 +46,6 @@ class GameViewController: UIViewController {
         return CGPoint(x: bounds.midX, y: bounds.midY)
     }
     
-    let crosshairPosition = SCNVector3(0, 0, -20)
-    
     var canAdjustBoard: Bool {
         return sessionState == .placingPortal
     }
@@ -69,6 +67,12 @@ class GameViewController: UIViewController {
         sceneView.session.delegate = self
         
         sessionState = .initialSetup
+        
+        let blur = UIBlurEffect(style: .light)
+        let blurView = UIVisualEffectView(effect: blur)
+        blurView.frame = view.bounds
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        sceneView.addSubview(blurView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,7 +127,7 @@ class GameViewController: UIViewController {
         case .initialSetup, .placingPortal, .setupLevel:
             return
         case .lookingForSurface:
-            configuration.planeDetection = [.vertical]
+            configuration.planeDetection = [.horizontal]
             options = [.resetTracking, .removeExistingAnchors]
             if sceneView.isPlaying {
                 return
@@ -142,15 +146,16 @@ class GameViewController: UIViewController {
             setupLevel()
             return
         }
-        guard attemptingPortalPlacement else { return }
         
         if case .normal = frame.camera.trackingState {
-            if let result = sceneView.hitTest(screenCenter, types: [.estimatedVerticalPlane, .existingPlaneUsingExtent]).first {
+            if let result = sceneView.hitTest(screenCenter, types: [.estimatedHorizontalPlane, .existingPlaneUsingExtent]).first {
                 guard result.distance > 0.5 || sessionState == .placingPortal else { return }
+                portal.update(with: result, camera: frame.camera)
                 sessionState = .placingPortal
             } else {
                 sessionState = .lookingForSurface
             }
+            
         }
     }
     
@@ -172,9 +177,8 @@ class GameViewController: UIViewController {
     }
     
     private func addPortalNode() {
-        if let cameraNode = sceneView.pointOfView, let portalNode = portal.node {
+        if let portalNode = portal.node {
             sceneView.scene.rootNode.addChildNode(portalNode)
-            portalNode.simdPosition = cameraNode.simdWorldFront * portal.distance
         }
     }
     
@@ -197,10 +201,6 @@ class GameViewController: UIViewController {
     
     private func addWeaponAnchor() {
         if weapon.anchor == nil, let cameraNode = sceneView.pointOfView {
-//            var translation = matrix_identity_float4x4
-//            translation.columns.3.z = -15.5
-//            let transform = matrix_multiply(cameraNode.simdTransform, translation)
-//            weapon.anchor = ARAnchor(name: Weapon.name, transform: transform)
             weapon.anchor = ARAnchor(name: Weapon.name, transform: cameraNode.simdTransform)
             sceneView.session.add(anchor: weapon.anchor!)
         }
@@ -278,7 +278,10 @@ extension GameViewController: ARSessionDelegate {
         switch frame.worldMappingStatus {
         case .notAvailable, .limited:
             tapGestureRecognizer?.isEnabled = false
+//        case .extending:
+//            tapGestureRecognizer?.isEnabled = false
         case .extending, .mapped:
+//        case .mapped:
             addPortalNode()
             tapGestureRecognizer?.isEnabled = true
         }
