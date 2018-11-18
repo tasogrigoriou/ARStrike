@@ -17,12 +17,13 @@
 		9D41D96B2196AB9800716EA5 /* ARStrikeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D96A2196AB9800716EA5 /* ARStrikeUITests.swift */; };
 		9D41D97921980B0200716EA5 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D97821980B0200716EA5 /* GameManager.swift */; };
 		9D41D97D219822D200716EA5 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D97C219822D200716EA5 /* Enemy.swift */; };
-		9D41D97F2198265700716EA5 /* BulletComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D97E2198265700716EA5 /* BulletComponent.swift */; };
 		9D41D9812198289C00716EA5 /* Portal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9802198289C00716EA5 /* Portal.swift */; };
 		9D41D9852198DE7C00716EA5 /* GameClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9842198DE7C00716EA5 /* GameClock.swift */; };
 		9D4AB22A2199660B009E558E /* simd+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB2292199660B009E558E /* simd+Helpers.swift */; };
 		9D4AB22E219A3019009E558E /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB22D219A3019009E558E /* Weapon.swift */; };
 		9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */; };
+		9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */; };
+		9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D048D21A1421D00DBD433 /* Bullet.swift */; };
 		9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,12 +61,13 @@
 		9D41D96C2196AB9800716EA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D41D97821980B0200716EA5 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		9D41D97C219822D200716EA5 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
-		9D41D97E2198265700716EA5 /* BulletComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BulletComponent.swift; sourceTree = "<group>"; };
 		9D41D9802198289C00716EA5 /* Portal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portal.swift; sourceTree = "<group>"; };
 		9D41D9842198DE7C00716EA5 /* GameClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameClock.swift; sourceTree = "<group>"; };
 		9D4AB2292199660B009E558E /* simd+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "simd+Helpers.swift"; sourceTree = "<group>"; };
 		9D4AB22D219A3019009E558E /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Helpers.swift"; sourceTree = "<group>"; };
+		9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = portal_gun_fire.wav; sourceTree = "<group>"; };
+		9D7D048D21A1421D00DBD433 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Materials.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,6 +165,7 @@
 			children = (
 				9D4AB22D219A3019009E558E /* Weapon.swift */,
 				9D41D97C219822D200716EA5 /* Enemy.swift */,
+				9D7D048D21A1421D00DBD433 /* Bullet.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -170,7 +173,6 @@
 		9D4AB233219B7F2B009E558E /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				9D41D97E2198265700716EA5 /* BulletComponent.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -202,6 +204,7 @@
 		9D4AB237219B8092009E558E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				9D7D048A21A0CADB00DBD433 /* Sounds */,
 				9D41D94A2196AB9600716EA5 /* art.scnassets */,
 				9D41D94E2196AB9600716EA5 /* Main.storyboard */,
 				9D41D9512196AB9800716EA5 /* Assets.xcassets */,
@@ -217,6 +220,14 @@
 				9D41D9482196AB9600716EA5 /* AppDelegate.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		9D7D048A21A0CADB00DBD433 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,6 +336,7 @@
 			files = (
 				9D41D94B2196AB9600716EA5 /* art.scnassets in Resources */,
 				9D41D9552196AB9800716EA5 /* LaunchScreen.storyboard in Resources */,
+				9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */,
 				9D41D9522196AB9800716EA5 /* Assets.xcassets in Resources */,
 				9D41D9502196AB9600716EA5 /* Main.storyboard in Resources */,
 			);
@@ -355,13 +367,13 @@
 				9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */,
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
 				9D41D9852198DE7C00716EA5 /* GameClock.swift in Sources */,
-				9D41D97F2198265700716EA5 /* BulletComponent.swift in Sources */,
 				9D4AB22A2199660B009E558E /* simd+Helpers.swift in Sources */,
 				9D41D97D219822D200716EA5 /* Enemy.swift in Sources */,
 				9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */,
 				9D41D9812198289C00716EA5 /* Portal.swift in Sources */,
 				9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */,
 				9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */,
+				9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

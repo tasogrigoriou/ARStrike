@@ -13,14 +13,9 @@ import SceneKit
 class Portal: SCNNode {
     static let name: String = NSStringFromClass(Portal.self)
     
+    let node: SCNNode
     var anchor: ARAnchor?
-
-//    var node = SCNNode.loadSCNAsset(modelFileName: "projectiles_chicken")
-    var node = SCNNode.loadSCNAsset(modelFileName: "picklerick")
-
-    var distance: Float = 5.0
     
-    // MARK: - Configuration Properties
     /// The minimum size of the board in meters
     static let minimumScale: Float = 1.0
     
@@ -28,14 +23,9 @@ class Portal: SCNNode {
     static let maximumScale: Float = 1.0
     
     var preferredSize: CGSize = CGSize(width: 1.5, height: 2.7)
-    
-    /// The aspect ratio of the level.
     var aspectRatio: Float { return Float(preferredSize.height / preferredSize.width) }
     
-    /// The game board's most recent positions.
     private var recentPositions: [float3] = []
-    
-    /// The game board's most recent rotation angles.
     private var recentRotationAngles: [Float] = []
     
     override init() {
@@ -57,8 +47,6 @@ class Portal: SCNNode {
     
     /// Update the transform of the game board with the latest hit test result and camera
     private func updateTransform(with hitTestResult: ARHitTestResult, camera: ARCamera) {
-        guard let node = node else { return }
-        
         let position = hitTestResult.worldTransform.translation
         
         // Average using several most recent positions.
@@ -85,8 +73,6 @@ class Portal: SCNNode {
     }
     
     private func orientToPlane(_ planeAnchor: ARPlaneAnchor, camera: ARCamera) {
-        guard let node = node else { return }
-        
         // Get board rotation about y
         node.simdOrientation = simd_quatf(planeAnchor.transform)
         var boardAngle = node.simdEulerAngles.y
@@ -103,8 +89,6 @@ class Portal: SCNNode {
     }
     
     private func rotate(to angle: Float) {
-        guard let node = node else { return }
-        
         // Avoid interpolating between angle flips of 180 degrees
         let previouAngle = recentRotationAngles.reduce(0, { $0 + $1 }) / Float(recentRotationAngles.count)
         if abs(angle - previouAngle) > .pi / 2 {
@@ -121,8 +105,6 @@ class Portal: SCNNode {
     }
     
     private func scaleToPlane(_ planeAnchor: ARPlaneAnchor) {
-        guard let node = node else { return }
-        
         // Determine if extent should be flipped (plane is 90 degrees rotated)
         let planeXAxis = planeAnchor.transform.columns.0.xyz
         let axisFlipped = abs(dot(planeXAxis, node.simdWorldRight)) < 0.5
@@ -147,9 +129,7 @@ class Portal: SCNNode {
         adjustPosition(withinPlaneBounds: planeAnchor, extent: planeLocalExtent)
     }
     
-    private func adjustPosition(withinPlaneBounds planeAnchor: ARPlaneAnchor, extent: float3) {
-        guard let node = node else { return }
-        
+    private func adjustPosition(withinPlaneBounds planeAnchor: ARPlaneAnchor, extent: float3) {        
         var positionAdjusted = false
         let worldToPlane = planeAnchor.transform.inverse
         

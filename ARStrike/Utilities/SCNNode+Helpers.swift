@@ -54,11 +54,18 @@ extension SCNNode {
     static func loadSCNAsset(modelFileName: String) -> SCNNode? {
         let assetPaths = [
             "art.scnassets/",
+            "art.scnassets/Camera/",
             "art.scnassets/Chicken/",
+            "art.scnassets/Cornvelious/",
             "art.scnassets/HandGun/",
-            "art.scnassets/PixelGun/",
+            "art.scnassets/MeeseeksBox/",
             "art.scnassets/PickleRick/",
+            "art.scnassets/PickleRickLow/",
+            "art.scnassets/PixelGun/",
             "art.scnassets/PortalGun/",
+            "art.scnassets/PortalGunOther/",
+            "art.scnassets/RickSanchez/",
+            "art.scnassets/SenhorPoopy/",
             "art.scnassets/Ship/",
             "art.scnassets/Tank/"
         ]

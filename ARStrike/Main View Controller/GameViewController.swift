@@ -67,12 +67,6 @@ class GameViewController: UIViewController {
         sceneView.session.delegate = self
         
         sessionState = .initialSetup
-        
-        let blur = UIBlurEffect(style: .light)
-        let blurView = UIVisualEffectView(effect: blur)
-        blurView.frame = view.bounds
-        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        sceneView.addSubview(blurView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,7 +158,7 @@ class GameViewController: UIViewController {
         
         addWeaponNode()
         
-        crosshair.alpha = 0.5
+        crosshair.alpha = 0.75
         
         GameClock.setLevelStartTime()
         gameManager.start()
@@ -177,9 +171,7 @@ class GameViewController: UIViewController {
     }
     
     private func addPortalNode() {
-        if let portalNode = portal.node {
-            sceneView.scene.rootNode.addChildNode(portalNode)
-        }
+        sceneView.scene.rootNode.addChildNode(portal.node)
     }
     
     private func addWeaponNode() {
@@ -203,6 +195,7 @@ class GameViewController: UIViewController {
         if weapon.anchor == nil, let cameraNode = sceneView.pointOfView {
             weapon.anchor = ARAnchor(name: Weapon.name, transform: cameraNode.simdTransform)
             sceneView.session.add(anchor: weapon.anchor!)
+            gameManager?.addBreathingAnimation(to: weapon.node)
         }
     }
 }
@@ -251,17 +244,16 @@ extension GameViewController: ARSCNViewDelegate {
         }
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        return anchor == portal.anchor ? portal : nil // Return the portal if we already created an anchor
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let portalNode = portal.node else { return }
-        portalNode.removeFromParentNode()
-        if let name = anchor.name, name.hasPrefix(Portal.name) {
-            node.addChildNode(portalNode)
-        }
-    }
+//    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+//        return anchor == portal.anchor ? portal : nil // Return the portal if we already created an anchor
+//    }
+//
+//    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+//        portal.node.removeFromParentNode()
+//        if let name = anchor.name, name.hasPrefix(Portal.name) {
+//            node.addChildNode(portal.node)
+//        }
+//    }
 }
 
 extension GameViewController: ARSessionDelegate {
@@ -278,10 +270,7 @@ extension GameViewController: ARSessionDelegate {
         switch frame.worldMappingStatus {
         case .notAvailable, .limited:
             tapGestureRecognizer?.isEnabled = false
-//        case .extending:
-//            tapGestureRecognizer?.isEnabled = false
         case .extending, .mapped:
-//        case .mapped:
             addPortalNode()
             tapGestureRecognizer?.isEnabled = true
         }
