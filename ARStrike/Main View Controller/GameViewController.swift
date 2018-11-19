@@ -201,7 +201,9 @@ class GameViewController: UIViewController {
 }
 
 extension GameViewController: GameManagerDelegate {
-    
+    func managerDidStartGame() {
+        
+    }
 }
 
 extension GameViewController: UIGestureRecognizerDelegate {

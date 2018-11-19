@@ -16,7 +16,7 @@ import ARKit
 import GameplayKit
 
 protocol GameManagerDelegate: class {
-    
+    func managerDidStartGame()
 }
 
 enum GameEntityType: Int {
@@ -53,7 +53,6 @@ class GameManager: NSObject {
         self.scene.physicsWorld.contactDelegate = self
     }
     
-    // Initializes all the objects and interactions for the game, and prepares to process user input.
     func start() {
         initializeLevel()
         
@@ -70,9 +69,10 @@ class GameManager: NSObject {
     private func initializeEnemiesForLevel(_ level: GameLevel) {
         let enemy = Enemy()
         if let enemyNode = enemy.node {
-            enemyNode.position = SCNVector3(0.2, 0.2, -5)
+            enemyNode.position = SCNVector3(0, 0.8, -0.8)
             scene.rootNode.addChildNode(enemyNode)
         }
+        enemies.insert(enemy)
     }
     
     // Called from rendering loop once per frame

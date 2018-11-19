@@ -10,13 +10,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ARStrike/GameManager.swift"
-            timestampString = "564270891.932267"
+            timestampString = "564272863.185963"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "71"
             endingLineNumber = "71"
-            landmarkName = "initializeEnemiesForLevel(_:)"
-            landmarkType = "7">
+            landmarkName = "GameManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
