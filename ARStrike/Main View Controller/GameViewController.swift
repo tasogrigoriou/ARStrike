@@ -167,7 +167,7 @@ class GameViewController: UIViewController {
     }
     
     private func createGameManager() {
-        gameManager = GameManager(scene: sceneView.scene)
+        gameManager = GameManager(sceneView: sceneView)
     }
     
     private func addPortalNode() {

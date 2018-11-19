@@ -34,7 +34,9 @@ enum GameLevel {
 class GameManager: NSObject {
     
     var level: GameLevel = .one // default level
+    
     private let scene: SCNScene
+    private let cameraNode: SCNNode?
     
     private var enemies: Set<Enemy> = []
     
@@ -47,8 +49,9 @@ class GameManager: NSObject {
 //    private let interactionManager = InteractionManager()
 //    private let gameObjectManager = GameObjectManager()
     
-    init(scene: SCNScene) {
-        self.scene = scene
+    init(sceneView: ARSCNView) {
+        self.scene = sceneView.scene
+        self.cameraNode = sceneView.pointOfView
         super.init()
         self.scene.physicsWorld.contactDelegate = self
     }
