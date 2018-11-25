@@ -44,13 +44,6 @@ extension SCNTransaction {
 }
 
 extension SCNNode {
-    static func load(fileName: String) -> SCNNode? {
-        guard let sceneURL = Bundle.main.url(forResource: fileName, withExtension: "scn", subdirectory: "art.scnassets") else { return nil }
-        guard let referenceNode = SCNReferenceNode(url: sceneURL) else { return nil }
-        referenceNode.load()
-        return referenceNode
-    }
-    
     static func loadSCNAsset(modelFileName: String) -> SCNNode? {
         let assetPaths = [
             "art.scnassets/",
@@ -58,12 +51,14 @@ extension SCNNode {
             "art.scnassets/Chicken/",
             "art.scnassets/Cornvelious/",
             "art.scnassets/HandGun/",
-            "art.scnassets/MeeseeksBox/",
+            "art.scnassets/meeseeks-box/",
             "art.scnassets/PickleRick/",
             "art.scnassets/PickleRickLow/",
             "art.scnassets/PixelGun/",
+            "art.scnassets/Portal/",
             "art.scnassets/PortalGun/",
             "art.scnassets/PortalGunOther/",
+            "art.scnassets/RayGun/",
             "art.scnassets/RickSanchez/",
             "art.scnassets/SenhorPoopy/",
             "art.scnassets/Ship/",
@@ -86,17 +81,13 @@ extension SCNNode {
             if nodeRefSearch != nil { break }
         }
         
-        guard let nodeRef = nodeRefSearch else {
-            return nil
-        }
+        guard let nodeRef = nodeRefSearch else { return nil }
         
         // this does the load, default policy is load immediate
         nodeRef.load()
         
         // if geo not nested under a physics shape
-        guard let node = nodeRef.childNodes.first else {
-            return nil
-        }
+        guard let node = nodeRef.childNodes.first else { return nil }
         
         // walk down the scenegraph and update all children
         node.fixMaterials()

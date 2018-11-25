@@ -1,5 +1,5 @@
 //
-//  GameEnemy.swift
+//  Enemy.swift
 //  ARStrike
 //
 //  Created by Taso Grigoriou on 11/11/18.
@@ -13,9 +13,18 @@ import GameplayKit
 class Enemy: SCNNode {
     static let name: String = NSStringFromClass(Enemy.self)
     
-    let node = SCNNode.loadSCNAsset(modelFileName: "MeeseeksBox")
+    let node = SCNNode.loadSCNAsset(modelFileName: "meeseeks_box")
     
-    let defaultPosition = SCNVector3(1.2, -1, -12.5) // position weapon at bottom right of screen (w.r.t. camera)
+    override init() {
+        node?.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
+        node?.physicsBody!.categoryBitMask = CollisionMask.enemy.rawValue
+        node?.physicsBody!.isAffectedByGravity = false
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func update(deltaTime seconds: TimeInterval) {
         

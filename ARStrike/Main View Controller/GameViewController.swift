@@ -11,6 +11,11 @@ import QuartzCore
 import SceneKit
 import ARKit
 
+protocol GameViewable: class {
+    var scnView: ARSCNView { get }
+    var cameraTransform: CameraTransform { get }
+}
+
 class GameViewController: UIViewController {
     
     @IBOutlet weak var sceneView: ARSCNView!
@@ -20,17 +25,13 @@ class GameViewController: UIViewController {
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
     
-    var portal = Portal()
-    var weapon = Weapon()
-    
     var gameManager: GameManager? {
         didSet {
-            guard let manager = gameManager else {
+            guard let _ = gameManager else {
                 sessionState = .initialSetup
                 return
             }
             sessionState = .lookingForSurface
-            manager.delegate = self
         }
     }
     
@@ -78,6 +79,11 @@ class GameViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        gameManager?.viewWillTransition()
     }
     
     func setupGestureRecognizers() {
@@ -144,7 +150,7 @@ class GameViewController: UIViewController {
         if case .normal = frame.camera.trackingState {
             if let result = sceneView.hitTest(screenCenter, types: [.estimatedHorizontalPlane, .existingPlaneUsingExtent]).first {
                 guard result.distance > 0.5 || sessionState == .placingPortal else { return }
-                portal.update(with: result, camera: frame.camera)
+                gameManager?.updatePortal(with: result, camera: frame.camera)
                 sessionState = .placingPortal
             } else {
                 sessionState = .lookingForSurface
@@ -156,7 +162,7 @@ class GameViewController: UIViewController {
     func setupLevel() {
         guard let gameManager = gameManager, sessionState == .setupLevel else { return }
         
-        addWeaponNode()
+        gameManager.addWeaponNode()
         
         crosshair.alpha = 0.75
         
@@ -167,42 +173,23 @@ class GameViewController: UIViewController {
     }
     
     private func createGameManager() {
-        gameManager = GameManager(sceneView: sceneView)
-    }
-    
-    private func addPortalNode() {
-        sceneView.scene.rootNode.addChildNode(portal.node)
-    }
-    
-    private func addWeaponNode() {
-        if let cameraNode = sceneView.pointOfView, let weaponNode = weapon.node {
-            cameraNode.addChildNode(weaponNode)
-            
-            // position is relative to parent node (camera)
-            // i.e. vector of (0, 0, 0) implies same position as parent node
-            weaponNode.position = weapon.defaultPosition
-        }
-    }
-    
-    private func addPortalAnchor() {
-        if portal.anchor == nil {
-            portal.anchor = ARAnchor(name: Portal.name, transform: portal.simdTransform)
-            sceneView.session.add(anchor: portal.anchor!)
-        }
-    }
-    
-    private func addWeaponAnchor() {
-        if weapon.anchor == nil, let cameraNode = sceneView.pointOfView {
-            weapon.anchor = ARAnchor(name: Weapon.name, transform: cameraNode.simdTransform)
-            sceneView.session.add(anchor: weapon.anchor!)
-            gameManager?.addBreathingAnimation(to: weapon.node)
-        }
+        gameManager = GameManager(sceneView: sceneView, view: self)
     }
 }
 
-extension GameViewController: GameManagerDelegate {
-    func managerDidStartGame() {
-        
+extension GameViewController: GameViewable {
+    var scnView: ARSCNView {
+        return sceneView
+    }
+    
+    var cameraTransform: CameraTransform { // (position, direction)
+        if let frame = sceneView.session.currentFrame {
+            let mat = SCNMatrix4(frame.camera.transform) // 4x4 transform matrix describing camera in world space
+            let dir = SCNVector3(-1 * mat.m31, -1 * mat.m32, -1 * mat.m33) // orientation of camera in world space
+            let pos = SCNVector3(mat.m41, mat.m42, mat.m43) // location of camera in world space
+            return CameraTransform(position: pos, direction: dir)
+        }
+        return CameraTransform(position: SCNVector3Zero, direction: SCNVector3Zero)
     }
 }
 
@@ -215,8 +202,9 @@ extension GameViewController: UIGestureRecognizerDelegate {
         if sessionState == .gameInProgress {
             fireBullets()
         } else {
-            addPortalAnchor()
-            addWeaponAnchor()
+//            gameManager?.addPortalAnchor()
+            gameManager?.addWeaponAnchor()
+            gameManager?.addPortalAnchor()
                 
             sessionState = .setupLevel
         }
@@ -232,8 +220,8 @@ extension GameViewController: UIGestureRecognizerDelegate {
     }
     
     @objc private func fireBullets() {
-        if sessionState == .gameInProgress, let weaponNode = weapon.node {
-            gameManager?.fireBullets(weaponNode: weaponNode, frame: sceneView.session.currentFrame)
+        if sessionState == .gameInProgress {
+            gameManager?.fireBullets(camera: sceneView.session.currentFrame?.camera)
         }
     }
 }
@@ -245,17 +233,6 @@ extension GameViewController: ARSCNViewDelegate {
             gameManager.update(timeDelta: GameClock.deltaTime)
         }
     }
-    
-//    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-//        return anchor == portal.anchor ? portal : nil // Return the portal if we already created an anchor
-//    }
-//
-//    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-//        portal.node.removeFromParentNode()
-//        if let name = anchor.name, name.hasPrefix(Portal.name) {
-//            node.addChildNode(portal.node)
-//        }
-//    }
 }
 
 extension GameViewController: ARSessionDelegate {
@@ -273,8 +250,9 @@ extension GameViewController: ARSessionDelegate {
         case .notAvailable, .limited:
             tapGestureRecognizer?.isEnabled = false
         case .extending, .mapped:
-            addPortalNode()
+            gameManager?.addPortalNode()
             tapGestureRecognizer?.isEnabled = true
+            
         }
         mappingStatusLabel.text = frame.worldMappingStatus.description
     }

@@ -1,5 +1,5 @@
 //
-//  GamePortal.swift
+//  Portal.swift
 //  ARStrike
 //
 //  Created by Taso Grigoriou on 11/11/18.
@@ -13,39 +13,22 @@ import SceneKit
 class Portal: SCNNode {
     static let name: String = NSStringFromClass(Portal.self)
     
-    let node: SCNNode
+    let node = SCNNode.loadSCNAsset(modelFileName: "rick_and_morty_portal") ?? SCNNode()
     var anchor: ARAnchor?
-    
-    /// The minimum size of the board in meters
-    static let minimumScale: Float = 1.0
-    
-    /// The maximum size of the board in meters
+
+    static let minimumScale: Float = 0.5
     static let maximumScale: Float = 1.0
-    
-    var preferredSize: CGSize = CGSize(width: 1.5, height: 2.7)
+    var preferredSize: CGSize = CGSize(width: 0.5, height: 0.5)
     var aspectRatio: Float { return Float(preferredSize.height / preferredSize.width) }
     
     private var recentPositions: [float3] = []
     private var recentRotationAngles: [Float] = []
     
-    override init() {
-        let image = UIImage(named: "rick_and_morty_portal")
-        let node = SCNNode(geometry: SCNPlane(width: 1, height: 1))
-        node.geometry?.firstMaterial?.diffuse.contents = image
-        self.node = node
-        super.init()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    /// Updates the game board with the latest hit test result and camera.
+    /// Updates the portal with the latest hit test result and camera.
     func update(with hitTestResult: ARHitTestResult, camera: ARCamera) {
         updateTransform(with: hitTestResult, camera: camera)
     }
     
-    /// Update the transform of the game board with the latest hit test result and camera
     private func updateTransform(with hitTestResult: ARHitTestResult, camera: ARCamera) {
         let position = hitTestResult.worldTransform.translation
         
