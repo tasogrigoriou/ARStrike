@@ -18,30 +18,21 @@ struct CollisionMask: OptionSet {
     static let enemy = CollisionMask(rawValue: 8)
 }
 
-enum GameLevel {
-    case one
-    case two
-    case three
-}
-
 class GameManager: NSObject {
     
     private let scene: SCNScene
 
     private let portal = Portal()
     private let weapon = Weapon()
+    private let boundingBox = BoundingBox()
     private var enemies: Set<Enemy> = []
+    
+    var level = 1
     
     weak var view: GameViewable?
     
-    var level: GameLevel = .one // default level
-        
     private(set) var isInitialized = false
     private(set) var isAnimating = false
-    
-    // Physics
-//    private let interactionManager = InteractionManager()
-//    private let gameObjectManager = GameObjectManager()
     
     init(sceneView: ARSCNView, view: GameViewable? = nil) {
         self.scene = sceneView.scene
@@ -51,16 +42,23 @@ class GameManager: NSObject {
     }
 
     func addPortalNode() {
-        view?.scnView.scene.rootNode.addChildNode(portal.node)
+        scene.rootNode.addChildNode(portal.node)
     }
 
     func addWeaponNode() {
         if let cameraNode = view?.scnView.pointOfView, let weaponNode = weapon.node {
             cameraNode.addChildNode(weaponNode)
 
+            // offset position of our weapon to place it at bottom right corner of screen
             // position is relative to parent node (camera)
             // i.e. vector of (0, 0, 0) implies same position as parent node
             weaponNode.position = weapon.defaultPosition
+        }
+    }
+    
+    func addBoundingBoxNode() {
+        if let boundingBoxNode = boundingBox.node {
+            scene.rootNode.addChildNode(boundingBoxNode)
         }
     }
 
@@ -79,8 +77,15 @@ class GameManager: NSObject {
         }
     }
     
+    func addBoundingBoxAnchor() {
+        if boundingBox.anchor == nil, let view = view {
+            boundingBox.anchor = ARAnchor(name: BoundingBox.name, transform: scene.rootNode.simdTransform)
+            view.scnView.session.add(anchor: boundingBox.anchor!)
+        }
+    }
+    
     func start() {
-        initializeLevel()
+        setupLevel()
         
 //        delegate?.managerDidStartGame()
 //        startGameMusicEverywhere()
@@ -88,49 +93,59 @@ class GameManager: NSObject {
         isInitialized = true
     }
     
-    private func initializeLevel() {
-        initializeEnemies(for: level)
+    private func setupLevel() {
+        setupEnemies(for: level)
     }
     
-    private func initializeEnemies(for level: GameLevel) {
+    private func setupEnemies(for level: Int) {
+        // TODO: modularize this code
         let enemy = Enemy()
         if let enemyNode = enemy.node {
             enemyNode.position = portal.node.worldPosition
-            view?.scnView.scene.rootNode.addChildNode(enemyNode)
+            scene.rootNode.addChildNode(enemyNode)
         }
         enemies.insert(enemy)
+        
     }
     
     // Called from rendering loop once per frame
     func update(timeDelta: TimeInterval) {
+        if enemies.isEmpty {
+            advanceToNextLevel()
+        }
         for enemy in enemies {
+            checkBounds(node: enemy.node)
             enemy.update(deltaTime: timeDelta)
         }
+    }
+    
+    func checkBounds(node: SCNNode?) {
+        
+    }
+    
+    func advanceToNextLevel() {
+        print("advanced to next level!")
     }
 
     func updatePortal(with hitTestResult: ARHitTestResult, camera: ARCamera) {
         portal.update(with: hitTestResult, camera: camera)
     }
     
-    func viewWillTransition() {
+    func updateWeaponNodePosition() {
         weapon.node?.position = weapon.defaultPosition
     }
 
-    func fireBullets(camera: ARCamera?) {
-        guard let camera = camera, let weaponNode = weapon.node else { return }
+    func fireBullets() {
+        guard let weaponNode = weapon.node, let cameraTransform = view?.cameraTransform else { return }
 
         let bulletNode = Bullet()
-        
-        var transform = matrix_identity_float4x4
-        transform.translation = bulletNode.getStartPosition(from: weaponNode)
-//        transform.translation = bulletNode.initialPosition
-        bulletNode.simdTransform = matrix_multiply(camera.transform, transform)
-        
-        let forceVector = SCNVector3(bulletNode.worldFront.x, bulletNode.worldFront.y, bulletNode.worldFront.z)
-        bulletNode.physicsBody!.applyForce(forceVector, asImpulse: true)
+        bulletNode.position = weaponNode.worldPosition
+        bulletNode.physicsBody?.categoryBitMask = CollisionMask.bullet.rawValue
+        bulletNode.physicsBody?.contactTestBitMask = CollisionMask.enemy.rawValue
+        bulletNode.physicsBody?.applyForce(cameraTransform.direction, asImpulse: true)
             
         scene.rootNode.addChildNode(bulletNode)
-            
+        
         applyRecoilAnimation(node: weaponNode)
     }
     

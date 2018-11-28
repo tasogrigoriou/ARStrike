@@ -27,6 +27,6 @@ class Enemy: SCNNode {
     }
     
     func update(deltaTime seconds: TimeInterval) {
-        
+
     }
 }

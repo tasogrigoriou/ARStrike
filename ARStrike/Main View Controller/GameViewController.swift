@@ -83,7 +83,7 @@ class GameViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        gameManager?.viewWillTransition()
+        gameManager?.updateWeaponNodePosition()
     }
     
     func setupGestureRecognizers() {
@@ -163,6 +163,7 @@ class GameViewController: UIViewController {
         guard let gameManager = gameManager, sessionState == .setupLevel else { return }
         
         gameManager.addWeaponNode()
+        gameManager.addBoundingBoxNode()
         
         crosshair.alpha = 0.75
         
@@ -202,9 +203,9 @@ extension GameViewController: UIGestureRecognizerDelegate {
         if sessionState == .gameInProgress {
             fireBullets()
         } else {
-//            gameManager?.addPortalAnchor()
             gameManager?.addWeaponAnchor()
             gameManager?.addPortalAnchor()
+            gameManager?.addBoundingBoxAnchor()
                 
             sessionState = .setupLevel
         }
@@ -212,7 +213,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
     
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
-            timer = Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.18, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
         } else if gesture.state == .ended || gesture.state == .cancelled {
             timer?.invalidate()
             timer = nil
@@ -221,7 +222,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
     
     @objc private func fireBullets() {
         if sessionState == .gameInProgress {
-            gameManager?.fireBullets(camera: sceneView.session.currentFrame?.camera)
+            gameManager?.fireBullets()
         }
     }
 }
