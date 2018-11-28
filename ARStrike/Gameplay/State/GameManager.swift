@@ -27,7 +27,7 @@ class GameManager: NSObject {
     private let boundingBox = BoundingBox()
     private var enemies: Set<Enemy> = []
     
-    var level = 1
+    let gameLevel = GameLevel()
     
     weak var view: GameViewable?
     
@@ -94,18 +94,15 @@ class GameManager: NSObject {
     }
     
     private func setupLevel() {
-        setupEnemies(for: level)
-    }
-    
-    private func setupEnemies(for level: Int) {
-        // TODO: modularize this code
-        let enemy = Enemy()
-        if let enemyNode = enemy.node {
-            enemyNode.position = portal.node.worldPosition
-            scene.rootNode.addChildNode(enemyNode)
-        }
-        enemies.insert(enemy)
+        enemies = gameLevel.enemiesForLevel()
         
+        for enemy in enemies {
+            if let enemyNode = enemy.node {
+                enemyNode.position = portal.node.worldPosition
+                enemy.applyRandomDirectionalForce()
+                scene.rootNode.addChildNode(enemyNode)
+            }
+        }
     }
     
     // Called from rendering loop once per frame

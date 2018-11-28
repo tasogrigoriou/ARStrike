@@ -106,6 +106,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D24E48521AE9BB000D96F9C /* State */ = {
+			isa = PBXGroup;
+			children = (
+				9D41D97821980B0200716EA5 /* GameManager.swift */,
+				9D24E48321AE7B6500D96F9C /* GameLevel.swift */,
+				9D41D9842198DE7C00716EA5 /* GameClock.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		9D24E48621AE9BCC00D96F9C /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				9D41D9802198289C00716EA5 /* Portal.swift */,
+				9D24E48121ACC92000D96F9C /* BoundingBox.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		9D41D93C2196AB9600716EA5 = {
 			isa = PBXGroup;
 			children = (
@@ -133,12 +152,7 @@
 				9D4AB237219B8092009E558E /* Resources */,
 				9D4AB234219B7F67009E558E /* Main View Controller */,
 				9D4AB235219B7F74009E558E /* Supporting View Controllers */,
-				9D4AB236219B7F9B009E558E /* Gameplay State */,
-				9D41D97821980B0200716EA5 /* GameManager.swift */,
-				9D24E48321AE7B6500D96F9C /* GameLevel.swift */,
-				9D41D9842198DE7C00716EA5 /* GameClock.swift */,
-				9D41D9802198289C00716EA5 /* Portal.swift */,
-				9D24E48121ACC92000D96F9C /* BoundingBox.swift */,
+				9D4AB236219B7F9B009E558E /* Gameplay */,
 				9D4AB231219B7F1D009E558E /* Utilities */,
 			);
 			path = ARStrike;
@@ -185,13 +199,6 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		9D4AB233219B7F2B009E558E /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
 		9D4AB234219B7F67009E558E /* Main View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,13 +214,14 @@
 			path = "Supporting View Controllers";
 			sourceTree = "<group>";
 		};
-		9D4AB236219B7F9B009E558E /* Gameplay State */ = {
+		9D4AB236219B7F9B009E558E /* Gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				9D24E48621AE9BCC00D96F9C /* Objects */,
+				9D24E48521AE9BB000D96F9C /* State */,
 				9D4AB232219B7F26009E558E /* Entities */,
-				9D4AB233219B7F2B009E558E /* Components */,
 			);
-			path = "Gameplay State";
+			path = Gameplay;
 			sourceTree = "<group>";
 		};
 		9D4AB237219B8092009E558E /* Resources */ = {
