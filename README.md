@@ -26,11 +26,11 @@ Must-have features for the app to function properly and be of appropriate scope.
 - [x] Fire bullets on long press [*2 hours*]
 - [x] Make bullets fire coming from correct position (relative to weapon) [*3 hours*]
 - [x] Add crosshair in middle of screen [*1 hour*]
+- [x] Support orientation of device [*2-3 hours*]
+- [x] Add enemies on screen [*2 hours*]
+- [x] Have enemies “spawn” out of portal [*4 hours*]
 
 #### In Progress:
-- [ ] Support orientation of device [*2-3 hours*]
-- [ ] Add enemies on screen [*2 hours*]
-- [ ] Have enemies “spawn” out of portal [*4 hours*]
 - [ ] Apply physics (no gravity) to boxes with random motion [*2 hours*]
 - [ ] Constrain enemy motion to certain range (not too far behind the player) [*5-6 hours*]
 - [ ] Collision detection with bullet and enemy [*3-4 hours*]
