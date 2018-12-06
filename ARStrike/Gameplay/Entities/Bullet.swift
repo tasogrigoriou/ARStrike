@@ -26,8 +26,7 @@ class Bullet: SCNNode {
         name = Bullet.name
         
         physicsBody = SCNPhysicsBody(type: .dynamic, shape: SCNPhysicsShape(geometry: SCNSphere(radius: 0.033), options: nil))
-        physicsBody!.collisionBitMask = physicsBody!.contactTestBitMask
-        physicsBody!.velocityFactor = SCNVector3(25, 25, 25)
+        physicsBody!.velocityFactor = SCNVector3(50, 50, 50)
         physicsBody!.isAffectedByGravity = false
         physicsBody!.continuousCollisionDetectionThreshold = 0.001
     }

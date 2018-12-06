@@ -113,6 +113,8 @@ class GameViewController: UIViewController {
 
         // see high poly-count and LOD transitions - wireframe overlay
         debugOptions.insert(SCNDebugOptions.showWireframe)
+        
+        sceneView.autoenablesDefaultLighting = true
 
 //        sceneView.debugOptions = debugOptions
 
@@ -162,9 +164,6 @@ class GameViewController: UIViewController {
     func setupLevel() {
         guard let gameManager = gameManager, sessionState == .setupLevel else { return }
         
-        gameManager.addWeaponNode()
-        gameManager.addBoundingBoxNode()
-        
         crosshair.alpha = 0.75
         
         GameClock.setLevelStartTime()
@@ -175,6 +174,7 @@ class GameViewController: UIViewController {
     
     private func createGameManager() {
         gameManager = GameManager(sceneView: sceneView, view: self)
+        gameManager?.addPlayerNode()
     }
 }
 
@@ -203,10 +203,8 @@ extension GameViewController: UIGestureRecognizerDelegate {
         if sessionState == .gameInProgress {
             fireBullets()
         } else {
-            gameManager?.addWeaponAnchor()
-            gameManager?.addPortalAnchor()
-            gameManager?.addBoundingBoxAnchor()
-                
+            gameManager?.addAnchors()
+            
             sessionState = .setupLevel
         }
     }
@@ -253,7 +251,6 @@ extension GameViewController: ARSessionDelegate {
         case .extending, .mapped:
             gameManager?.addPortalNode()
             tapGestureRecognizer?.isEnabled = true
-            
         }
         mappingStatusLabel.text = frame.worldMappingStatus.description
     }

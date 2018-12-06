@@ -45,35 +45,9 @@ extension SCNTransaction {
 
 extension SCNNode {
     static func loadSCNAsset(modelFileName: String) -> SCNNode? {
-        let assetPaths = [
-            "art.scnassets/",
-            "art.scnassets/BoundingBox/",
-            "art.scnassets/Camera/",
-            "art.scnassets/Chicken/",
-            "art.scnassets/Cornvelious/",
-            "art.scnassets/HandGun/",
-            "art.scnassets/meeseeks-box/",
-            "art.scnassets/PickleRick/",
-            "art.scnassets/PickleRickLow/",
-            "art.scnassets/PixelGun/",
-            "art.scnassets/Portal/",
-            "art.scnassets/PortalGun/",
-            "art.scnassets/PortalGunOther/",
-            "art.scnassets/RayGun/",
-            "art.scnassets/RickSanchez/",
-            "art.scnassets/SenhorPoopy/",
-            "art.scnassets/Ship/",
-            "art.scnassets/Tank/"
-        ]
-        
-        let assetExtensions = [
-            "scn",
-            "scnp"
-        ]
-        
         var nodeRefSearch: SCNReferenceNode?
-        for path in assetPaths {
-            for ext in assetExtensions {
+        for path in Constants.assetPaths {
+            for ext in Constants.assetExtensions {
                 if let url = Bundle.main.url(forResource: path + modelFileName, withExtension: ext) {
                     nodeRefSearch = SCNReferenceNode(url: url)
                     if nodeRefSearch != nil { break }
@@ -95,4 +69,33 @@ extension SCNNode {
         
         return node
     }
+}
+
+struct Constants {
+    static let assetPaths = [
+        "art.scnassets/",
+        "art.scnassets/BoundingBox/",
+        "art.scnassets/Camera/",
+        "art.scnassets/Chicken/",
+        "art.scnassets/Cornvelious/",
+        "art.scnassets/HandGun/",
+        "art.scnassets/meeseeks-box/",
+        "art.scnassets/PickleRick/",
+        "art.scnassets/PickleRick80/",
+        "art.scnassets/PickleRickLow/",
+        "art.scnassets/PixelGun/",
+        "art.scnassets/Portal/",
+        "art.scnassets/PortalGun/",
+        "art.scnassets/PortalGunOther/",
+        "art.scnassets/RayGun/",
+        "art.scnassets/RickSanchez/",
+        "art.scnassets/SenhorPoopy/",
+        "art.scnassets/Ship/",
+        "art.scnassets/Tank/"
+    ]
+    
+    static let assetExtensions = [
+        "scn",
+        "scnp"
+    ]
 }

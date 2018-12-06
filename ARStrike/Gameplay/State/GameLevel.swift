@@ -17,22 +17,20 @@ enum Level: Int {
 struct EnemyComponents {
     let name: String // name of enemy scn file
     let count: Int // number of enemies for a particular level
-    let speed: Float // speed of enemy when a force is applied at a random direction
-    let duration: Float // time it takes for next (random) change of direction
+    let duration: Double // time it takes for enemy to move to new random position
+    let cooldownPeriod: Double // time it takes for an enemy to begin attacking the player
+    let attackTime: Double // time it takes for an enemy to move from current position to player position and make contact
 }
 
-struct StartingComponents {
-    let name: String = "meeseeks_box"
-    let count: Int = 10
-    let speed: Float = 0.5
-    let duration: Float = 4.0
+struct StartComponents {
+    static let enemy = EnemyComponents(name: "pickle_low", count: 10, duration: 8.0, cooldownPeriod: 10.0, attackTime: 10.0)
 }
 
 class GameLevel {
     private var level: Level
     private var enemies: Set<Enemy> = []
     
-    let startComponents = StartingComponents()
+    var lastAttackTime: CFAbsoluteTime = 0
     
     init(level: Level = .one) {
         self.level = level
@@ -40,19 +38,20 @@ class GameLevel {
     
     func setLevel(_ level: Level) {
         self.level = level
-        UserDefaults.standard.set(level, forKey: "game_level")
+        UserDefaults.standard.set(level, forKey: "furthest_game_level")
     }
     
     func enemiesForLevel() -> Set<Enemy> {
         enemies.removeAll()
         
         if !level.rawValue.isMultipleOfThree() {
-            let numberOfEnemies: Int = startComponents.count * level.rawValue
+            let numberOfEnemies: Int = StartComponents.enemy.count * level.rawValue
             for _ in 0..<numberOfEnemies {
                 let enemy = Enemy(
-                    modelFileName: startComponents.name,
-                    speed: startComponents.speed * Float(level.rawValue),
-                    duration: startComponents.duration / 2
+                    modelFileName: StartComponents.enemy.name,
+                    duration: StartComponents.enemy.duration / Double(level.rawValue),
+                    cooldownPeriod: StartComponents.enemy.cooldownPeriod / Double(level.rawValue),
+                    attackTime: StartComponents.enemy.attackTime / Double(level.rawValue)
                 )
                 enemies.insert(enemy)
             }
@@ -62,6 +61,15 @@ class GameLevel {
         }
         
         return enemies
+    }
+    
+    var startAttackingPlayer: Bool {
+        let now = CFAbsoluteTimeGetCurrent()
+        if now - lastAttackTime > StartComponents.enemy.cooldownPeriod {
+            lastAttackTime = now
+            return true
+        }
+        return false
     }
 }
 
