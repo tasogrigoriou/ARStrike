@@ -47,14 +47,6 @@ class GameViewController: UIViewController {
         return CGPoint(x: bounds.midX, y: bounds.midY)
     }
     
-    var canAdjustBoard: Bool {
-        return sessionState == .placingPortal
-    }
-    
-    var attemptingPortalPlacement: Bool {
-        return sessionState == .lookingForSurface || sessionState == .placingPortal
-    }
-    
     var timer: Timer?
 
     override func viewDidLoad() {
