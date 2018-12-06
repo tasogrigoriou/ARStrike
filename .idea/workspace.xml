@@ -2,16 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="13c0ad65-8ad5-408b-b3ce-f517c90fea64" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ARStrike/BoundingBox.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ARStrike/GameLevel.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/BoundingBox/bounding_box.scn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARStrike.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike.xcodeproj/project.pbxproj" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRick80/Untitled-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRick80/albedo10.tga.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRick80/normal_map.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRick80/pickle_rick_80.scn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ARStrike.xcodeproj/project.xcworkspace/xcuserdata/tagrigoriou.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike.xcodeproj/project.xcworkspace/xcuserdata/tagrigoriou.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARStrike/GameManager.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/GameManager.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARStrike/Gameplay State/Entities/Bullet.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Gameplay State/Entities/Bullet.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARStrike/Gameplay State/Entities/Enemy.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Gameplay State/Entities/Enemy.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARStrike/Main View Controller/GameViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Main View Controller/GameViewController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/Base.lproj/Main.storyboard" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/Base.lproj/Main.storyboard" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike.xcodeproj/xcuserdata/tagrigoriou.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike.xcodeproj/xcuserdata/tagrigoriou.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Gameplay/Entities/Bullet.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Gameplay/Entities/Bullet.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Gameplay/Entities/Enemy.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Gameplay/Entities/Enemy.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Gameplay/Entities/Weapon.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Gameplay/Entities/Weapon.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Gameplay/State/GameLevel.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Gameplay/State/GameLevel.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Gameplay/State/GameManager.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Gameplay/State/GameManager.swift" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/BoundingBox/bounding_box.scn" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/BoundingBox/bounding_box.scn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/MeeseeksBox/MeeseeksBox.blend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/MeeseeksBox/MeeseeksBox.blend1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/MeeseeksBox/MeeseeksBox.mtl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/MeeseeksBox/MeeseeksBox.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/MeeseeksBox/MeeseeksBox.scn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/MeeseeksBox/MeeseeksBox.stl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRick/picklerick.scn" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRick/picklerick.scn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/source/pickle_low.fbx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/source/pickle_low.scn" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/pickle_low.scn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/textures/eye.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/eye.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/textures/eye_norm.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/eye_norm.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/textures/eye_spec.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/eye_spec.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/textures/picke_bake.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/picke_bake.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/textures/pickle_norm.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/pickle_norm.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/textures/pickle_rick_spec.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/PickleRickLow/pickle_rick_spec.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/SenhorPoopy/source/senhor_poopy.scn" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Resources/art.scnassets/SenhorPoopy/source/senhor_poopy.scn" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ARStrike/Utilities/SCNNode+Helpers.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ARStrike/Utilities/SCNNode+Helpers.swift" afterDir="false" />
     </list>
     <ignored path="$USER_HOME$/Library/Developer/Xcode/DerivedData/ARStrike-afistzkwqsphvzaljqpbupqbkqbk/" />
@@ -26,11 +44,12 @@
     <session id="1098177459">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="3" />
+          <entry key="project.closed" value="4" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.opened" value="3" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -62,29 +81,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ARStrike/Main View Controller/GameViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3240">
+            <state relative-caret-position="704">
               <caret line="219" column="9" selection-start-line="219" selection-start-column="9" selection-end-line="219" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ARStrike/Portal.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ARStrike/GameManager.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1025">
-              <caret line="116" column="5" selection-start-line="116" selection-start-column="5" selection-end-line="116" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -109,7 +110,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="819" />
@@ -122,7 +123,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -146,6 +146,7 @@
         </subPane>
       </pane>
       <pane id="Cidr.FilesView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -189,16 +190,18 @@
       <workItem from="1542662870850" duration="471000" />
       <workItem from="1542665353035" duration="3072000" />
       <workItem from="1543390188258" duration="309000" />
+      <workItem from="1543514540538" duration="41000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3852000" />
+    <option name="totallyTimeSpent" value="3893000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="819" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="874" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25679544" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26037195" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -228,24 +231,24 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ARStrike/Main View Controller/GameViewController.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3240">
-          <caret line="219" column="9" selection-start-line="219" selection-start-column="9" selection-end-line="219" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ARStrike/Portal.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
+        <state relative-caret-position="375">
           <caret line="27" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ARStrike/GameManager.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1025">
+        <state relative-caret-position="1695">
           <caret line="116" column="5" selection-start-line="116" selection-start-column="5" selection-end-line="116" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ARStrike/Main View Controller/GameViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="219" column="9" selection-start-line="219" selection-start-column="9" selection-end-line="219" selection-end-column="9" />
         </state>
       </provider>
     </entry>

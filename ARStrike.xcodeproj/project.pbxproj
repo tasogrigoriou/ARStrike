@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D24E48221ACC92000D96F9C /* BoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24E48121ACC92000D96F9C /* BoundingBox.swift */; };
 		9D24E48421AE7B6500D96F9C /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24E48321AE7B6500D96F9C /* GameLevel.swift */; };
 		9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9482196AB9600716EA5 /* AppDelegate.swift */; };
 		9D41D94B2196AB9600716EA5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D41D94A2196AB9600716EA5 /* art.scnassets */; };
@@ -29,6 +28,7 @@
 		9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */; };
 		9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */; };
 		9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D048D21A1421D00DBD433 /* Bullet.swift */; };
+		9DFB8AAD21B0CD8D009E1EA4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */; };
 		9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,7 +50,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9D24E48121ACC92000D96F9C /* BoundingBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundingBox.swift; sourceTree = "<group>"; };
 		9D24E48321AE7B6500D96F9C /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		9D41D9452196AB9600716EA5 /* ARStrike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARStrike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D41D9482196AB9600716EA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +77,7 @@
 		9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Helpers.swift"; sourceTree = "<group>"; };
 		9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = portal_gun_fire.wav; sourceTree = "<group>"; };
 		9D7D048D21A1421D00DBD433 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Materials.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +106,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D24E48521AE9BB000D96F9C /* State */ = {
+			isa = PBXGroup;
+			children = (
+				9D41D97821980B0200716EA5 /* GameManager.swift */,
+				9D24E48321AE7B6500D96F9C /* GameLevel.swift */,
+				9D41D9842198DE7C00716EA5 /* GameClock.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		9D24E48621AE9BCC00D96F9C /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				9D41D9802198289C00716EA5 /* Portal.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
 		9D41D93C2196AB9600716EA5 = {
 			isa = PBXGroup;
 			children = (
@@ -133,12 +151,7 @@
 				9D4AB237219B8092009E558E /* Resources */,
 				9D4AB234219B7F67009E558E /* Main View Controller */,
 				9D4AB235219B7F74009E558E /* Supporting View Controllers */,
-				9D4AB236219B7F9B009E558E /* Gameplay State */,
-				9D41D97821980B0200716EA5 /* GameManager.swift */,
-				9D24E48321AE7B6500D96F9C /* GameLevel.swift */,
-				9D41D9842198DE7C00716EA5 /* GameClock.swift */,
-				9D41D9802198289C00716EA5 /* Portal.swift */,
-				9D24E48121ACC92000D96F9C /* BoundingBox.swift */,
+				9D4AB236219B7F9B009E558E /* Gameplay */,
 				9D4AB231219B7F1D009E558E /* Utilities */,
 			);
 			path = ARStrike;
@@ -179,17 +192,11 @@
 			isa = PBXGroup;
 			children = (
 				9D4AB22D219A3019009E558E /* Weapon.swift */,
+				9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */,
 				9D41D97C219822D200716EA5 /* Enemy.swift */,
 				9D7D048D21A1421D00DBD433 /* Bullet.swift */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		9D4AB233219B7F2B009E558E /* Components */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Components;
 			sourceTree = "<group>";
 		};
 		9D4AB234219B7F67009E558E /* Main View Controller */ = {
@@ -207,13 +214,14 @@
 			path = "Supporting View Controllers";
 			sourceTree = "<group>";
 		};
-		9D4AB236219B7F9B009E558E /* Gameplay State */ = {
+		9D4AB236219B7F9B009E558E /* Gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				9D24E48621AE9BCC00D96F9C /* Objects */,
+				9D24E48521AE9BB000D96F9C /* State */,
 				9D4AB232219B7F26009E558E /* Entities */,
-				9D4AB233219B7F2B009E558E /* Components */,
 			);
-			path = "Gameplay State";
+			path = Gameplay;
 			sourceTree = "<group>";
 		};
 		9D4AB237219B8092009E558E /* Resources */ = {
@@ -378,7 +386,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D24E48221ACC92000D96F9C /* BoundingBox.swift in Sources */,
 				9D4AB22E219A3019009E558E /* Weapon.swift in Sources */,
 				9D44C08B21A686AC003EA650 /* SCNPhysicsBody+Helpers.swift in Sources */,
 				9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */,
@@ -393,6 +400,7 @@
 				9D24E48421AE7B6500D96F9C /* GameLevel.swift in Sources */,
 				9D44C08D21A68E78003EA650 /* SCNVector3+Helpers.swift in Sources */,
 				9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */,
+				9DFB8AAD21B0CD8D009E1EA4 /* Player.swift in Sources */,
 				9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
