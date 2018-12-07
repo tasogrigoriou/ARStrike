@@ -24,7 +24,17 @@ class Enemy: SCNNode {
 
     var lastTimePositionChanged: CFAbsoluteTime = 0
     
+    static var indexCounter = 0
+    var index = 0
+    
+    // call this before loading a level, all nodes loaded will share an index since nodes always load in the same order.
+    static func resetIndexCounter() {
+        indexCounter = 0
+    }
+    
     init(modelFileName: String, duration: Double, cooldownPeriod: Double, attackTime: Double) {
+        self.index = Enemy.indexCounter
+        Enemy.indexCounter += 1
         self.fileName = modelFileName
         self.duration = duration
         self.cooldownPeriod = cooldownPeriod
@@ -37,6 +47,9 @@ class Enemy: SCNNode {
         node?.physicsBody!.isAffectedByGravity = false
         node?.physicsBody!.velocity = SCNVector3Zero
         super.init()
+        
+        self.name = Enemy.name + String(self.index)
+        node?.name = Enemy.name + String(self.index)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,13 +82,14 @@ class Enemy: SCNNode {
     private func moveToNewRandomPosition() {
         guard let node = node else { return }
         
-        let randomPosition = SCNVector3(CGFloat.random(in: -3...3), CGFloat.random(in: -1...1), CGFloat.random(in: -3...3))
+//        let randomPosition = SCNVector3(CGFloat.random(in: -3...3), CGFloat.random(in: -1...1), CGFloat.random(in: -3...3))
+        let randomPosition = SCNVector3(CGFloat.random(in: -1...1), CGFloat.random(in: -1...1), CGFloat.random(in: -1...1))
         let moveAction = SCNAction.move(to: randomPosition, duration: duration)
         moveAction.timingMode = .easeInEaseOut
         node.runAction(moveAction)
         
         SCNTransaction.animate(duration: 3.0, animations: {
-//            node.look(at: randomPosition, up: node.worldUp, localFront: enemyLocalFront)
+            node.look(at: randomPosition, up: node.worldUp, localFront: enemyLocalFront)
         }, completion: {
             
         })

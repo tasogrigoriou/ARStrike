@@ -17,9 +17,12 @@ class Player: SCNNode {
     let node: SCNNode
     var anchor: ARAnchor?
     
+    var health: Float = 200
+    var score: Float = 0
+    
     override init() {
         let material = SCNMaterial()
-//        material.diffuse.contents = UIColor.clear
+        material.diffuse.contents = UIColor.clear
         let geometry = SCNBox(width: 0.5, height: 0.5, length: 0.5, chamferRadius: 0)
         geometry.materials = [material]
         node = SCNNode(geometry: geometry)
@@ -34,5 +37,21 @@ class Player: SCNNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func takeDamage(_ damage: Float) {
+        health -= damage
+    }
+    
+    func addToScore(_ points: Float) {
+        score += points
+    }
+    
+    func resetHealth() {
+        health = 200
+    }
+    
+    func resetScore() {
+        score = 0
     }
 }

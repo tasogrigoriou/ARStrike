@@ -35,9 +35,16 @@ class GameManager: NSObject {
     private(set) var isInitialized = false
     private(set) var isAnimating = false
     
+    private let waitTimeBetweenLevels = TimeInterval(5)
+    
+    private let defaultPoints: Float
+    private let defaultDamage: Float
+    
     init(sceneView: ARSCNView, view: GameViewable? = nil) {
         self.scene = sceneView.scene
         self.view = view
+        self.defaultPoints = 75 * Float(gameLevel.getLevel().rawValue)
+        self.defaultDamage = 25
         super.init()
         self.scene.physicsWorld.contactDelegate = self
     }
@@ -102,19 +109,24 @@ class GameManager: NSObject {
     }
     
     private func setupLevel() {
+        view?.disableWeapon()
         enemies = gameLevel.enemiesForLevel()
-        
-        var pos = 0.0
+        var waitTime = 0.0
         for enemy in enemies {
-            pos += 0.35
+            waitTime += 0.03
             if let enemyNode = enemy.node {
                 enemyNode.position = portal.node.worldPosition
 //                let constraint = SCNLookAtConstraint(target: view?.scnView.pointOfView)
 //                constraint.isGimbalLockEnabled = true
 //                constraint.localFront = enemy.enemyLocalFront
 //                enemyNode.constraints = [constraint]
-                scene.rootNode.addChildNode(enemyNode)
+                DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+                    self.scene.rootNode.addChildNode(enemyNode)
+                }
             }
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTimeBetweenLevels) {
+            self.view?.enableWeapon()
         }
     }
     
@@ -122,6 +134,7 @@ class GameManager: NSObject {
     func update(timeDelta: TimeInterval) {
         if enemies.isEmpty {
             advanceToNextLevel()
+            return
         }
         if gameLevel.startAttackingPlayer {
             attackPlayer()
@@ -133,7 +146,13 @@ class GameManager: NSObject {
     }
     
     func advanceToNextLevel() {
-//        print("advanced to next level!")
+        print("advanced to next level!")
+        isInitialized = false
+        gameLevel.setLevel(gameLevel.getLevel().rawValue + 1)
+        player.resetHealth()
+        Enemy.resetIndexCounter()
+        setupLevel()
+        isInitialized = true
     }
 
     func updatePortal(with hitTestResult: ARHitTestResult, camera: ARCamera) {
@@ -204,21 +223,47 @@ class GameManager: NSObject {
         let moveSequence = SCNAction.sequence([moveUp, moveDown])
         return SCNAction.repeatForever(moveSequence)
     }
+    
+    private func addExplosionAnimation(at contactPoint: SCNVector3, completion: (() -> Void)? = nil) {
+        completion?()
+    }
+    
+    private func removeEnemy(enemyNode: SCNNode) {
+        if let enemyToRemove = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) {
+            enemies.remove(enemyToRemove)
+        }
+        enemyNode.removeFromParentNode()
+    }
+    
+    private func endGame() {
+        print("Game over! Your score is \(player.score) and reached level \(gameLevel.getLevel().rawValue)")
+    }
 }
 
 extension GameManager: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
-        print("nodeA = \(contact.nodeA.name ?? "nil"), \nnodeB = \(contact.nodeB.name ?? "nil"), \nbegan contact at point \(contact.contactPoint)\n")
-//        contact.nodeA.removeFromParentNode()
-        contact.nodeB.removeFromParentNode()
+        guard let nodeAMask = contact.nodeA.physicsBody?.categoryBitMask,
+            let nodeBMask = contact.nodeB.physicsBody?.categoryBitMask else { return }
+        let masks = nodeAMask | nodeBMask
+        
+        if masks == CollisionMask([.bullet, .enemy]).rawValue {
+            let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
+            player.addToScore(defaultPoints)
+            view?.updatePlayerScore(player.score)
+            addExplosionAnimation(at: contact.contactPoint) { [weak self] in
+                self?.removeEnemy(enemyNode: enemyNode)
+            }
+        }
+        else if masks == CollisionMask([.player, .enemy]).rawValue {
+            let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
+            guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
+            player.takeDamage(defaultDamage)
+            view?.updatePlayerHealth(player.health)
+            UIDevice.vibrate()
+            if player.health <= 0 {
+                endGame()
+            }
+            removeEnemy(enemyNode: enemyNode)
+        }
     }
-    
-    func physicsWorld(_ world: SCNPhysicsWorld, didEnd contact: SCNPhysicsContact) {
-        print("ended contact")
-    }
-}
-
-struct CameraTransform {
-    let position: SCNVector3
-    let direction: SCNVector3
 }

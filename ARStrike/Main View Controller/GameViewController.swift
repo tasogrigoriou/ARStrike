@@ -14,6 +14,10 @@ import ARKit
 protocol GameViewable: class {
     var scnView: ARSCNView { get }
     var cameraTransform: CameraTransform { get }
+    func updatePlayerScore(_ score: Float)
+    func updatePlayerHealth(_ health: Float)
+    func disableWeapon()
+    func enableWeapon()
 }
 
 class GameViewController: UIViewController {
@@ -184,6 +188,24 @@ extension GameViewController: GameViewable {
         }
         return CameraTransform(position: SCNVector3Zero, direction: SCNVector3Zero)
     }
+    
+    func updatePlayerHealth(_ health: Float) {
+        
+    }
+    
+    func updatePlayerScore(_ score: Float) {
+        
+    }
+    
+    func disableWeapon() {
+        tapGestureRecognizer?.isEnabled = false
+        longPressGestureRecognizer?.isEnabled = false
+    }
+    
+    func enableWeapon() {
+        tapGestureRecognizer?.isEnabled = true
+        longPressGestureRecognizer?.isEnabled = true
+    }
 }
 
 extension GameViewController: UIGestureRecognizerDelegate {
@@ -229,7 +251,7 @@ extension GameViewController: ARSCNViewDelegate {
 extension GameViewController: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         if sessionState == .gameInProgress {
-            mappingStatusLabel.text = "FIRE!"
+            mappingStatusLabel.text = ""
             return
         }
         
@@ -267,4 +289,9 @@ extension ARFrame.WorldMappingStatus: CustomStringConvertible {
             return "Tap to place portal"
         }
     }
+}
+
+struct CameraTransform {
+    let position: SCNVector3
+    let direction: SCNVector3
 }

@@ -36,9 +36,15 @@ class GameLevel {
         self.level = level
     }
     
-    func setLevel(_ level: Level) {
-        self.level = level
-        UserDefaults.standard.set(level, forKey: "furthest_game_level")
+    func setLevel(_ rawLevel: Int) {
+        if let newlevel = Level(rawValue: rawLevel) {
+            self.level = newlevel
+            UserDefaults.standard.set(self.level.rawValue, forKey: "furthest_game_level")
+        }
+    }
+    
+    func getLevel() -> Level {
+        return level
     }
     
     func enemiesForLevel() -> Set<Enemy> {

@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ARStrike/Main View Controller/GameViewController.swift"
-            timestampString = "565657989.425054"
+            filePath = "ARStrike/Gameplay/State/GameManager.swift"
+            timestampString = "565844104.050863"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "physicsWorld(_:didBegin:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ARStrike/Main View Controller/GameViewController.swift"
-            timestampString = "565657989.425161"
+            filePath = "ARStrike/Gameplay/State/GameManager.swift"
+            timestampString = "565844104.051194"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
+            landmarkName = "physicsWorld(_:didBegin:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +73,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ARStrike/Main View Controller/GameViewController.swift"
-            timestampString = "565657989.4252419"
+            filePath = "ARStrike/Gameplay/State/GameManager.swift"
+            timestampString = "565844104.0514261"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
-            landmarkName = "fireBullets()"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
+            landmarkName = "physicsWorld(_:didBegin:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -89,13 +89,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ARStrike/Gameplay/Entities/Enemy.swift"
-            timestampString = "565657989.425325"
+            filePath = "ARStrike/Gameplay/State/GameManager.swift"
+            timestampString = "565844104.051667"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "update(deltaTime:)"
+            startingLineNumber = "242"
+            endingLineNumber = "242"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ARStrike/Gameplay/State/GameManager.swift"
+            timestampString = "565844134.2476569"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "setupLevel()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
