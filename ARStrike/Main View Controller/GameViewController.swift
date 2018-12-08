@@ -110,7 +110,7 @@ class GameViewController: UIViewController {
         // see high poly-count and LOD transitions - wireframe overlay
         debugOptions.insert(SCNDebugOptions.showWireframe)
         
-//        sceneView.autoenablesDefaultLighting = true
+        sceneView.autoenablesDefaultLighting = true
 
 //        sceneView.debugOptions = debugOptions
 
