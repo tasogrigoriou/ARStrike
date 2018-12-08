@@ -35,7 +35,7 @@ class GameManager: NSObject {
     private(set) var isInitialized = false
     private(set) var isAnimating = false
     
-    private let waitTimeBetweenLevels = TimeInterval(5)
+    private let waitTimeBetweenLevels = TimeInterval(2.0)
     
     private let defaultPoints: Float
     private let defaultDamage: Float
@@ -113,7 +113,7 @@ class GameManager: NSObject {
         enemies = gameLevel.enemiesForLevel()
         var waitTime = 0.0
         for enemy in enemies {
-            waitTime += 0.03
+            waitTime += 0.08
             if let enemyNode = enemy.node {
                 enemyNode.position = portal.node.worldPosition
 //                let constraint = SCNLookAtConstraint(target: view?.scnView.pointOfView)
@@ -146,7 +146,6 @@ class GameManager: NSObject {
     }
     
     func advanceToNextLevel() {
-        print("advanced to next level!")
         isInitialized = false
         gameLevel.setLevel(gameLevel.getLevel().rawValue + 1)
         player.resetHealth()
@@ -212,20 +211,23 @@ class GameManager: NSObject {
     }
     
     private func addBreathingAnimation(to node: SCNNode?) {
-        node?.runAction(breathingAction(), forKey: "breathing")
-    }
-    
-    private func breathingAction() -> SCNAction {
         let moveUp = SCNAction.moveBy(x: 0.0005, y: 0.003, z: 0, duration: 1.2)
         moveUp.timingMode = .easeInEaseOut
         let moveDown = SCNAction.moveBy(x: -0.0005, y: -0.003, z: 0, duration: 1.2)
         moveDown.timingMode = .easeInEaseOut
         let moveSequence = SCNAction.sequence([moveUp, moveDown])
-        return SCNAction.repeatForever(moveSequence)
+        let breathingAction = SCNAction.repeatForever(moveSequence)
+        node?.runAction(breathingAction)
     }
     
-    private func addExplosionAnimation(at contactPoint: SCNVector3, completion: (() -> Void)? = nil) {
-        completion?()
+    private func addExplosionAnimation(enemyNode: SCNNode) {
+        guard let explosion = SCNParticleSystem(named: "Explosion.scnp", inDirectory: "art.scnassets/Explosion/") else { return }
+        explosion.emitterShape = enemyNode.geometry
+        explosion.birthLocation = .surface
+        enemyNode.addParticleSystem(explosion)
+        enemyNode.runAction(.fadeOut(duration: Double(explosion.particleLifeSpan) - 0.3)) {
+            self.removeEnemy(enemyNode: enemyNode)
+        }
     }
     
     private func removeEnemy(enemyNode: SCNNode) {
@@ -250,9 +252,7 @@ extension GameManager: SCNPhysicsContactDelegate {
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
             player.addToScore(defaultPoints)
             view?.updatePlayerScore(player.score)
-            addExplosionAnimation(at: contact.contactPoint) { [weak self] in
-                self?.removeEnemy(enemyNode: enemyNode)
-            }
+            addExplosionAnimation(enemyNode: enemyNode)
         }
         else if masks == CollisionMask([.player, .enemy]).rawValue {
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB

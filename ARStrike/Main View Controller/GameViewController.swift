@@ -131,8 +131,6 @@ class GameViewController: UIViewController {
                 return
             }
         case .gameInProgress:
-            tapGestureRecognizer?.isEnabled = true
-            longPressGestureRecognizer?.isEnabled = true
             return
         }
         
