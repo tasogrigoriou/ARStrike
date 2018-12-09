@@ -31,6 +31,7 @@ class GameLevel {
     private var enemies: Set<Enemy> = []
     
     var lastAttackTime: CFAbsoluteTime = 0
+    var cooldownPeriodForLevel: Double = 10.0
     
     init(level: Level = .one) {
         self.level = level
@@ -61,7 +62,9 @@ class GameLevel {
                 )
                 enemies.insert(enemy)
             }
-        } else {
+            cooldownPeriodForLevel = StartComponents.enemy.cooldownPeriod / Double(level.rawValue)
+        }
+        else {
             // level 3, level 6 returns a boss enemy
             
         }
@@ -71,7 +74,7 @@ class GameLevel {
     
     var startAttackingPlayer: Bool {
         let now = CFAbsoluteTimeGetCurrent()
-        if now - lastAttackTime > StartComponents.enemy.cooldownPeriod {
+        if now - lastAttackTime > cooldownPeriodForLevel {
             lastAttackTime = now
             return true
         }

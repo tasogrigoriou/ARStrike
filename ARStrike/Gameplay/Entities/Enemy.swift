@@ -47,9 +47,6 @@ class Enemy: SCNNode {
         node?.physicsBody!.isAffectedByGravity = false
         node?.physicsBody!.velocity = SCNVector3Zero
         super.init()
-        
-        self.name = Enemy.name + String(self.index)
-        node?.name = Enemy.name + String(self.index)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,6 +66,36 @@ class Enemy: SCNNode {
         return localFront
     }
     
+    var childNodeWithGeometry: SCNNode? {
+        let childNode: SCNNode?
+        switch fileName {
+        case "pickle_low":
+            childNode = node?.childNode(withName: "pickle_rick_low", recursively: true)
+        case "picklerick":
+            childNode = node?.childNode(withName: "Highpoly_Highpoly", recursively: true)
+        case "meeseeks_box":
+            childNode = node
+        default:
+            childNode = nil
+        }
+        return childNode
+    }
+    
+    var image: UIImage? {
+        let image: UIImage?
+        switch fileName {
+        case "pickle_low":
+            image = UIImage(named: "picke_bake.jpeg")
+        case "picklerick":
+            image = UIImage(named: "Highpoly_TXTR.png")
+        case "meeseeks_box":
+            image = UIImage(named: "meeseeksbox.png")
+        default:
+            image = nil
+        }
+        return image
+    }
+    
     func update(deltaTime seconds: TimeInterval) {
         let now = CFAbsoluteTimeGetCurrent()
         if !isAttackingPlayer {
@@ -81,17 +108,9 @@ class Enemy: SCNNode {
     
     private func moveToNewRandomPosition() {
         guard let node = node else { return }
-        
 //        let randomPosition = SCNVector3(CGFloat.random(in: -3...3), CGFloat.random(in: -1...1), CGFloat.random(in: -3...3))
         let randomPosition = SCNVector3(CGFloat.random(in: -1...1), CGFloat.random(in: -1...1), CGFloat.random(in: -1...1))
-        let moveAction = SCNAction.move(to: randomPosition, duration: duration)
-        moveAction.timingMode = .easeInEaseOut
-        node.runAction(moveAction)
-        
-        SCNTransaction.animate(duration: 3.0, animations: {
-            node.look(at: randomPosition, up: node.worldUp, localFront: enemyLocalFront)
-        }, completion: {
-            
-        })
+        node.runAction(.move(to: randomPosition, duration: duration))
+//        node.look(at: randomPosition, up: node.worldUp, localFront: enemyLocalFront)
     }
 }

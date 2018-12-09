@@ -105,7 +105,6 @@ class GameManager: NSObject {
         addWeaponNode()
         
         setupLevel()
-        isInitialized = true
     }
     
     private func setupLevel() {
@@ -113,15 +112,16 @@ class GameManager: NSObject {
         enemies = gameLevel.enemiesForLevel()
         var waitTime = 0.0
         for enemy in enemies {
-            waitTime += 0.08
+            waitTime += 0.2
             if let enemyNode = enemy.node {
-                enemyNode.position = portal.node.worldPosition
-//                let constraint = SCNLookAtConstraint(target: view?.scnView.pointOfView)
-//                constraint.isGimbalLockEnabled = true
-//                constraint.localFront = enemy.enemyLocalFront
-//                enemyNode.constraints = [constraint]
+                guard let planeNode = portal.node.childNode(withName: "plane", recursively: true) else { return }
+                enemyNode.worldPosition = planeNode.worldPosition
+                enemyNode.opacity = 0.1
+                let constraint = SCNBillboardConstraint()
+                enemyNode.constraints = [constraint]
                 DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
                     self.scene.rootNode.addChildNode(enemyNode)
+                    enemyNode.runAction(.fadeIn(duration: 0.5))
                 }
             }
         }
@@ -220,11 +220,16 @@ class GameManager: NSObject {
         node?.runAction(breathingAction)
     }
     
-    private func addExplosionAnimation(enemyNode: SCNNode) {
-        guard let explosion = SCNParticleSystem(named: "Explosion.scnp", inDirectory: "art.scnassets/Explosion/") else { return }
-        explosion.emitterShape = enemyNode.geometry
+    private func addExplosionAnimation(enemyNode: SCNNode, geometryNode: SCNNode?, image: UIImage?) {
+        guard let explosion = SCNParticleSystem(named: "Explosion.scnp", inDirectory: "art.scnassets/Explosion/"),
+            let geometryNode = geometryNode,
+            let image = image else { return }
+        
+        explosion.emitterShape = geometryNode.geometry
+        explosion.particleImage = image
         explosion.birthLocation = .surface
-        enemyNode.addParticleSystem(explosion)
+        geometryNode.addParticleSystem(explosion)
+        
         enemyNode.runAction(.fadeOut(duration: Double(explosion.particleLifeSpan) - 0.3)) {
             self.removeEnemy(enemyNode: enemyNode)
         }
@@ -250,9 +255,10 @@ extension GameManager: SCNPhysicsContactDelegate {
         
         if masks == CollisionMask([.bullet, .enemy]).rawValue {
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
+            guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) else { return }
             player.addToScore(defaultPoints)
             view?.updatePlayerScore(player.score)
-            addExplosionAnimation(enemyNode: enemyNode)
+            addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
         }
         else if masks == CollisionMask([.player, .enemy]).rawValue {
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
