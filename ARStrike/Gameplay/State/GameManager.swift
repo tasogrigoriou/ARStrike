@@ -35,6 +35,8 @@ class GameManager: NSObject {
     private(set) var isInitialized = false
     private(set) var isAnimating = false
     
+    private(set) var contactFinished = true
+    
     private let waitTimeBetweenLevels = TimeInterval(2.0)
     
     private let defaultPoints: Float
@@ -70,6 +72,7 @@ class GameManager: NSObject {
     func addPlayerNode() {
         if let cameraNode = view?.scnView.pointOfView {
             cameraNode.addChildNode(player.node)
+            player.node.position = SCNVector3(0, 0, -2)
         }
     }
     
@@ -103,8 +106,10 @@ class GameManager: NSObject {
     
     func start() {
         addWeaponNode()
+        addPlayerNode()
         
         setupLevel()
+        isInitialized = true
     }
     
     private func setupLevel() {
@@ -115,8 +120,8 @@ class GameManager: NSObject {
             waitTime += 0.2
             if let enemyNode = enemy.node {
                 guard let planeNode = portal.node.childNode(withName: "plane", recursively: true) else { return }
-                enemyNode.worldPosition = planeNode.worldPosition
-                enemyNode.opacity = 0.1
+                enemyNode.worldPosition = planeNode.worldPosition + SCNVector3(0, 0, -0.05)
+                enemyNode.opacity = 0.75
                 let constraint = SCNBillboardConstraint()
                 enemyNode.constraints = [constraint]
                 DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
@@ -140,6 +145,7 @@ class GameManager: NSObject {
             attackPlayer()
         }
         
+        player.update(deltaTime: timeDelta)
         for enemy in enemies {
             enemy.update(deltaTime: timeDelta)
         }
@@ -224,6 +230,7 @@ class GameManager: NSObject {
         guard let explosion = SCNParticleSystem(named: "Explosion.scnp", inDirectory: "art.scnassets/Explosion/"),
             let geometryNode = geometryNode,
             let image = image else { return }
+        contactFinished = false
         
         explosion.emitterShape = geometryNode.geometry
         explosion.particleImage = image
@@ -232,6 +239,7 @@ class GameManager: NSObject {
         
         enemyNode.runAction(.fadeOut(duration: Double(explosion.particleLifeSpan) - 0.3)) {
             self.removeEnemy(enemyNode: enemyNode)
+            self.contactFinished = true
         }
     }
     
@@ -255,21 +263,24 @@ extension GameManager: SCNPhysicsContactDelegate {
         
         if masks == CollisionMask([.bullet, .enemy]).rawValue {
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
+            let bulletNode = nodeAMask == CollisionMask.bullet.rawValue ? contact.nodeA : contact.nodeB
             guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) else { return }
             player.addToScore(defaultPoints)
             view?.updatePlayerScore(player.score)
             addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
+            bulletNode.removeFromParentNode()
         }
         else if masks == CollisionMask([.player, .enemy]).rawValue {
+            if !contactFinished { return }
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
             guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
             player.takeDamage(defaultDamage)
             view?.updatePlayerHealth(player.health)
+            addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
             UIDevice.vibrate()
             if player.health <= 0 {
                 endGame()
             }
-            removeEnemy(enemyNode: enemyNode)
         }
     }
 }

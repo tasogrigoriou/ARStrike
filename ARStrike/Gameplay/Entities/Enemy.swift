@@ -21,13 +21,10 @@ class Enemy: SCNNode {
     let attackTime: Double // time it takes for an enemy to move from current position to player position and make contact
     
     var isAttackingPlayer: Bool = false
-
     var lastTimePositionChanged: CFAbsoluteTime = 0
     
     static var indexCounter = 0
     var index = 0
-    
-    // call this before loading a level, all nodes loaded will share an index since nodes always load in the same order.
     static func resetIndexCounter() {
         indexCounter = 0
     }
@@ -108,8 +105,8 @@ class Enemy: SCNNode {
     
     private func moveToNewRandomPosition() {
         guard let node = node else { return }
-//        let randomPosition = SCNVector3(CGFloat.random(in: -3...3), CGFloat.random(in: -1...1), CGFloat.random(in: -3...3))
-        let randomPosition = SCNVector3(CGFloat.random(in: -1...1), CGFloat.random(in: -1...1), CGFloat.random(in: -1...1))
+        let randomPosition = SCNVector3(CGFloat.random(in: -2...2), CGFloat.random(in: -1...1), CGFloat.random(in: -2...2))
+//        let randomPosition = SCNVector3(CGFloat.random(in: -1...1), CGFloat.random(in: -1...1), CGFloat.random(in: -1...1))
         node.runAction(.move(to: randomPosition, duration: duration))
 //        node.look(at: randomPosition, up: node.worldUp, localFront: enemyLocalFront)
     }
