@@ -28,7 +28,7 @@ class Weapon: SCNNode {
     
     var offsetPosition: SCNVector3 {
         if UIDevice.current.orientation.isPortrait {
-            return SCNVector3(0.054, -0.035, -0.124)
+            return SCNVector3(0.081, -0.045, -0.124)
         } else {
             return SCNVector3(0.103, -0.021, -0.124)
         }

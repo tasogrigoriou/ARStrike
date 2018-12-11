@@ -31,15 +31,23 @@ class GameLevel {
     private var enemies: Set<Enemy> = []
     
     var lastAttackTime: CFAbsoluteTime = 0
+    var cooldownPeriodForLevel: Double = StartComponents.enemy.cooldownPeriod
     
     init(level: Level = .one) {
         self.level = level
+        setLevel(level.rawValue)
     }
     
     func setLevel(_ rawLevel: Int) {
         if let newlevel = Level(rawValue: rawLevel) {
             self.level = newlevel
-            UserDefaults.standard.set(self.level.rawValue, forKey: "furthest_game_level")
+            guard let furthestLevel = UserDefaults.standard.value(forKey: "furthest_game_level") as? Int else {
+                UserDefaults.standard.set(self.level.rawValue, forKey: "furthest_game_level")
+                return
+            }
+            if furthestLevel < newlevel.rawValue {
+                UserDefaults.standard.set(self.level.rawValue, forKey: "furthest_game_level")
+            }
         }
     }
     
@@ -50,7 +58,7 @@ class GameLevel {
     func enemiesForLevel() -> Set<Enemy> {
         enemies.removeAll()
         
-        if !level.rawValue.isMultipleOfThree() {
+//        if !level.rawValue.isMultipleOfThree() {
             let numberOfEnemies: Int = StartComponents.enemy.count * level.rawValue
             for _ in 0..<numberOfEnemies {
                 let enemy = Enemy(
@@ -61,17 +69,19 @@ class GameLevel {
                 )
                 enemies.insert(enemy)
             }
-        } else {
+            cooldownPeriodForLevel = StartComponents.enemy.cooldownPeriod / Double(level.rawValue)
+//        }
+//        else {
             // level 3, level 6 returns a boss enemy
-            
-        }
+//
+//        }
         
         return enemies
     }
     
     var startAttackingPlayer: Bool {
         let now = CFAbsoluteTimeGetCurrent()
-        if now - lastAttackTime > StartComponents.enemy.cooldownPeriod {
+        if now - lastAttackTime > cooldownPeriodForLevel {
             lastAttackTime = now
             return true
         }

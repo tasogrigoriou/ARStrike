@@ -84,6 +84,7 @@ struct Constants {
         "art.scnassets/PickleRick80/",
         "art.scnassets/PickleRickLow/",
         "art.scnassets/PixelGun/",
+        "art.scnassets/Player/",
         "art.scnassets/Portal/",
         "art.scnassets/PortalGun/",
         "art.scnassets/PortalGunOther/",

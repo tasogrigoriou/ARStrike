@@ -168,7 +168,6 @@ class GameViewController: UIViewController {
     
     private func createGameManager() {
         gameManager = GameManager(sceneView: sceneView, view: self)
-        gameManager?.addPlayerNode()
     }
 }
 
