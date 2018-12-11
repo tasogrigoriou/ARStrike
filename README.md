@@ -8,9 +8,9 @@ This is the final project made for San Francisco State University course CSC 690
 
 1. Place a portal in real-world space using ARKit tracking detection by moving your device around until you feel satistifed with its translation in the world.
 2. Player is then spawned with Rick's Ray Gun in first-person perspective.
-3. Level one is loaded and Meeseeks Box enemies spawn out of portal with random movement.
+3. Level one is loaded and enemies spawn out of portal with random movement.
 4. Once all enemies are defeated, the player moves to the next level where enemies are spawned and objective becomes more difficult.
-5. Every 3rd level (Level 3, Level 6, etc) there is a boss (Pickle Rick, Cornvelious, Senhor Poopy, etc) that you must defeat.
+5. Every 3rd level (Level 3, Level 6, etc) there is a boss (Pickle Rick, Cornvelious, Senhor Poopy, etc) that you must defeat to move forward.
 
 ## Proposal
 
@@ -29,22 +29,25 @@ Must-have features for the app to function properly and be of appropriate scope.
 - [x] Support orientation of device [*2-3 hours*]
 - [x] Add enemies on screen [*2 hours*]
 - [x] Have enemies “spawn” out of portal [*4 hours*]
+- [x] Apply physics (no gravity) to enemies with random motion [*2 hours*]
+- [x] Constrain enemy motion to certain range (not too far behind the player) [*5-6 hours*]
+- [x] Collision detection with bullet and enemy [*3-4 hours*]
+- [x] Collision detection with player and enemy (damage drawn) [*2-3 hours*]
+- [x] Eliminate enemies / explosion animation when bullet collision occurs [*2-3 hours*]
+- [x] Add gravity to enemies when eliminated (to fall down) [*2-3 hours*]
 
 #### In Progress:
-- [ ] Apply physics (no gravity) to boxes with random motion [*2 hours*]
-- [ ] Constrain enemy motion to certain range (not too far behind the player) [*5-6 hours*]
-- [ ] Collision detection with bullet and enemy [*3-4 hours*]
-- [ ] Collision detection with player and enemy (damage drawn) [*2-3 hours*]
-- [ ] Eliminate enemies / explosion animation when bullet collision occurs [*2-3 hours*]
-- [ ] Add gravity to enemies when eliminated (to fall down) [*2-3 hours*]
-- [ ] Add theme music, special effects when weapon fires, bullets hit enemies [*5-6 hours*]
+- [ ] Add UI for player health bar, player score, current level [*4-5 hours*]
+- [ ] Add theme music [*3-4 hours*]
+- [ ] Add special effects when weapon fires, bullets hit enemies, etc [*5-6 hours*]
 
 ### Nice-To-Have Features
 
 Nice to have features that may be implemented if time permits
 
-- [ ] feature 1 [*x hours*]
-- [ ] feature 2 [*x hours*]
+- [ ] Add animations to enemies while they move [*4-5 hours*]
+- [ ] Add boss enemy every 3rd level (level 3, 6, etc) [*7-8 hours*]
+- [ ] Add global high score and level reached from all players across the world [*9-10 hours*]
   
 ## Wireframes
 
