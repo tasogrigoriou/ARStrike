@@ -7,7 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9D03639021BFAA7600A02F41 /* GTProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638221BFAA7600A02F41 /* GTProgressBar.swift */; };
+		9D03639121BFAA7600A02F41 /* HorizontalLabelPositionFrameCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638321BFAA7600A02F41 /* HorizontalLabelPositionFrameCalculator.swift */; };
+		9D03639221BFAA7600A02F41 /* FrameCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638421BFAA7600A02F41 /* FrameCalculator.swift */; };
+		9D03639321BFAA7600A02F41 /* GTProgressBarLabelPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638521BFAA7600A02F41 /* GTProgressBarLabelPosition.swift */; };
+		9D03639521BFAA7600A02F41 /* GTProgressBarDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638721BFAA7600A02F41 /* GTProgressBarDirection.swift */; };
+		9D03639621BFAA7600A02F41 /* VerticalLabelPositionFrameCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638821BFAA7600A02F41 /* VerticalLabelPositionFrameCalculator.swift */; };
+		9D03639721BFAA7600A02F41 /* GTProgressBarCornerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638921BFAA7600A02F41 /* GTProgressBarCornerType.swift */; };
+		9D03639821BFAA7600A02F41 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638A21BFAA7600A02F41 /* UIViewExtensions.swift */; };
+		9D03639921BFAA7600A02F41 /* GTProgressBarOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638B21BFAA7600A02F41 /* GTProgressBarOrientation.swift */; };
+		9D03639A21BFAA7600A02F41 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03638C21BFAA7600A02F41 /* UILabelExtensions.swift */; };
+		9D03639B21BFAA7600A02F41 /* .gitkeep in Resources */ = {isa = PBXBuildFile; fileRef = 9D03638E21BFAA7600A02F41 /* .gitkeep */; };
+		9D03639C21BFAA7600A02F41 /* Info3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D03638F21BFAA7600A02F41 /* Info3.plist */; };
+		9D03639E21C0A2ED00A02F41 /* GameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03639D21C0A2ED00A02F41 /* GameConstants.swift */; };
 		9D24E48421AE7B6500D96F9C /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24E48321AE7B6500D96F9C /* GameLevel.swift */; };
+		9D38742321BFA757008C3FF9 /* LinearProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38741F21BFA757008C3FF9 /* LinearProgressBar.swift */; };
+		9D38742421BFA757008C3FF9 /* Clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38742121BFA757008C3FF9 /* Clamp.swift */; };
+		9D38742521BFA757008C3FF9 /* Info2.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D38742221BFA757008C3FF9 /* Info2.plist */; };
 		9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9482196AB9600716EA5 /* AppDelegate.swift */; };
 		9D41D94B2196AB9600716EA5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D41D94A2196AB9600716EA5 /* art.scnassets */; };
 		9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D94C2196AB9600716EA5 /* GameViewController.swift */; };
@@ -51,7 +67,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9D03638021BFAA7600A02F41 /* GTProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTProgressBar.h; sourceTree = "<group>"; };
+		9D03638221BFAA7600A02F41 /* GTProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTProgressBar.swift; sourceTree = "<group>"; };
+		9D03638321BFAA7600A02F41 /* HorizontalLabelPositionFrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalLabelPositionFrameCalculator.swift; sourceTree = "<group>"; };
+		9D03638421BFAA7600A02F41 /* FrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameCalculator.swift; sourceTree = "<group>"; };
+		9D03638521BFAA7600A02F41 /* GTProgressBarLabelPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTProgressBarLabelPosition.swift; sourceTree = "<group>"; };
+		9D03638721BFAA7600A02F41 /* GTProgressBarDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTProgressBarDirection.swift; sourceTree = "<group>"; };
+		9D03638821BFAA7600A02F41 /* VerticalLabelPositionFrameCalculator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalLabelPositionFrameCalculator.swift; sourceTree = "<group>"; };
+		9D03638921BFAA7600A02F41 /* GTProgressBarCornerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTProgressBarCornerType.swift; sourceTree = "<group>"; };
+		9D03638A21BFAA7600A02F41 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		9D03638B21BFAA7600A02F41 /* GTProgressBarOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GTProgressBarOrientation.swift; sourceTree = "<group>"; };
+		9D03638C21BFAA7600A02F41 /* UILabelExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
+		9D03638E21BFAA7600A02F41 /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
+		9D03638F21BFAA7600A02F41 /* Info3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info3.plist; sourceTree = "<group>"; };
+		9D03639D21C0A2ED00A02F41 /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		9D24E48321AE7B6500D96F9C /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
+		9D38741F21BFA757008C3FF9 /* LinearProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearProgressBar.swift; sourceTree = "<group>"; };
+		9D38742021BFA757008C3FF9 /* LinearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearProgressBar.h; sourceTree = "<group>"; };
+		9D38742121BFA757008C3FF9 /* Clamp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clamp.swift; sourceTree = "<group>"; };
+		9D38742221BFA757008C3FF9 /* Info2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info2.plist; sourceTree = "<group>"; };
 		9D41D9452196AB9600716EA5 /* ARStrike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARStrike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D41D9482196AB9600716EA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D41D94A2196AB9600716EA5 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
@@ -108,6 +142,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9D03637F21BFAA7600A02F41 /* GTProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				9D03638021BFAA7600A02F41 /* GTProgressBar.h */,
+				9D03638121BFAA7600A02F41 /* Classes */,
+				9D03638D21BFAA7600A02F41 /* Assets */,
+				9D03638F21BFAA7600A02F41 /* Info3.plist */,
+			);
+			path = GTProgressBar;
+			sourceTree = "<group>";
+		};
+		9D03638121BFAA7600A02F41 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9D03638221BFAA7600A02F41 /* GTProgressBar.swift */,
+				9D03638321BFAA7600A02F41 /* HorizontalLabelPositionFrameCalculator.swift */,
+				9D03638421BFAA7600A02F41 /* FrameCalculator.swift */,
+				9D03638521BFAA7600A02F41 /* GTProgressBarLabelPosition.swift */,
+				9D03638721BFAA7600A02F41 /* GTProgressBarDirection.swift */,
+				9D03638821BFAA7600A02F41 /* VerticalLabelPositionFrameCalculator.swift */,
+				9D03638921BFAA7600A02F41 /* GTProgressBarCornerType.swift */,
+				9D03638A21BFAA7600A02F41 /* UIViewExtensions.swift */,
+				9D03638B21BFAA7600A02F41 /* GTProgressBarOrientation.swift */,
+				9D03638C21BFAA7600A02F41 /* UILabelExtensions.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		9D03638D21BFAA7600A02F41 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				9D03638E21BFAA7600A02F41 /* .gitkeep */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		9D24E48521AE9BB000D96F9C /* State */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +194,17 @@
 				9D41D9802198289C00716EA5 /* Portal.swift */,
 			);
 			path = Objects;
+			sourceTree = "<group>";
+		};
+		9D38741E21BFA757008C3FF9 /* LinearProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				9D38741F21BFA757008C3FF9 /* LinearProgressBar.swift */,
+				9D38742021BFA757008C3FF9 /* LinearProgressBar.h */,
+				9D38742121BFA757008C3FF9 /* Clamp.swift */,
+				9D38742221BFA757008C3FF9 /* Info2.plist */,
+			);
+			path = LinearProgressBar;
 			sourceTree = "<group>";
 		};
 		9D41D93C2196AB9600716EA5 = {
@@ -149,6 +230,8 @@
 		9D41D9472196AB9600716EA5 /* ARStrike */ = {
 			isa = PBXGroup;
 			children = (
+				9D03637F21BFAA7600A02F41 /* GTProgressBar */,
+				9D38741E21BFA757008C3FF9 /* LinearProgressBar */,
 				9D4AB238219B80D9009E558E /* Core */,
 				9D4AB237219B8092009E558E /* Resources */,
 				9D4AB234219B7F67009E558E /* Main View Controller */,
@@ -187,6 +270,7 @@
 				9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */,
 				9D44C08821A6771A003EA650 /* String+Helpers.swift */,
 				9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */,
+				9D03639D21C0A2ED00A02F41 /* GameConstants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -362,9 +446,12 @@
 			files = (
 				9D41D94B2196AB9600716EA5 /* art.scnassets in Resources */,
 				9D41D9552196AB9800716EA5 /* LaunchScreen.storyboard in Resources */,
+				9D03639C21BFAA7600A02F41 /* Info3.plist in Resources */,
+				9D38742521BFA757008C3FF9 /* Info2.plist in Resources */,
 				9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */,
 				9D41D9522196AB9800716EA5 /* Assets.xcassets in Resources */,
 				9D41D9502196AB9600716EA5 /* Main.storyboard in Resources */,
+				9D03639B21BFAA7600A02F41 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,20 +479,33 @@
 				9D4AB22E219A3019009E558E /* Weapon.swift in Sources */,
 				9DE4D59921B9F5BF00656985 /* UIDevice+Helpers.swift in Sources */,
 				9D44C08B21A686AC003EA650 /* SCNPhysicsBody+Helpers.swift in Sources */,
+				9D03639021BFAA7600A02F41 /* GTProgressBar.swift in Sources */,
 				9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */,
+				9D03639121BFAA7600A02F41 /* HorizontalLabelPositionFrameCalculator.swift in Sources */,
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
+				9D03639A21BFAA7600A02F41 /* UILabelExtensions.swift in Sources */,
+				9D38742321BFA757008C3FF9 /* LinearProgressBar.swift in Sources */,
 				9D41D9852198DE7C00716EA5 /* GameClock.swift in Sources */,
 				9D4AB22A2199660B009E558E /* simd+Helpers.swift in Sources */,
+				9D38742421BFA757008C3FF9 /* Clamp.swift in Sources */,
 				9D41D97D219822D200716EA5 /* Enemy.swift in Sources */,
 				9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */,
+				9D03639621BFAA7600A02F41 /* VerticalLabelPositionFrameCalculator.swift in Sources */,
+				9D03639921BFAA7600A02F41 /* GTProgressBarOrientation.swift in Sources */,
+				9D03639521BFAA7600A02F41 /* GTProgressBarDirection.swift in Sources */,
 				9D41D9812198289C00716EA5 /* Portal.swift in Sources */,
+				9D03639821BFAA7600A02F41 /* UIViewExtensions.swift in Sources */,
 				9D44C08921A6771B003EA650 /* String+Helpers.swift in Sources */,
 				9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */,
 				9D24E48421AE7B6500D96F9C /* GameLevel.swift in Sources */,
+				9D03639221BFAA7600A02F41 /* FrameCalculator.swift in Sources */,
+				9D03639721BFAA7600A02F41 /* GTProgressBarCornerType.swift in Sources */,
 				9D44C08D21A68E78003EA650 /* SCNVector3+Helpers.swift in Sources */,
 				9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */,
 				9DFB8AAD21B0CD8D009E1EA4 /* Player.swift in Sources */,
+				9D03639321BFAA7600A02F41 /* GTProgressBarLabelPosition.swift in Sources */,
 				9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */,
+				9D03639E21C0A2ED00A02F41 /* GameConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

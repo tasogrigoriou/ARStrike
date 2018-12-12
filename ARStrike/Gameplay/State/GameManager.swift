@@ -109,6 +109,7 @@ class GameManager: NSObject {
         addPlayerNode()
         
         setupLevel()
+        updateGameUI()
         isInitialized = true
     }
     
@@ -135,6 +136,13 @@ class GameManager: NSObject {
         }
     }
     
+    private func updateGameUI() {
+        view?.updateLevelLabel(gameLevel.getLevel().rawValue)
+        view?.updatePlayerHealth(CGFloat(player.health))
+        view?.updatePlayerScore(player.score)
+        view?.showGameUI()
+    }
+    
     // Called from rendering loop once per frame
     func update(timeDelta: TimeInterval) {
         if enemies.isEmpty {
@@ -157,6 +165,7 @@ class GameManager: NSObject {
         player.resetHealth()
         Enemy.resetIndexCounter()
         setupLevel()
+        updateGameUI()
         isInitialized = true
     }
 
@@ -275,7 +284,7 @@ extension GameManager: SCNPhysicsContactDelegate {
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
             guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
             player.takeDamage(defaultDamage)
-            view?.updatePlayerHealth(player.health)
+            view?.updatePlayerHealth(CGFloat(player.health))
             addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
             UIDevice.vibrate()
             if player.health <= 0 {

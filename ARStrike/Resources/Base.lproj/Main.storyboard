@@ -20,8 +20,8 @@
                             <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" sceneName="CameraSetup.scn" wantsMultisampling="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rnX-fn-tAQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xre-pD-3cS">
-                                <rect key="frame" x="40" y="60" width="295" height="32.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tracking Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xre-pD-3cS">
+                                <rect key="frame" x="40" y="120" width="295" height="32.5"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="25"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -33,26 +33,75 @@
                                     <constraint firstAttribute="width" constant="125" id="vcN-85-GMx"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dca-DL-XCV">
+                                <rect key="frame" x="15" y="30" width="66" height="26"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAL-yF-goQ">
+                                <rect key="frame" x="15" y="64" width="71" height="26"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3jX-D1-PZ7" customClass="GTProgressBar" customModule="ARStrike" customModuleProvider="target">
+                                <rect key="frame" x="260" y="35" width="100" height="25"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="nNe-PE-8XH"/>
+                                    <constraint firstAttribute="width" constant="100" id="tQg-HW-lZ5"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="displayLabel" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="barFillInset">
+                                        <real key="value" value="0.10000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="barBorderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="barFillColor">
+                                        <color key="value" red="0.38978589530000002" green="0.79792382930000005" blue="0.37502029990000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="progress">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Xre-pD-3cS" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" constant="40" id="85E-04-JOX"/>
-                            <constraint firstItem="Xre-pD-3cS" firstAttribute="top" secondItem="pFH-m9-fIB" secondAttribute="top" constant="40" id="D5d-wM-Y4g"/>
+                            <constraint firstItem="Xre-pD-3cS" firstAttribute="top" secondItem="pFH-m9-fIB" secondAttribute="top" constant="100" id="D5d-wM-Y4g"/>
+                            <constraint firstItem="aAL-yF-goQ" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" constant="15" id="Dhg-kh-RLq"/>
+                            <constraint firstItem="3jX-D1-PZ7" firstAttribute="top" secondItem="pFH-m9-fIB" secondAttribute="top" constant="15" id="FV0-zG-pQZ"/>
                             <constraint firstItem="pFH-m9-fIB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xre-pD-3cS" secondAttribute="trailing" constant="40" id="HPY-4q-3dO"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="top" secondItem="m8S-Nx-1T3" secondAttribute="top" id="JCr-9r-3lf"/>
                             <constraint firstItem="Xre-pD-3cS" firstAttribute="centerX" secondItem="m8S-Nx-1T3" secondAttribute="centerX" id="LPs-Ne-Wgv"/>
+                            <constraint firstItem="pFH-m9-fIB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dca-DL-XCV" secondAttribute="trailing" constant="15" id="LnI-xR-b8m"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" id="Tcy-Vp-pSG"/>
+                            <constraint firstItem="aAL-yF-goQ" firstAttribute="top" secondItem="Dca-DL-XCV" secondAttribute="bottom" constant="8" id="Ton-8p-g97"/>
+                            <constraint firstItem="Dca-DL-XCV" firstAttribute="top" secondItem="pFH-m9-fIB" secondAttribute="top" constant="10" id="WF1-N3-qhg"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="trailing" secondItem="pFH-m9-fIB" secondAttribute="trailing" id="YPt-Pr-aIa"/>
                             <constraint firstItem="kyr-ML-BiC" firstAttribute="centerY" secondItem="m8S-Nx-1T3" secondAttribute="centerY" id="ZYw-TG-nQK"/>
                             <constraint firstItem="kyr-ML-BiC" firstAttribute="centerX" secondItem="m8S-Nx-1T3" secondAttribute="centerX" id="eN7-Kj-3TO"/>
+                            <constraint firstItem="pFH-m9-fIB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aAL-yF-goQ" secondAttribute="trailing" constant="15" id="eev-Ne-1Lw"/>
+                            <constraint firstItem="pFH-m9-fIB" firstAttribute="trailing" secondItem="3jX-D1-PZ7" secondAttribute="trailing" constant="15" id="ovh-HE-9q7"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="bottom" secondItem="m8S-Nx-1T3" secondAttribute="bottom" id="t5s-Lg-fNy"/>
+                            <constraint firstItem="Dca-DL-XCV" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" constant="15" id="vXB-G2-0jh"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="pFH-m9-fIB"/>
                     </view>
                     <connections>
                         <outlet property="crosshair" destination="kyr-ML-BiC" id="sEk-2N-aVp"/>
+                        <outlet property="healthBar" destination="3jX-D1-PZ7" id="Sp5-bO-Zzh"/>
+                        <outlet property="levelLabel" destination="Dca-DL-XCV" id="evp-6A-vTU"/>
                         <outlet property="mappingStatusLabel" destination="Xre-pD-3cS" id="31v-2N-eV9"/>
                         <outlet property="sceneView" destination="rnX-fn-tAQ" id="7w8-Rw-433"/>
+                        <outlet property="scoreLabel" destination="aAL-yF-goQ" id="yaq-gu-1kW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>

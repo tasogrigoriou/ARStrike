@@ -14,8 +14,10 @@ import ARKit
 protocol GameViewable: class {
     var scnView: ARSCNView { get }
     var cameraTransform: CameraTransform { get }
+    func showGameUI()
+    func updateLevelLabel(_ level: Int)
     func updatePlayerScore(_ score: Float)
-    func updatePlayerHealth(_ health: Float)
+    func updatePlayerHealth(_ health: CGFloat)
     func disableWeapon()
     func enableWeapon()
 }
@@ -23,8 +25,12 @@ protocol GameViewable: class {
 class GameViewController: UIViewController {
     
     @IBOutlet weak var sceneView: ARSCNView!
+    
     @IBOutlet weak var mappingStatusLabel: UILabel!
     @IBOutlet weak var crosshair: UIImageView!
+    @IBOutlet weak var levelLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var healthBar: GTProgressBar!
     
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
@@ -57,8 +63,9 @@ class GameViewController: UIViewController {
         super.viewDidLoad()
         
         createGameManager()
-        
+
         setupGestureRecognizers()
+        hideGameUI()
         
         sceneView.delegate = self
         sceneView.session.delegate = self
@@ -82,7 +89,7 @@ class GameViewController: UIViewController {
         gameManager?.updateWeaponNodePosition()
     }
     
-    func setupGestureRecognizers() {
+    private func setupGestureRecognizers() {
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         
@@ -96,6 +103,12 @@ class GameViewController: UIViewController {
         
         sceneView.addGestureRecognizer(tapGestureRecognizer!)
         sceneView.addGestureRecognizer(longPressGestureRecognizer!)
+    }
+    
+    private func hideGameUI() {
+        levelLabel.alpha = 0
+        scoreLabel.alpha = 0
+        healthBar.alpha = 0
     }
     
     func configureView() {
@@ -167,7 +180,7 @@ class GameViewController: UIViewController {
     }
     
     private func createGameManager() {
-        gameManager = GameManager(sceneView: sceneView, view: self)
+       gameManager = GameManager(sceneView: sceneView, view: self)
     }
 }
 
@@ -186,12 +199,32 @@ extension GameViewController: GameViewable {
         return CameraTransform(position: SCNVector3Zero, direction: SCNVector3Zero)
     }
     
-    func updatePlayerHealth(_ health: Float) {
-        
+    func showGameUI() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.7) {
+                self.levelLabel.alpha = 1
+                self.scoreLabel.alpha = 1
+                self.healthBar.alpha = 1
+            }
+        }
+    }
+    
+    func updateLevelLabel(_ level: Int) {
+        DispatchQueue.main.async {
+            self.levelLabel.text = "Level: \(level)"
+        }
+    }
+    
+    func updatePlayerHealth(_ health: CGFloat) {
+        DispatchQueue.main.async {
+            self.healthBar.animateTo(progress: health / GameConstants.maxPlayerHealth)
+        }
     }
     
     func updatePlayerScore(_ score: Float) {
-        
+        DispatchQueue.main.async {
+            self.scoreLabel.text = "Score: \(Int(score))"
+        }
     }
     
     func disableWeapon() {
