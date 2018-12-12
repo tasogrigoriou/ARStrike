@@ -38,7 +38,7 @@ class GameManager: NSObject {
     
     private(set) var contactFinished = true
     
-    private let waitTimeBetweenLevels = TimeInterval(2.0)
+    private let waitTimeBetweenLevels = TimeInterval(1.2)
     
     private let points: Float
     private let damage: Float
@@ -108,30 +108,33 @@ class GameManager: NSObject {
         addWeaponNode()
         addPlayerNode()
         
-        setupLevel()
-        updateGameUI()
-        isInitialized = true
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.setupLevel()
+            DispatchQueue.main.async {
+                self.updateGameUI()
+                self.isInitialized = true
+            }
+        }
     }
     
     private func setupLevel() {
+        guard let planeNode = portal.node.childNode(withName: "plane", recursively: true) else { return }
         view?.disableWeapon()
         enemies = gameLevel.enemiesForLevel()
         var waitTime = 0.0
         for enemy in enemies {
             waitTime += 0.2
             if let enemyNode = enemy.node {
-                guard let planeNode = portal.node.childNode(withName: "plane", recursively: true) else { return }
                 enemyNode.worldPosition = planeNode.worldPosition + SCNVector3(0, 0, -0.05)
                 enemyNode.opacity = 0.75
-                let constraint = SCNBillboardConstraint()
-                enemyNode.constraints = [constraint]
+                enemyNode.constraints = [SCNBillboardConstraint()]
                 DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
                     self.scene.rootNode.addChildNode(enemyNode)
                     enemyNode.runAction(.fadeIn(duration: 0.5))
                 }
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + waitTimeBetweenLevels) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTimeBetweenLevels + waitTime) {
             self.view?.enableWeapon()
         }
     }
@@ -160,13 +163,21 @@ class GameManager: NSObject {
     }
     
     func advanceToNextLevel() {
-        isInitialized = false
         gameLevel.setLevel(gameLevel.getLevel().rawValue + 1)
         player.resetHealth()
         Enemy.resetIndexCounter()
-        setupLevel()
-        updateGameUI()
-        isInitialized = true
+        startLevel()
+    }
+    
+    private func startLevel() {
+        isInitialized = false
+        DispatchQueue.global(qos: .userInteractive).async {
+            self.setupLevel()
+            DispatchQueue.main.async {
+                self.updateGameUI()
+                self.isInitialized = true
+            }
+        }
     }
 
     func updatePortal(with hitTestResult: ARHitTestResult, camera: ARCamera) {
@@ -287,6 +298,7 @@ extension GameManager: SCNPhysicsContactDelegate {
             guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
             player.takeDamage(damage)
             view?.updatePlayerHealth(CGFloat(player.health))
+            view?.showDamageScreen()
             addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
             UIDevice.vibrate()
             if player.health <= 0 {

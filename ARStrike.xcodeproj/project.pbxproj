@@ -21,7 +21,6 @@
 		9D03639C21BFAA7600A02F41 /* Info3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D03638F21BFAA7600A02F41 /* Info3.plist */; };
 		9D03639E21C0A2ED00A02F41 /* GameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03639D21C0A2ED00A02F41 /* GameConstants.swift */; };
 		9D0363A021C0F5F700A02F41 /* AnimatedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03639F21C0F5F700A02F41 /* AnimatedLabel.swift */; };
-		9D0363A221C103CF00A02F41 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0363A121C103CF00A02F41 /* EndGameViewController.swift */; };
 		9D24E48421AE7B6500D96F9C /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24E48321AE7B6500D96F9C /* GameLevel.swift */; };
 		9D38742321BFA757008C3FF9 /* LinearProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38741F21BFA757008C3FF9 /* LinearProgressBar.swift */; };
 		9D38742421BFA757008C3FF9 /* Clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38742121BFA757008C3FF9 /* Clamp.swift */; };
@@ -29,7 +28,6 @@
 		9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D9482196AB9600716EA5 /* AppDelegate.swift */; };
 		9D41D94B2196AB9600716EA5 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D41D94A2196AB9600716EA5 /* art.scnassets */; };
 		9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D94C2196AB9600716EA5 /* GameViewController.swift */; };
-		9D41D9502196AB9600716EA5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D41D94E2196AB9600716EA5 /* Main.storyboard */; };
 		9D41D9522196AB9800716EA5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D41D9512196AB9800716EA5 /* Assets.xcassets */; };
 		9D41D9552196AB9800716EA5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9D41D9532196AB9800716EA5 /* LaunchScreen.storyboard */; };
 		9D41D9602196AB9800716EA5 /* ARStrikeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D41D95F2196AB9800716EA5 /* ARStrikeTests.swift */; };
@@ -47,6 +45,10 @@
 		9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */; };
 		9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D048D21A1421D00DBD433 /* Bullet.swift */; };
 		9DE3E76121C105A800085B50 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DE3E76021C105A800085B50 /* GameViewController.xib */; };
+		9DE3E76421C108EA00085B50 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E76221C108EA00085B50 /* EndGameViewController.swift */; };
+		9DE3E76521C108EA00085B50 /* EndGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DE3E76321C108EA00085B50 /* EndGameViewController.xib */; };
+		9DE3E76821C10BDD00085B50 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE3E76621C10BDD00085B50 /* SplashViewController.swift */; };
+		9DE3E76921C10BDD00085B50 /* SplashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DE3E76721C10BDD00085B50 /* SplashViewController.xib */; };
 		9DE4D59921B9F5BF00656985 /* UIDevice+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */; };
 		9DFB8AAD21B0CD8D009E1EA4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */; };
 		9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */; };
@@ -85,7 +87,6 @@
 		9D03638F21BFAA7600A02F41 /* Info3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info3.plist; sourceTree = "<group>"; };
 		9D03639D21C0A2ED00A02F41 /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		9D03639F21C0F5F700A02F41 /* AnimatedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLabel.swift; sourceTree = "<group>"; };
-		9D0363A121C103CF00A02F41 /* EndGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EndGameViewController.swift; path = ARStrike/Utilities/EndGameViewController.swift; sourceTree = SOURCE_ROOT; };
 		9D24E48321AE7B6500D96F9C /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		9D38741F21BFA757008C3FF9 /* LinearProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearProgressBar.swift; sourceTree = "<group>"; };
 		9D38742021BFA757008C3FF9 /* LinearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearProgressBar.h; sourceTree = "<group>"; };
@@ -95,7 +96,6 @@
 		9D41D9482196AB9600716EA5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D41D94A2196AB9600716EA5 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		9D41D94C2196AB9600716EA5 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
-		9D41D94F2196AB9600716EA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9D41D9512196AB9800716EA5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D41D9542196AB9800716EA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9D41D9562196AB9800716EA5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -118,6 +118,10 @@
 		9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = portal_gun_fire.wav; sourceTree = "<group>"; };
 		9D7D048D21A1421D00DBD433 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9DE3E76021C105A800085B50 /* GameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
+		9DE3E76221C108EA00085B50 /* EndGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EndGameViewController.swift; path = "ARStrike/Main View Controller/EndGameViewController.swift"; sourceTree = SOURCE_ROOT; };
+		9DE3E76321C108EA00085B50 /* EndGameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EndGameViewController.xib; path = "ARStrike/Main View Controller/EndGameViewController.xib"; sourceTree = SOURCE_ROOT; };
+		9DE3E76621C10BDD00085B50 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SplashViewController.swift; path = "ARStrike/Main View Controller/SplashViewController.swift"; sourceTree = SOURCE_ROOT; };
+		9DE3E76721C10BDD00085B50 /* SplashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SplashViewController.xib; path = "ARStrike/Main View Controller/SplashViewController.xib"; sourceTree = SOURCE_ROOT; };
 		9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Helpers.swift"; sourceTree = "<group>"; };
 		9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Materials.swift"; sourceTree = "<group>"; };
@@ -236,8 +240,6 @@
 		9D41D9472196AB9600716EA5 /* ARStrike */ = {
 			isa = PBXGroup;
 			children = (
-				9D03637F21BFAA7600A02F41 /* GTProgressBar */,
-				9D38741E21BFA757008C3FF9 /* LinearProgressBar */,
 				9D4AB238219B80D9009E558E /* Core */,
 				9D4AB237219B8092009E558E /* Resources */,
 				9D4AB234219B7F67009E558E /* Main View Controller */,
@@ -269,15 +271,10 @@
 		9D4AB231219B7F1D009E558E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				9D44C08C21A68E78003EA650 /* SCNVector3+Helpers.swift */,
-				9D44C08A21A686AC003EA650 /* SCNPhysicsBody+Helpers.swift */,
-				9D4AB2292199660B009E558E /* simd+Helpers.swift */,
-				9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */,
-				9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */,
-				9D44C08821A6771A003EA650 /* String+Helpers.swift */,
-				9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */,
-				9D03639D21C0A2ED00A02F41 /* GameConstants.swift */,
-				9D03639F21C0F5F700A02F41 /* AnimatedLabel.swift */,
+				9D03637F21BFAA7600A02F41 /* GTProgressBar */,
+				9D38741E21BFA757008C3FF9 /* LinearProgressBar */,
+				9DE3E76B21C1BE8A00085B50 /* AnimatedLabel */,
+				9DE3E76A21C1BE4500085B50 /* Helpers */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -305,7 +302,10 @@
 		9D4AB235219B7F74009E558E /* Supporting View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9D0363A121C103CF00A02F41 /* EndGameViewController.swift */,
+				9DE3E76621C10BDD00085B50 /* SplashViewController.swift */,
+				9DE3E76721C10BDD00085B50 /* SplashViewController.xib */,
+				9DE3E76221C108EA00085B50 /* EndGameViewController.swift */,
+				9DE3E76321C108EA00085B50 /* EndGameViewController.xib */,
 			);
 			path = "Supporting View Controllers";
 			sourceTree = "<group>";
@@ -313,6 +313,7 @@
 		9D4AB236219B7F9B009E558E /* Gameplay */ = {
 			isa = PBXGroup;
 			children = (
+				9DE3E76C21C1BEAA00085B50 /* Constants */,
 				9D24E48621AE9BCC00D96F9C /* Objects */,
 				9D24E48521AE9BB000D96F9C /* State */,
 				9D4AB232219B7F26009E558E /* Entities */,
@@ -325,7 +326,6 @@
 			children = (
 				9D7D048A21A0CADB00DBD433 /* Sounds */,
 				9D41D94A2196AB9600716EA5 /* art.scnassets */,
-				9D41D94E2196AB9600716EA5 /* Main.storyboard */,
 				9D41D9512196AB9800716EA5 /* Assets.xcassets */,
 				9D41D9532196AB9800716EA5 /* LaunchScreen.storyboard */,
 				9D41D9562196AB9800716EA5 /* Info.plist */,
@@ -347,6 +347,36 @@
 				9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		9DE3E76A21C1BE4500085B50 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9D44C08C21A68E78003EA650 /* SCNVector3+Helpers.swift */,
+				9D44C08A21A686AC003EA650 /* SCNPhysicsBody+Helpers.swift */,
+				9D4AB2292199660B009E558E /* simd+Helpers.swift */,
+				9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */,
+				9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */,
+				9D44C08821A6771A003EA650 /* String+Helpers.swift */,
+				9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9DE3E76B21C1BE8A00085B50 /* AnimatedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				9D03639F21C0F5F700A02F41 /* AnimatedLabel.swift */,
+			);
+			path = AnimatedLabel;
+			sourceTree = "<group>";
+		};
+		9DE3E76C21C1BEAA00085B50 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				9D03639D21C0A2ED00A02F41 /* GameConstants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -456,11 +486,12 @@
 				9D41D94B2196AB9600716EA5 /* art.scnassets in Resources */,
 				9D41D9552196AB9800716EA5 /* LaunchScreen.storyboard in Resources */,
 				9D03639C21BFAA7600A02F41 /* Info3.plist in Resources */,
+				9DE3E76921C10BDD00085B50 /* SplashViewController.xib in Resources */,
 				9D38742521BFA757008C3FF9 /* Info2.plist in Resources */,
 				9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */,
 				9DE3E76121C105A800085B50 /* GameViewController.xib in Resources */,
+				9DE3E76521C108EA00085B50 /* EndGameViewController.xib in Resources */,
 				9D41D9522196AB9800716EA5 /* Assets.xcassets in Resources */,
-				9D41D9502196AB9600716EA5 /* Main.storyboard in Resources */,
 				9D03639B21BFAA7600A02F41 /* .gitkeep in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -492,7 +523,7 @@
 				9D03639021BFAA7600A02F41 /* GTProgressBar.swift in Sources */,
 				9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */,
 				9D03639121BFAA7600A02F41 /* HorizontalLabelPositionFrameCalculator.swift in Sources */,
-				9D0363A221C103CF00A02F41 /* EndGameViewController.swift in Sources */,
+				9DE3E76421C108EA00085B50 /* EndGameViewController.swift in Sources */,
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
 				9D03639A21BFAA7600A02F41 /* UILabelExtensions.swift in Sources */,
 				9D38742321BFA757008C3FF9 /* LinearProgressBar.swift in Sources */,
@@ -507,6 +538,7 @@
 				9D41D9812198289C00716EA5 /* Portal.swift in Sources */,
 				9D03639821BFAA7600A02F41 /* UIViewExtensions.swift in Sources */,
 				9D44C08921A6771B003EA650 /* String+Helpers.swift in Sources */,
+				9DE3E76821C10BDD00085B50 /* SplashViewController.swift in Sources */,
 				9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */,
 				9D24E48421AE7B6500D96F9C /* GameLevel.swift in Sources */,
 				9D03639221BFAA7600A02F41 /* FrameCalculator.swift in Sources */,
@@ -553,14 +585,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9D41D94E2196AB9600716EA5 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9D41D94F2196AB9600716EA5 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9D41D9532196AB9800716EA5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

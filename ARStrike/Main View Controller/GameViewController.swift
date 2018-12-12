@@ -20,6 +20,7 @@ protocol GameViewable: class {
     func updatePlayerHealth(_ health: CGFloat)
     func disableWeapon()
     func enableWeapon()
+    func showDamageScreen()
     func showEndGame(score: Float, level: Int)
 }
 
@@ -61,7 +62,18 @@ class GameViewController: UIViewController {
     }
     
     var timer: Timer?
-
+    
+    private var isShowingDamageScreen = false
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        definesPresentationContext = true
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -246,7 +258,19 @@ extension GameViewController: GameViewable {
     
     func showEndGame(score: Float, level: Int) {
         DispatchQueue.main.async {
-//            let endGameVC =
+            self.present(EndGameViewController(), animated: true)
+        }
+    }
+    
+    func showDamageScreen() {
+        if isShowingDamageScreen { return }
+        isShowingDamageScreen = true
+        DispatchQueue.main.async {
+            self.present(SplashViewController(), animated: true) { [weak self] in
+                self?.dismiss(animated: true) {
+                    self?.isShowingDamageScreen = false
+                }
+            }
         }
     }
 }
