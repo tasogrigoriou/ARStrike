@@ -20,6 +20,7 @@ protocol GameViewable: class {
     func updatePlayerHealth(_ health: CGFloat)
     func disableWeapon()
     func enableWeapon()
+    func showEndGame(score: Float, level: Int)
 }
 
 class GameViewController: UIViewController {
@@ -31,6 +32,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var animatedScoreLabel: AnimatedLabel!
+    @IBOutlet weak var healthImageView: UIImageView!
     @IBOutlet weak var healthBar: GTProgressBar!
     
     var tapGestureRecognizer: UITapGestureRecognizer?
@@ -111,6 +113,7 @@ class GameViewController: UIViewController {
         scoreLabel.alpha = 0
         animatedScoreLabel.alpha = 0
         healthBar.alpha = 0
+        healthImageView.alpha = 0
         animatedScoreLabel.countingMethod = .linear
     }
     
@@ -174,8 +177,6 @@ class GameViewController: UIViewController {
     func setupLevel() {
         guard let gameManager = gameManager, sessionState == .setupLevel else { return }
         
-        crosshair.alpha = 0.75
-        
         GameClock.setLevelStartTime()
         gameManager.start()
         
@@ -204,11 +205,13 @@ extension GameViewController: GameViewable {
     
     func showGameUI() {
         DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.7) {
+            UIView.animate(withDuration: 0.6) {
+                self.crosshair.alpha = 0.75
                 self.levelLabel.alpha = 1
                 self.scoreLabel.alpha = 1
                 self.animatedScoreLabel.alpha = 1
-                self.healthBar.alpha = 1
+                self.healthImageView.alpha = 0.9
+                self.healthBar.alpha = 0.85
             }
         }
     }
@@ -221,7 +224,7 @@ extension GameViewController: GameViewable {
     
     func updatePlayerHealth(_ health: CGFloat) {
         DispatchQueue.main.async {
-            self.healthBar.animateTo(progress: health / GameConstants.maxPlayerHealth)
+            self.healthBar.animateTo(progress: health / CGFloat(GameConstants.maxPlayerHealth))
         }
     }
     
@@ -239,6 +242,12 @@ extension GameViewController: GameViewable {
     func enableWeapon() {
         tapGestureRecognizer?.isEnabled = true
         longPressGestureRecognizer?.isEnabled = true
+    }
+    
+    func showEndGame(score: Float, level: Int) {
+        DispatchQueue.main.async {
+//            let endGameVC =
+        }
     }
 }
 

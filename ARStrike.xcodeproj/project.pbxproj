@@ -21,6 +21,7 @@
 		9D03639C21BFAA7600A02F41 /* Info3.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D03638F21BFAA7600A02F41 /* Info3.plist */; };
 		9D03639E21C0A2ED00A02F41 /* GameConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03639D21C0A2ED00A02F41 /* GameConstants.swift */; };
 		9D0363A021C0F5F700A02F41 /* AnimatedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D03639F21C0F5F700A02F41 /* AnimatedLabel.swift */; };
+		9D0363A221C103CF00A02F41 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0363A121C103CF00A02F41 /* EndGameViewController.swift */; };
 		9D24E48421AE7B6500D96F9C /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D24E48321AE7B6500D96F9C /* GameLevel.swift */; };
 		9D38742321BFA757008C3FF9 /* LinearProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38741F21BFA757008C3FF9 /* LinearProgressBar.swift */; };
 		9D38742421BFA757008C3FF9 /* Clamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D38742121BFA757008C3FF9 /* Clamp.swift */; };
@@ -45,6 +46,7 @@
 		9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */; };
 		9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */; };
 		9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D048D21A1421D00DBD433 /* Bullet.swift */; };
+		9DE3E76121C105A800085B50 /* GameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9DE3E76021C105A800085B50 /* GameViewController.xib */; };
 		9DE4D59921B9F5BF00656985 /* UIDevice+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */; };
 		9DFB8AAD21B0CD8D009E1EA4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */; };
 		9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */; };
@@ -83,6 +85,7 @@
 		9D03638F21BFAA7600A02F41 /* Info3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info3.plist; sourceTree = "<group>"; };
 		9D03639D21C0A2ED00A02F41 /* GameConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConstants.swift; sourceTree = "<group>"; };
 		9D03639F21C0F5F700A02F41 /* AnimatedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedLabel.swift; sourceTree = "<group>"; };
+		9D0363A121C103CF00A02F41 /* EndGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EndGameViewController.swift; path = ARStrike/Utilities/EndGameViewController.swift; sourceTree = SOURCE_ROOT; };
 		9D24E48321AE7B6500D96F9C /* GameLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
 		9D38741F21BFA757008C3FF9 /* LinearProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearProgressBar.swift; sourceTree = "<group>"; };
 		9D38742021BFA757008C3FF9 /* LinearProgressBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearProgressBar.h; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Helpers.swift"; sourceTree = "<group>"; };
 		9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = portal_gun_fire.wav; sourceTree = "<group>"; };
 		9D7D048D21A1421D00DBD433 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		9DE3E76021C105A800085B50 /* GameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameViewController.xib; sourceTree = "<group>"; };
 		9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Helpers.swift"; sourceTree = "<group>"; };
 		9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Materials.swift"; sourceTree = "<group>"; };
@@ -293,6 +297,7 @@
 			isa = PBXGroup;
 			children = (
 				9D41D94C2196AB9600716EA5 /* GameViewController.swift */,
+				9DE3E76021C105A800085B50 /* GameViewController.xib */,
 			);
 			path = "Main View Controller";
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 		9D4AB235219B7F74009E558E /* Supporting View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9D0363A121C103CF00A02F41 /* EndGameViewController.swift */,
 			);
 			path = "Supporting View Controllers";
 			sourceTree = "<group>";
@@ -452,6 +458,7 @@
 				9D03639C21BFAA7600A02F41 /* Info3.plist in Resources */,
 				9D38742521BFA757008C3FF9 /* Info2.plist in Resources */,
 				9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */,
+				9DE3E76121C105A800085B50 /* GameViewController.xib in Resources */,
 				9D41D9522196AB9800716EA5 /* Assets.xcassets in Resources */,
 				9D41D9502196AB9600716EA5 /* Main.storyboard in Resources */,
 				9D03639B21BFAA7600A02F41 /* .gitkeep in Resources */,
@@ -485,6 +492,7 @@
 				9D03639021BFAA7600A02F41 /* GTProgressBar.swift in Sources */,
 				9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */,
 				9D03639121BFAA7600A02F41 /* HorizontalLabelPositionFrameCalculator.swift in Sources */,
+				9D0363A221C103CF00A02F41 /* EndGameViewController.swift in Sources */,
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
 				9D03639A21BFAA7600A02F41 /* UILabelExtensions.swift in Sources */,
 				9D38742321BFA757008C3FF9 /* LinearProgressBar.swift in Sources */,

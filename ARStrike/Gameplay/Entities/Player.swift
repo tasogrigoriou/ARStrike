@@ -17,7 +17,7 @@ class Player: SCNNode {
     let node = SCNNode.loadSCNAsset(modelFileName: "player") ?? SCNNode()
     var anchor: ARAnchor?
     
-    var health: Float = 200
+    var health: Float = GameConstants.maxPlayerHealth
     var score: Float = 0
     
     override init() {
@@ -49,7 +49,7 @@ class Player: SCNNode {
     }
     
     func resetHealth() {
-        health = 200
+        health = GameConstants.maxPlayerHealth
     }
     
     func resetScore() {

@@ -10,5 +10,7 @@ import Foundation
 import UIKit
 
 struct GameConstants {
-    static let maxPlayerHealth: CGFloat = 200
+    static let maxPlayerHealth: Float = 200
+    static let defaultEnemyDamage: Float = 25
+    static let defaultPoints: Float = 75
 }

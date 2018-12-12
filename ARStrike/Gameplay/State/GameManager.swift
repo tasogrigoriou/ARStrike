@@ -34,19 +34,20 @@ class GameManager: NSObject {
     
     private(set) var isInitialized = false
     private(set) var isAnimating = false
+    private(set) var isGameOver = false
     
     private(set) var contactFinished = true
     
     private let waitTimeBetweenLevels = TimeInterval(2.0)
     
-    private let defaultPoints: Float
-    private let defaultDamage: Float
+    private let points: Float
+    private let damage: Float
     
     init(sceneView: ARSCNView, view: GameViewable? = nil) {
         self.scene = sceneView.scene
         self.view = view
-        self.defaultPoints = 75 * Float(gameLevel.getLevel().rawValue)
-        self.defaultDamage = 25
+        self.points = GameConstants.defaultPoints * Float(gameLevel.getLevel().rawValue)
+        self.damage = GameConstants.defaultEnemyDamage
         super.init()
         self.scene.physicsWorld.contactDelegate = self
     }
@@ -148,7 +149,7 @@ class GameManager: NSObject {
             advanceToNextLevel()
             return
         }
-        if gameLevel.startAttackingPlayer {
+        if gameLevel.startAttackingPlayer, !isGameOver {
             attackPlayer()
         }
         
@@ -259,6 +260,8 @@ class GameManager: NSObject {
     }
     
     private func endGame() {
+        isGameOver = true
+        view?.showEndGame(score: player.score, level: gameLevel.getLevel().rawValue)
         print("Game over! Your score is \(player.score) and reached level \(gameLevel.getLevel().rawValue)")
     }
 }
@@ -273,7 +276,7 @@ extension GameManager: SCNPhysicsContactDelegate {
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
             let bulletNode = nodeAMask == CollisionMask.bullet.rawValue ? contact.nodeA : contact.nodeB
             guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) else { return }
-            player.addToScore(defaultPoints)
+            player.addToScore(points)
             view?.updatePlayerScore(player.score)
             addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
             bulletNode.removeFromParentNode()
@@ -282,7 +285,7 @@ extension GameManager: SCNPhysicsContactDelegate {
             if !contactFinished { return }
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
             guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
-            player.takeDamage(defaultDamage)
+            player.takeDamage(damage)
             view?.updatePlayerHealth(CGFloat(player.health))
             addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
             UIDevice.vibrate()

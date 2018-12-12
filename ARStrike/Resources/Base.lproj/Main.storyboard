@@ -34,19 +34,32 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dca-DL-XCV">
-                                <rect key="frame" x="15" y="30" width="66" height="26"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
+                                <rect key="frame" x="15" y="30" width="94" height="27"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="21"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAL-yF-goQ">
-                                <rect key="frame" x="15" y="64" width="53" height="26"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
+                                <rect key="frame" x="15" y="65" width="69" height="27"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="21"/>
                                 <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBc-yE-VEd" customClass="AnimatedLabel" customModule="ARStrike" customModuleProvider="target">
+                                <rect key="frame" x="92" y="65" width="14" height="27"/>
+                                <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="21"/>
+                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="health" translatesAutoresizingMaskIntoConstraints="NO" id="2eG-0N-hXQ">
+                                <rect key="frame" x="15" y="617" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Fz8-gk-ms4"/>
+                                    <constraint firstAttribute="width" constant="25" id="I6a-zw-YvH"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3jX-D1-PZ7" customClass="GTProgressBar" customModule="ARStrike" customModuleProvider="target">
-                                <rect key="frame" x="260" y="35" width="100" height="25"/>
+                                <rect key="frame" x="55" y="617" width="100" height="25"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="nNe-PE-8XH"/>
@@ -58,7 +71,7 @@
                                         <real key="value" value="0.10000000000000001"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="barBorderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="value" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="barFillColor">
                                         <color key="value" red="0.38978589530000002" green="0.79792382930000005" blue="0.37502029990000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -69,35 +82,35 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="4"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="barBorderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBc-yE-VEd" customClass="AnimatedLabel" customModule="ARStrike" customModuleProvider="target">
-                                <rect key="frame" x="76" y="64" width="13" height="26"/>
-                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
-                                <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="3jX-D1-PZ7" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" constant="55" id="7iu-LJ-eIZ"/>
                             <constraint firstItem="Xre-pD-3cS" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" constant="40" id="85E-04-JOX"/>
+                            <constraint firstItem="pFH-m9-fIB" firstAttribute="bottom" secondItem="3jX-D1-PZ7" secondAttribute="bottom" constant="25" id="9N5-We-Hvv"/>
                             <constraint firstItem="Xre-pD-3cS" firstAttribute="top" secondItem="pFH-m9-fIB" secondAttribute="top" constant="100" id="D5d-wM-Y4g"/>
                             <constraint firstItem="aAL-yF-goQ" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" constant="15" id="Dhg-kh-RLq"/>
-                            <constraint firstItem="3jX-D1-PZ7" firstAttribute="top" secondItem="pFH-m9-fIB" secondAttribute="top" constant="15" id="FV0-zG-pQZ"/>
                             <constraint firstItem="pFH-m9-fIB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Xre-pD-3cS" secondAttribute="trailing" constant="40" id="HPY-4q-3dO"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="top" secondItem="m8S-Nx-1T3" secondAttribute="top" id="JCr-9r-3lf"/>
                             <constraint firstItem="Xre-pD-3cS" firstAttribute="centerX" secondItem="m8S-Nx-1T3" secondAttribute="centerX" id="LPs-Ne-Wgv"/>
                             <constraint firstItem="pFH-m9-fIB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Dca-DL-XCV" secondAttribute="trailing" constant="15" id="LnI-xR-b8m"/>
+                            <constraint firstItem="3jX-D1-PZ7" firstAttribute="leading" secondItem="2eG-0N-hXQ" secondAttribute="trailing" constant="15" id="Mr4-qn-Qlh"/>
                             <constraint firstItem="YBc-yE-VEd" firstAttribute="top" secondItem="Dca-DL-XCV" secondAttribute="bottom" constant="8" id="Otc-6O-qhI"/>
                             <constraint firstItem="YBc-yE-VEd" firstAttribute="firstBaseline" secondItem="aAL-yF-goQ" secondAttribute="firstBaseline" id="Pa7-Tu-gEi"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" id="Tcy-Vp-pSG"/>
                             <constraint firstItem="aAL-yF-goQ" firstAttribute="top" secondItem="Dca-DL-XCV" secondAttribute="bottom" constant="8" id="Ton-8p-g97"/>
                             <constraint firstItem="Dca-DL-XCV" firstAttribute="top" secondItem="pFH-m9-fIB" secondAttribute="top" constant="10" id="WF1-N3-qhg"/>
+                            <constraint firstItem="pFH-m9-fIB" firstAttribute="bottom" secondItem="2eG-0N-hXQ" secondAttribute="bottom" constant="25" id="XIG-Zv-rJN"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="trailing" secondItem="pFH-m9-fIB" secondAttribute="trailing" id="YPt-Pr-aIa"/>
                             <constraint firstItem="kyr-ML-BiC" firstAttribute="centerY" secondItem="m8S-Nx-1T3" secondAttribute="centerY" id="ZYw-TG-nQK"/>
                             <constraint firstItem="kyr-ML-BiC" firstAttribute="centerX" secondItem="m8S-Nx-1T3" secondAttribute="centerX" id="eN7-Kj-3TO"/>
                             <constraint firstItem="YBc-yE-VEd" firstAttribute="leading" secondItem="aAL-yF-goQ" secondAttribute="trailing" constant="8" id="eRL-b4-Voy"/>
-                            <constraint firstItem="pFH-m9-fIB" firstAttribute="trailing" secondItem="3jX-D1-PZ7" secondAttribute="trailing" constant="15" id="ovh-HE-9q7"/>
+                            <constraint firstItem="2eG-0N-hXQ" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" constant="15" id="mau-T0-H2f"/>
                             <constraint firstItem="rnX-fn-tAQ" firstAttribute="bottom" secondItem="m8S-Nx-1T3" secondAttribute="bottom" id="t5s-Lg-fNy"/>
                             <constraint firstItem="Dca-DL-XCV" firstAttribute="leading" secondItem="pFH-m9-fIB" secondAttribute="leading" constant="15" id="vXB-G2-0jh"/>
                             <constraint firstItem="pFH-m9-fIB" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="YBc-yE-VEd" secondAttribute="trailing" constant="15" id="wDB-ns-JGt"/>
@@ -108,6 +121,7 @@
                         <outlet property="animatedScoreLabel" destination="YBc-yE-VEd" id="TI5-XQ-Ty4"/>
                         <outlet property="crosshair" destination="kyr-ML-BiC" id="sEk-2N-aVp"/>
                         <outlet property="healthBar" destination="3jX-D1-PZ7" id="Sp5-bO-Zzh"/>
+                        <outlet property="healthImageView" destination="2eG-0N-hXQ" id="0F4-V4-zqL"/>
                         <outlet property="levelLabel" destination="Dca-DL-XCV" id="evp-6A-vTU"/>
                         <outlet property="mappingStatusLabel" destination="Xre-pD-3cS" id="31v-2N-eV9"/>
                         <outlet property="sceneView" destination="rnX-fn-tAQ" id="7w8-Rw-433"/>
@@ -121,5 +135,6 @@
     </scenes>
     <resources>
         <image name="crosshairIMG" width="1200" height="1200"/>
+        <image name="health" width="180" height="180"/>
     </resources>
 </document>
