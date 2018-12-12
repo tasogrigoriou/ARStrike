@@ -30,6 +30,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var crosshair: UIImageView!
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var animatedScoreLabel: AnimatedLabel!
     @IBOutlet weak var healthBar: GTProgressBar!
     
     var tapGestureRecognizer: UITapGestureRecognizer?
@@ -108,7 +109,9 @@ class GameViewController: UIViewController {
     private func hideGameUI() {
         levelLabel.alpha = 0
         scoreLabel.alpha = 0
+        animatedScoreLabel.alpha = 0
         healthBar.alpha = 0
+        animatedScoreLabel.countingMethod = .linear
     }
     
     func configureView() {
@@ -204,6 +207,7 @@ extension GameViewController: GameViewable {
             UIView.animate(withDuration: 0.7) {
                 self.levelLabel.alpha = 1
                 self.scoreLabel.alpha = 1
+                self.animatedScoreLabel.alpha = 1
                 self.healthBar.alpha = 1
             }
         }
@@ -223,7 +227,7 @@ extension GameViewController: GameViewable {
     
     func updatePlayerScore(_ score: Float) {
         DispatchQueue.main.async {
-            self.scoreLabel.text = "Score: \(Int(score))"
+            self.animatedScoreLabel.countFromCurrent(to: score, duration: 1.5)
         }
     }
     

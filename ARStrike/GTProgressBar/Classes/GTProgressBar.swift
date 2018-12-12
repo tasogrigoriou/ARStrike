@@ -301,15 +301,13 @@ public class GTProgressBar: UIView {
         let newProgress = min(max(progress,0), 1)
         let fillViewFrame = createFrameCalculator().fillViewFrameFor(progress: newProgress)
         let frameChange: () -> () = {
-            DispatchQueue.main.async {
-                self.fillView.frame = fillViewFrame
-                self._progress = newProgress
-                self.updateProgressLabelText()
-            }
+            self.fillView.frame = fillViewFrame
+            self._progress = newProgress
+            self.updateProgressLabelText()
         }
         
         if #available(iOS 10.0, *) {
-            let animation = UIViewPropertyAnimator(duration: 1.0, curve: .easeInOut, animations: frameChange)
+            let animation = UIViewPropertyAnimator(duration: 0.7, curve: .easeInOut, animations: frameChange)
             animation.addCompletion { (position) in
                 completion?()
             }
@@ -321,7 +319,7 @@ public class GTProgressBar: UIView {
             let animationOptions = UIViewAnimationOptions.curveEaseInOut
             #endif
 
-            UIView.animate(withDuration: 1.0,
+            UIView.animate(withDuration: 0.7,
                 delay: 0,
                 options: [animationOptions],
                 animations: frameChange,

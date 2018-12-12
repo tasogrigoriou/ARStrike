@@ -72,7 +72,6 @@ class GameManager: NSObject {
     func addPlayerNode() {
         if let cameraNode = view?.scnView.pointOfView {
             cameraNode.addChildNode(player.node)
-            player.node.position = SCNVector3(0, 0, -2)
         }
     }
     
