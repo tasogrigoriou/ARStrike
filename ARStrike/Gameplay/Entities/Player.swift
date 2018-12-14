@@ -40,6 +40,20 @@ class Player: SCNNode {
         node.position = SCNVector3Zero
     }
     
+    func getHighestScore() -> Float {
+        return UserDefaults.standard.value(forKey: "highest_score") as? Float ?? score
+    }
+    
+    func setHighScore() {
+        guard let highestScore = UserDefaults.standard.value(forKey: "highest_score") as? Float else {
+            UserDefaults.standard.set(score, forKey: "highest_score")
+            return
+        }
+        if score > highestScore {
+            UserDefaults.standard.set(score, forKey: "highest_score")
+        }
+    }
+    
     func takeDamage(_ damage: Float) {
         health -= damage
     }

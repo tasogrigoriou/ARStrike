@@ -52,14 +52,18 @@ class GameLevel {
                 UserDefaults.standard.set(self.level.rawValue, forKey: "furthest_game_level")
                 return
             }
-            if furthestLevel < newlevel.rawValue {
+            if newlevel.rawValue > furthestLevel {
                 UserDefaults.standard.set(self.level.rawValue, forKey: "furthest_game_level")
             }
         }
     }
     
-    func getLevel() -> Level {
-        return level
+    func getLevel() -> Int {
+        return level.rawValue
+    }
+    
+    func getHighestLevel() -> Int {
+        return UserDefaults.standard.value(forKey: "furthest_game_level") as? Int ?? level.rawValue
     }
     
     func enemiesForLevel() -> Set<Enemy> {
@@ -86,6 +90,10 @@ class GameLevel {
         return enemies
     }
     
+    func pointsForLevel() -> Float {
+        return GameConstants.defaultPoints * pow(Float(level.rawValue), 2)
+    }
+    
     var startAttackingPlayer: Bool {
         let now = CFAbsoluteTimeGetCurrent()
         if now - lastAttackTime > cooldownPeriodForLevel {
@@ -93,15 +101,5 @@ class GameLevel {
             return true
         }
         return false
-    }
-}
-
-extension Int {
-    func isMultipleOfThree() -> Bool {
-        return self % 3 == 0
-    }
-    
-    func isMultipleOfSix() -> Bool {
-        return self % 6 == 0
     }
 }

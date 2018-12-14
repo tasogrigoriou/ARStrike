@@ -33,20 +33,19 @@ class GameManager: NSObject {
     weak var view: GameViewable?
     
     private(set) var isInitialized = false
+    private(set) var enemyReadyToAttack = false
     private(set) var isAnimating = false
     private(set) var isGameOver = false
     
     private(set) var contactFinished = true
     
-    private let waitTimeBetweenLevels = TimeInterval(1.2)
-    
-    private let points: Float
+    private var points: Float
     private let damage: Float
     
     init(sceneView: ARSCNView, view: GameViewable? = nil) {
         self.scene = sceneView.scene
         self.view = view
-        self.points = GameConstants.defaultPoints * Float(gameLevel.getLevel().rawValue)
+        self.points = gameLevel.pointsForLevel()
         self.damage = GameConstants.defaultEnemyDamage
         super.init()
         self.scene.physicsWorld.contactDelegate = self
@@ -81,6 +80,8 @@ class GameManager: NSObject {
         addWeaponAnchor()
         addPortalAnchor()
     }
+    
+    
 
     private func addPortalAnchor() {
         if portal.anchor == nil {
@@ -112,6 +113,7 @@ class GameManager: NSObject {
             self.setupLevel()
             DispatchQueue.main.async {
                 self.updateGameUI()
+                self.view?.showLevel(self.gameLevel.getLevel())
                 self.isInitialized = true
             }
         }
@@ -120,6 +122,8 @@ class GameManager: NSObject {
     private func setupLevel() {
         guard let planeNode = portal.node.childNode(withName: "plane", recursively: true) else { return }
         view?.disableWeapon()
+        enemyReadyToAttack = false
+        points = gameLevel.pointsForLevel()
         enemies = gameLevel.enemiesForLevel()
         var waitTime = 0.0
         for enemy in enemies {
@@ -134,14 +138,16 @@ class GameManager: NSObject {
                 }
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + waitTimeBetweenLevels + waitTime) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
             self.view?.enableWeapon()
+            self.view?.showStartLevel()
+            self.enemyReadyToAttack = true
         }
     }
     
     private func updateGameUI() {
-        view?.updateLevelLabel(gameLevel.getLevel().rawValue)
-        view?.updatePlayerHealth(CGFloat(player.health))
+        view?.updateLevelLabel(gameLevel.getLevel())
+        view?.updatePlayerHealth(player.health)
         view?.updatePlayerScore(player.score)
         view?.showGameUI()
     }
@@ -152,7 +158,7 @@ class GameManager: NSObject {
             advanceToNextLevel()
             return
         }
-        if gameLevel.startAttackingPlayer, !isGameOver {
+        if gameLevel.startAttackingPlayer && enemyReadyToAttack && !isGameOver {
             attackPlayer()
         }
         
@@ -163,8 +169,21 @@ class GameManager: NSObject {
     }
     
     func advanceToNextLevel() {
-        gameLevel.setLevel(gameLevel.getLevel().rawValue + 1)
+        gameLevel.setLevel(gameLevel.getLevel() + 1)
+        Enemy.resetIndexCounter()
+        startLevel()
+    }
+    
+    func resumeGame() {
+        isGameOver = false
+        
+        removeAllEnemyNodes()
+        
         player.resetHealth()
+        player.resetScore()
+        view?.updatePlayerHealth(player.health)
+        view?.updatePlayerScore(player.score)
+        
         Enemy.resetIndexCounter()
         startLevel()
     }
@@ -175,6 +194,7 @@ class GameManager: NSObject {
             self.setupLevel()
             DispatchQueue.main.async {
                 self.updateGameUI()
+                self.view?.showLevel(self.gameLevel.getLevel())
                 self.isInitialized = true
             }
         }
@@ -263,6 +283,16 @@ class GameManager: NSObject {
         }
     }
     
+    private func removeAllEnemyNodes() {
+        scene.rootNode.enumerateChildNodes { node, _ in
+            GameConstants.enemyNodeNames.forEach {
+                if node.name == $0 {
+                    node.removeFromParentNode()
+                }
+            }
+        }
+    }
+    
     private func removeEnemy(enemyNode: SCNNode) {
         if let enemyToRemove = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) {
             enemies.remove(enemyToRemove)
@@ -272,8 +302,11 @@ class GameManager: NSObject {
     
     private func endGame() {
         isGameOver = true
-        view?.showEndGame(score: player.score, level: gameLevel.getLevel().rawValue)
-        print("Game over! Your score is \(player.score) and reached level \(gameLevel.getLevel().rawValue)")
+        player.setHighScore()
+        view?.showEndGame(with: EndGameData(level: gameLevel.getLevel(),
+                                            highestLevel: gameLevel.getHighestLevel(),
+                                            score: player.score,
+                                            highestScore: player.getHighestScore()))
     }
 }
 
@@ -293,17 +326,25 @@ extension GameManager: SCNPhysicsContactDelegate {
             bulletNode.removeFromParentNode()
         }
         else if masks == CollisionMask([.player, .enemy]).rawValue {
-            if !contactFinished { return }
+            if !contactFinished || isGameOver { return }
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
             guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
             player.takeDamage(damage)
-            view?.updatePlayerHealth(CGFloat(player.health))
-            view?.showDamageScreen()
+            view?.updatePlayerHealth(player.health)
             addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
             UIDevice.vibrate()
             if player.health <= 0 {
                 endGame()
+            } else {
+                view?.showDamageScreen()
             }
         }
     }
+}
+
+struct EndGameData {
+    let level: Int
+    let highestLevel: Int
+    let score: Float
+    let highestScore: Float
 }

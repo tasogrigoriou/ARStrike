@@ -14,14 +14,19 @@ import ARKit
 protocol GameViewable: class {
     var scnView: ARSCNView { get }
     var cameraTransform: CameraTransform { get }
-    func showGameUI()
+    
     func updateLevelLabel(_ level: Int)
     func updatePlayerScore(_ score: Float)
-    func updatePlayerHealth(_ health: CGFloat)
-    func disableWeapon()
+    func updatePlayerHealth(_ health: Float)
+    
     func enableWeapon()
+    func disableWeapon()
+    
+    func showGameUI()
+    func showLevel(_ level: Int)
+    func showStartLevel()
     func showDamageScreen()
-    func showEndGame(score: Float, level: Int)
+    func showEndGame(with data: EndGameData)
 }
 
 class GameViewController: UIViewController {
@@ -33,8 +38,12 @@ class GameViewController: UIViewController {
     @IBOutlet weak var levelLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var animatedScoreLabel: AnimatedLabel!
+    
     @IBOutlet weak var healthImageView: UIImageView!
     @IBOutlet weak var healthBar: GTProgressBar!
+    
+    @IBOutlet weak var startLabel: UILabel!
+    @IBOutlet weak var damageView: UIView!
     
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
@@ -63,7 +72,7 @@ class GameViewController: UIViewController {
     
     var timer: Timer?
     
-    private var isShowingDamageScreen = false
+    private(set) var isShowingDamageScreen = false
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -218,7 +227,6 @@ extension GameViewController: GameViewable {
     func showGameUI() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.6) {
-                self.crosshair.alpha = 0.75
                 self.levelLabel.alpha = 1
                 self.scoreLabel.alpha = 1
                 self.animatedScoreLabel.alpha = 1
@@ -234,9 +242,9 @@ extension GameViewController: GameViewable {
         }
     }
     
-    func updatePlayerHealth(_ health: CGFloat) {
+    func updatePlayerHealth(_ health: Float) {
         DispatchQueue.main.async {
-            self.healthBar.animateTo(progress: health / CGFloat(GameConstants.maxPlayerHealth))
+            self.healthBar.animateTo(progress: CGFloat(health) / CGFloat(GameConstants.maxPlayerHealth))
         }
     }
     
@@ -247,31 +255,81 @@ extension GameViewController: GameViewable {
     }
     
     func disableWeapon() {
-        tapGestureRecognizer?.isEnabled = false
-        longPressGestureRecognizer?.isEnabled = false
+        DispatchQueue.main.async {
+            self.tapGestureRecognizer?.isEnabled = false
+            self.longPressGestureRecognizer?.isEnabled = false
+        }
     }
     
     func enableWeapon() {
-        tapGestureRecognizer?.isEnabled = true
-        longPressGestureRecognizer?.isEnabled = true
+        DispatchQueue.main.async {
+            self.tapGestureRecognizer?.isEnabled = true
+            self.longPressGestureRecognizer?.isEnabled = true
+        }
     }
     
-    func showEndGame(score: Float, level: Int) {
+    func showLevel(_ level: Int) {
         DispatchQueue.main.async {
-            self.present(EndGameViewController(), animated: true)
+            self.crosshair.alpha = 0
+            self.startLabel.text = "Level \(level)"
+            UIView.animate(withDuration: 0.8, delay: 0, options: .transitionCrossDissolve, animations: {
+                self.startLabel.alpha = 1
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.8, delay: 0, options: .transitionCrossDissolve, animations: {
+                    self.startLabel.alpha = 0
+                }, completion: { _ in
+                    
+                })
+            })
+        }
+    }
+    
+    func showStartLevel() {
+        DispatchQueue.main.async {
+            self.startLabel.text = "Start!"
+            UIView.animate(withDuration: 0.7, delay: 0, options: .transitionCrossDissolve, animations: {
+                self.startLabel.alpha = 1
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.7, delay: 0, options: .transitionCrossDissolve, animations: {
+                    self.startLabel.alpha = 0
+                    self.crosshair.alpha = 0.75
+                }, completion: { _ in
+                    
+                })
+            })
+        }
+    }
+    
+    func showEndGame(with data: EndGameData) {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5) {
+                self.crosshair.alpha = 0
+            }
+            self.present(EndGameViewController(endGameData: data, delegate: self), animated: true)
         }
     }
     
     func showDamageScreen() {
         if isShowingDamageScreen { return }
         isShowingDamageScreen = true
+        
         DispatchQueue.main.async {
-            self.present(SplashViewController(), animated: true) { [weak self] in
-                self?.dismiss(animated: true) {
-                    self?.isShowingDamageScreen = false
-                }
-            }
+            UIView.animate(withDuration: 0.5, delay: 0, options: .transitionCrossDissolve, animations: {
+                self.damageView.alpha = 1
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.5, delay: 0, options: .transitionCrossDissolve, animations: {
+                    self.damageView.alpha = 0
+                }, completion: { _ in
+                    self.isShowingDamageScreen = false
+                })
+            })
         }
+    }
+}
+
+extension GameViewController: EndGameDelegate {
+    func resumeGame() {
+        gameManager?.resumeGame()
     }
 }
 

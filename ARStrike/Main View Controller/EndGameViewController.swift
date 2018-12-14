@@ -8,9 +8,20 @@
 
 import UIKit
 
+protocol EndGameDelegate: class {
+    func resumeGame()
+}
+
 class EndGameViewController: UIViewController {
     
-    init() {
+    @IBOutlet weak var endGameLabel: UILabel!
+    
+    let endGameData: EndGameData
+    weak var delegate: EndGameDelegate?
+    
+    init(endGameData: EndGameData, delegate: EndGameDelegate?) {
+        self.endGameData = endGameData
+        self.delegate = delegate
         super.init(nibName: nil, bundle: nil)
         modalPresentationStyle = .overFullScreen
         modalTransitionStyle = .crossDissolve
@@ -22,5 +33,16 @@ class EndGameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+    }
+    
+    @IBAction func continueButtonPressed(_ sender: Any) {
+        dismiss(animated: true) {
+            self.delegate?.resumeGame()
+        }
+    }
+    
+    private func setupUI() {
+        endGameLabel.text = ("Game over! \nHighest level: \(endGameData.highestLevel) \nHighest score: \(Int(endGameData.highestScore))")
     }
 }

@@ -8,17 +8,24 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="calligraphr-regular.ttf">
+            <string>Calligraphr-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="ARStrike" customModuleProvider="target">
             <connections>
                 <outlet property="animatedScoreLabel" destination="ZUe-rk-Pd2" id="2L2-Vz-RVH"/>
                 <outlet property="crosshair" destination="T0c-1o-ja6" id="B02-Nr-0xx"/>
+                <outlet property="damageView" destination="nUZ-x6-hPV" id="v9i-2U-okR"/>
                 <outlet property="healthBar" destination="K8W-b3-QsR" id="zkw-5S-a1g"/>
                 <outlet property="healthImageView" destination="qRd-7w-eIC" id="bIO-FT-bzH"/>
                 <outlet property="levelLabel" destination="BAk-TU-0Ir" id="Sqs-ut-Ihc"/>
                 <outlet property="mappingStatusLabel" destination="TKz-PG-oJ3" id="Xel-4Z-omG"/>
                 <outlet property="sceneView" destination="89C-xm-uon" id="mH9-xQ-qz9"/>
                 <outlet property="scoreLabel" destination="J5l-9J-lJX" id="AQT-7G-3eK"/>
+                <outlet property="startLabel" destination="Lfm-Vx-8DB" id="7n7-i8-4xY"/>
                 <outlet property="view" destination="Q2F-hY-sod" id="EdE-2a-0sE"/>
             </connections>
         </placeholder>
@@ -31,8 +38,8 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                 </arscnView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tracking Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKz-PG-oJ3">
-                    <rect key="frame" x="40" y="120" width="295" height="32.5"/>
-                    <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="25"/>
+                    <rect key="frame" x="40" y="120" width="295" height="32"/>
+                    <fontDescription key="fontDescription" name="Calligraphr-Regular" family="Calligraphr" pointSize="33"/>
                     <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -58,6 +65,12 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUe-rk-Pd2" customClass="AnimatedLabel" customModule="ARStrike" customModuleProvider="target">
                     <rect key="frame" x="92" y="65" width="14" height="27"/>
                     <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="21"/>
+                    <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfm-Vx-8DB" userLabel="Start Label">
+                    <rect key="frame" x="129" y="315.5" width="117" height="36.5"/>
+                    <fontDescription key="fontDescription" name="Calligraphr-Regular" family="Calligraphr" pointSize="38"/>
                     <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -97,13 +110,21 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nUZ-x6-hPV">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.0093617555430000002" alpha="0.1787778253" colorSpace="custom" customColorSpace="sRGB"/>
+                    <viewLayoutGuide key="safeArea" id="Ufg-WE-JKN"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="T0c-1o-ja6" firstAttribute="centerY" secondItem="Q2F-hY-sod" secondAttribute="centerY" id="2rQ-e0-EsA"/>
                 <constraint firstItem="Jzq-79-NVG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="TKz-PG-oJ3" secondAttribute="trailing" constant="40" id="5e0-ZJ-heN"/>
+                <constraint firstItem="Lfm-Vx-8DB" firstAttribute="centerX" secondItem="Q2F-hY-sod" secondAttribute="centerX" id="D2k-ef-YpI"/>
                 <constraint firstItem="89C-xm-uon" firstAttribute="bottom" secondItem="Q2F-hY-sod" secondAttribute="bottom" id="DHL-5g-cfE"/>
                 <constraint firstItem="K8W-b3-QsR" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" constant="55" id="Ene-TV-3QU"/>
+                <constraint firstItem="nUZ-x6-hPV" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" id="FCl-dn-Xe6"/>
+                <constraint firstItem="nUZ-x6-hPV" firstAttribute="bottom" secondItem="Jzq-79-NVG" secondAttribute="bottom" id="L0X-js-Opa"/>
                 <constraint firstItem="TKz-PG-oJ3" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" constant="40" id="LNB-Mi-Po3"/>
                 <constraint firstItem="T0c-1o-ja6" firstAttribute="centerX" secondItem="Q2F-hY-sod" secondAttribute="centerX" id="M8S-kc-svd"/>
                 <constraint firstItem="Jzq-79-NVG" firstAttribute="bottom" secondItem="qRd-7w-eIC" secondAttribute="bottom" constant="25" id="MfF-0l-YCC"/>
@@ -117,15 +138,19 @@
                 <constraint firstItem="ZUe-rk-Pd2" firstAttribute="top" secondItem="BAk-TU-0Ir" secondAttribute="bottom" constant="8" id="axP-XM-h36"/>
                 <constraint firstItem="89C-xm-uon" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" id="fir-xT-kMm"/>
                 <constraint firstItem="ZUe-rk-Pd2" firstAttribute="leading" secondItem="J5l-9J-lJX" secondAttribute="trailing" constant="8" id="gkY-IT-V5Q"/>
+                <constraint firstItem="nUZ-x6-hPV" firstAttribute="trailing" secondItem="Jzq-79-NVG" secondAttribute="trailing" id="gob-bX-WcA"/>
                 <constraint firstItem="J5l-9J-lJX" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" constant="15" id="hPO-DH-JV0"/>
                 <constraint firstItem="89C-xm-uon" firstAttribute="trailing" secondItem="Jzq-79-NVG" secondAttribute="trailing" id="hbi-tG-gKs"/>
                 <constraint firstItem="ZUe-rk-Pd2" firstAttribute="firstBaseline" secondItem="J5l-9J-lJX" secondAttribute="firstBaseline" id="hsG-l0-97v"/>
+                <constraint firstItem="Lfm-Vx-8DB" firstAttribute="centerY" secondItem="Q2F-hY-sod" secondAttribute="centerY" id="lQ1-mK-GV0"/>
                 <constraint firstItem="Jzq-79-NVG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZUe-rk-Pd2" secondAttribute="trailing" constant="15" id="ozX-DS-hFi"/>
+                <constraint firstItem="nUZ-x6-hPV" firstAttribute="top" secondItem="Q2F-hY-sod" secondAttribute="top" id="sJV-XK-I30"/>
                 <constraint firstItem="qRd-7w-eIC" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" constant="15" id="tWi-5x-43c"/>
                 <constraint firstItem="BAk-TU-0Ir" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" constant="15" id="yDq-cL-sOF"/>
                 <constraint firstItem="TKz-PG-oJ3" firstAttribute="centerX" secondItem="Q2F-hY-sod" secondAttribute="centerX" id="yfg-Oz-vTF"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Jzq-79-NVG"/>
+            <point key="canvasLocation" x="53.600000000000001" y="48.125937031484263"/>
         </view>
     </objects>
     <resources>

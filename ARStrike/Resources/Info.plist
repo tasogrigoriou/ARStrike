@@ -43,5 +43,12 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>get_schwifty.tff</string>
+		<string>calligraphr-regular.tff</string>
+		<string>rick_and_morty.tff</string>
+		<string>adult_swim.tff</string>
+	</array>
 </dict>
 </plist>
