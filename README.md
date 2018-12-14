@@ -8,9 +8,8 @@ This is the final project made for San Francisco State University course CSC 690
 
 1. Place a portal in real-world space using ARKit tracking detection by moving your device around until you feel satistifed with its translation in the world.
 2. Player is then spawned with Rick's Ray Gun in first-person perspective.
-3. Level one is loaded and enemies spawn out of portal with random movement.
-4. Once all enemies are defeated, the player moves to the next level where enemies are spawned and objective becomes more difficult.
-5. Every 3rd level (Level 3, Level 6, etc) there is a boss (Pickle Rick, Cornvelious, Senhor Poopy, etc) that you must defeat to move forward.
+3. Level one is loaded and enemies spawn out of portal with random movement. Enemies periodically attack the player.
+4. Once all enemies are defeated, the player moves on to the next level where more enemies are spawned, with increasing difficulty.
 
 ## Proposal
 
