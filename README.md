@@ -35,16 +35,17 @@ Must-have features for the app to function properly and be of appropriate scope.
 - [x] Collision detection with player and enemy (damage drawn) [*2-3 hours*]
 - [x] Eliminate enemies / explosion animation when bullet collision occurs [*2-3 hours*]
 - [x] Add gravity to enemies when eliminated (to fall down) [*2-3 hours*]
+- [x] Add UI for player health bar, player score, current level [*4-5 hours*]
 
 #### In Progress:
-- [ ] Add UI for player health bar, player score, current level [*4-5 hours*]
-- [ ] Add theme music [*3-4 hours*]
-- [ ] Add special effects when weapon fires, bullets hit enemies, etc [*5-6 hours*]
 
 ### Nice-To-Have Features
 
 Nice to have features that may be implemented if time permits
 
+- [ ] Add Gameplay Mode (normal, sitting) which constraints enemy motion ever further [*3-4 hours*]
+- [ ] Add theme music [*3-4 hours*]
+- [ ] Add special effects when weapon fires, bullets hit enemies, etc [*5-6 hours*]
 - [ ] Add animations to enemies while they move [*4-5 hours*]
 - [ ] Add boss enemy every 3rd level (level 3, 6, etc) [*7-8 hours*]
 - [ ] Add global high score and level reached from all players across the world [*9-10 hours*]
