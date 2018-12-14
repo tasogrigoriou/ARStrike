@@ -81,8 +81,6 @@ class GameManager: NSObject {
         addPortalAnchor()
     }
     
-    
-
     private func addPortalAnchor() {
         if portal.anchor == nil {
             portal.anchor = ARAnchor(name: Portal.name, transform: portal.node.simdTransform)

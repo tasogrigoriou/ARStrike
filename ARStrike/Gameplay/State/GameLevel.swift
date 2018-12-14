@@ -21,6 +21,11 @@ enum Level: Int {
     case ten
 }
 
+enum GameplayMode {
+    case normal
+    case sitting
+}
+
 struct EnemyComponents {
     let name: String // name of enemy scn file
     let count: Int // number of enemies for a particular level
