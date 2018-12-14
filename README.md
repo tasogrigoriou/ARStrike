@@ -42,7 +42,7 @@ Must-have features for the app to function properly and be of appropriate scope.
 
 Nice to have features that may be implemented if time permits
 
-- [ ] Add Gameplay Mode (normal, sitting) which constraints enemy motion ever further [*3-4 hours*]
+- [ ] Add Gameplay Mode (normal, sitting) which constraints enemy motion to be in front of player [*3-4 hours*]
 - [ ] Add theme music [*3-4 hours*]
 - [ ] Add special effects when weapon fires, bullets hit enemies, etc [*5-6 hours*]
 - [ ] Add animations to enemies while they move [*4-5 hours*]
