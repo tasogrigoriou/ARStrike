@@ -11,7 +11,7 @@ import UIKit
 
 struct GameConstants {
     static let maxPlayerHealth: Float = 200
-    static let defaultEnemyDamage: Float = 205
+    static let defaultEnemyDamage: Float = 25
     static let defaultPoints: Float = 75
     
     static let enemyNodeNames: [String] = [

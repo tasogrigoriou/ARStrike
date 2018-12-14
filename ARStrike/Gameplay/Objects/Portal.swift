@@ -16,7 +16,7 @@ class Portal: SCNNode {
     let node = SCNNode.loadSCNAsset(modelFileName: "rick_and_morty_portal") ?? SCNNode()
     var anchor: ARAnchor?
 
-    static let minimumScale: Float = 0.5
+    static let minimumScale: Float = 1.0
     static let maximumScale: Float = 1.0
     var preferredSize: CGSize = CGSize(width: 0.5, height: 0.5)
     var aspectRatio: Float { return Float(preferredSize.height / preferredSize.width) }
