@@ -310,6 +310,7 @@ class GameManager: NSObject {
 
 extension GameManager: SCNPhysicsContactDelegate {
     func physicsWorld(_ world: SCNPhysicsWorld, didBegin contact: SCNPhysicsContact) {
+        if isGameOver { return }
         guard let nodeAMask = contact.nodeA.physicsBody?.categoryBitMask,
             let nodeBMask = contact.nodeB.physicsBody?.categoryBitMask else { return }
         let masks = nodeAMask | nodeBMask
@@ -324,7 +325,7 @@ extension GameManager: SCNPhysicsContactDelegate {
             bulletNode.removeFromParentNode()
         }
         else if masks == CollisionMask([.player, .enemy]).rawValue {
-            if !contactFinished || isGameOver { return }
+            if !contactFinished { return }
             let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
             guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
             player.takeDamage(damage)

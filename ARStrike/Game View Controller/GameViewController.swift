@@ -135,7 +135,6 @@ class GameViewController: UIViewController {
         animatedScoreLabel.alpha = 0
         healthBar.alpha = 0
         healthImageView.alpha = 0
-        animatedScoreLabel.countingMethod = .linear
     }
     
     func configureView() {
@@ -155,6 +154,8 @@ class GameViewController: UIViewController {
 //        sceneView.debugOptions = debugOptions
 
 //        sceneView.showsStatistics = true
+        
+        animatedScoreLabel.countingMethod = .linear
     }
     
     func configureARSession() {

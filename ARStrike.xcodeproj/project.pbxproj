@@ -250,7 +250,7 @@
 			children = (
 				9D4AB238219B80D9009E558E /* Core */,
 				9D4AB237219B8092009E558E /* Resources */,
-				9D4AB234219B7F67009E558E /* Main View Controller */,
+				9D4AB234219B7F67009E558E /* Game View Controller */,
 				9D4AB235219B7F74009E558E /* Supporting View Controllers */,
 				9D4AB236219B7F9B009E558E /* Gameplay */,
 				9D4AB231219B7F1D009E558E /* Utilities */,
@@ -299,13 +299,13 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
-		9D4AB234219B7F67009E558E /* Main View Controller */ = {
+		9D4AB234219B7F67009E558E /* Game View Controller */ = {
 			isa = PBXGroup;
 			children = (
 				9D41D94C2196AB9600716EA5 /* GameViewController.swift */,
 				9DE3E76021C105A800085B50 /* GameViewController.xib */,
 			);
-			path = "Main View Controller";
+			path = "Game View Controller";
 			sourceTree = "<group>";
 		};
 		9D4AB235219B7F74009E558E /* Supporting View Controllers */ = {

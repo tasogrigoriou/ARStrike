@@ -43,6 +43,6 @@ class EndGameViewController: UIViewController {
     }
     
     private func setupUI() {
-        endGameLabel.text = ("Game over! \nHighest level: \(endGameData.highestLevel) \nHighest score: \(Int(endGameData.highestScore))")
+        endGameLabel.text = "Game over! \nHighest level: \(endGameData.highestLevel) \nHighest score: \(Int(endGameData.highestScore))"
     }
 }

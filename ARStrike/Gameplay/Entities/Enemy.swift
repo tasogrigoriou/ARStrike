@@ -109,9 +109,13 @@ class Enemy: SCNNode {
         let randomPosition: SCNVector3
         switch GameSettings.gameplayMode {
         case .normal:
-            randomPosition = offsetPosition + SCNVector3(CGFloat.random(in: -2...2), CGFloat.random(in: -1...1), CGFloat.random(in: -2...2))
+            randomPosition = offsetPosition + SCNVector3(CGFloat.random(in: -2...2),
+                                                         CGFloat.random(in: -1...1),
+                                                         CGFloat.random(in: -2...2))
         case .sitting:
-            randomPosition = offsetPosition + SCNVector3(CGFloat.random(in: -2...2), CGFloat.random(in: -1...1), CGFloat.random(in: -2...0))
+            randomPosition = offsetPosition + SCNVector3(CGFloat.random(in: -2...2),
+                                                         CGFloat.random(in: -1...1),
+                                                         CGFloat.random(in: -2...0))
         }
         
         node.runAction(.move(to: randomPosition, duration: duration))
