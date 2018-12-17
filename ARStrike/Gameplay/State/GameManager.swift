@@ -162,7 +162,7 @@ class GameManager: NSObject {
         
         player.update(deltaTime: timeDelta)
         for enemy in enemies {
-            enemy.update(deltaTime: timeDelta)
+            enemy.update(deltaTime: timeDelta, offsetPosition: view?.cameraTransform.position ?? SCNVector3Zero)
         }
     }
     

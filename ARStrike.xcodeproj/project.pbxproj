@@ -55,6 +55,7 @@
 		9DE4D59921B9F5BF00656985 /* UIDevice+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */; };
 		9DFB8AAD21B0CD8D009E1EA4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */; };
 		9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */; };
+		9F36A8D721C74B4600754F74 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F36A8D621C74B4600754F74 /* GameSettings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Helpers.swift"; sourceTree = "<group>"; };
 		9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Materials.swift"; sourceTree = "<group>"; };
+		9F36A8D621C74B4600754F74 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -392,6 +394,7 @@
 			isa = PBXGroup;
 			children = (
 				9D03639D21C0A2ED00A02F41 /* GameConstants.swift */,
+				9F36A8D621C74B4600754F74 /* GameSettings.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -567,6 +570,7 @@
 				9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */,
 				9D0363A021C0F5F700A02F41 /* AnimatedLabel.swift in Sources */,
 				9DFB8AAD21B0CD8D009E1EA4 /* Player.swift in Sources */,
+				9F36A8D721C74B4600754F74 /* GameSettings.swift in Sources */,
 				9D03639321BFAA7600A02F41 /* GTProgressBarLabelPosition.swift in Sources */,
 				9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */,
 				9D03639E21C0A2ED00A02F41 /* GameConstants.swift in Sources */,

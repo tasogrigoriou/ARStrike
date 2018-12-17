@@ -22,7 +22,7 @@ class Enemy: SCNNode {
     
     var isAttackingPlayer: Bool = false
     var lastTimePositionChanged: CFAbsoluteTime = 0
-    
+        
     static var indexCounter = 0
     var index = 0
     static func resetIndexCounter() {
@@ -93,21 +93,31 @@ class Enemy: SCNNode {
         return image
     }
     
-    func update(deltaTime seconds: TimeInterval) {
+    func update(deltaTime seconds: TimeInterval, offsetPosition: SCNVector3) {
         let now = CFAbsoluteTimeGetCurrent()
         if !isAttackingPlayer {
             if lastTimePositionChanged == 0 || now - lastTimePositionChanged >= duration {
                 lastTimePositionChanged = now
-                moveToNewRandomPosition()
+                moveToNewRandomPosition(with: offsetPosition)
             }
         }
     }
     
-    private func moveToNewRandomPosition() {
+    private func moveToNewRandomPosition(with offsetPosition: SCNVector3) {
         guard let node = node else { return }
-        let randomPosition = SCNVector3(CGFloat.random(in: -2...2), CGFloat.random(in: -1...1), CGFloat.random(in: -2...2))
-//        let randomPosition = SCNVector3(CGFloat.random(in: -1...1), CGFloat.random(in: -1...1), CGFloat.random(in: -1...1))
+        
+        let randomPosition: SCNVector3
+        switch GameSettings.gameplayMode {
+        case .normal:
+            randomPosition = offsetPosition + SCNVector3(CGFloat.random(in: -2...2), CGFloat.random(in: -1...1), CGFloat.random(in: -2...2))
+        case .sitting:
+            randomPosition = offsetPosition + SCNVector3(CGFloat.random(in: -2...2), CGFloat.random(in: -1...1), CGFloat.random(in: -2...0))
+        }
+        
         node.runAction(.move(to: randomPosition, duration: duration))
-//        node.look(at: randomPosition, up: node.worldUp, localFront: enemyLocalFront)
     }
+    
+    // ex: offsetPos = (6, 0, 0) random = (-2, -1, -2), randomPos = (4, -1, -2)
+    // ex: offsetPos = (-6, 0, 0) random = (-2, -1, -2), randomPos = (-8, -1, -2)
+
 }
