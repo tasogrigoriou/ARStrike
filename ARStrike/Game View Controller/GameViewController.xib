@@ -38,13 +38,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                 </arscnView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tracking Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKz-PG-oJ3">
-                    <rect key="frame" x="40" y="120.00000000000001" width="334" height="31.666666666666671"/>
+                    <rect key="frame" x="40" y="170" width="334" height="31.666666666666657"/>
                     <fontDescription key="fontDescription" name="Calligraphr-Regular" family="Calligraphr" pointSize="33"/>
                     <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="crosshairIMG" translatesAutoresizingMaskIntoConstraints="NO" id="T0c-1o-ja6">
-                    <rect key="frame" x="144.66666666666663" y="305.66666666666669" width="124.99999999999997" height="125"/>
+                    <rect key="frame" x="144.66666666666666" y="305.66666666666669" width="124.99999999999997" height="125"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="125" id="c0B-HU-I5w"/>
                         <constraint firstAttribute="width" constant="125" id="nur-aC-r7R"/>
@@ -69,7 +69,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfm-Vx-8DB" userLabel="Start Label">
-                    <rect key="frame" x="148.66666666666663" y="349.66666666666669" width="116.99999999999997" height="36.666666666666686"/>
+                    <rect key="frame" x="148.66666666666666" y="349.66666666666669" width="116.99999999999997" height="36.666666666666686"/>
                     <fontDescription key="fontDescription" name="Calligraphr-Regular" family="Calligraphr" pointSize="38"/>
                     <color key="textColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <nil key="highlightedColor"/>
@@ -133,7 +133,7 @@
                 <constraint firstItem="J5l-9J-lJX" firstAttribute="top" secondItem="BAk-TU-0Ir" secondAttribute="bottom" constant="8" id="Q8B-4S-kR8"/>
                 <constraint firstItem="K8W-b3-QsR" firstAttribute="leading" secondItem="qRd-7w-eIC" secondAttribute="trailing" constant="15" id="Wej-5R-Djh"/>
                 <constraint firstItem="Jzq-79-NVG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BAk-TU-0Ir" secondAttribute="trailing" constant="15" id="WgD-bc-r1W"/>
-                <constraint firstItem="TKz-PG-oJ3" firstAttribute="top" secondItem="Jzq-79-NVG" secondAttribute="top" constant="100" id="Yc3-Q7-w4v"/>
+                <constraint firstItem="TKz-PG-oJ3" firstAttribute="top" secondItem="Jzq-79-NVG" secondAttribute="top" constant="150" id="Yc3-Q7-w4v"/>
                 <constraint firstItem="BAk-TU-0Ir" firstAttribute="top" secondItem="Jzq-79-NVG" secondAttribute="top" constant="10" id="YzS-me-dnG"/>
                 <constraint firstItem="ZUe-rk-Pd2" firstAttribute="top" secondItem="BAk-TU-0Ir" secondAttribute="bottom" constant="8" id="axP-XM-h36"/>
                 <constraint firstItem="89C-xm-uon" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" id="fir-xT-kMm"/>
