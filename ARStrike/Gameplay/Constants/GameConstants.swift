@@ -14,6 +14,9 @@ struct GameConstants {
     static let defaultEnemyDamage: Float = 25
     static let defaultPoints: Float = 75
     
+    static let maxXPosition: CGFloat = 4.0
+    static let maxZPosition: CGFloat = 4.0
+    
     static let enemyNodeNames: [String] = [
         "pickle_low",
         "picklerick",

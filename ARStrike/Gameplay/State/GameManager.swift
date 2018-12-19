@@ -157,13 +157,15 @@ class GameManager: NSObject {
             return
         }
         if gameLevel.startAttackingPlayer && enemyReadyToAttack && !isGameOver {
-            attackPlayer()
+//            attackPlayer()
         }
         
         player.update(deltaTime: timeDelta)
         for enemy in enemies {
             enemy.update(deltaTime: timeDelta, offsetPosition: view?.cameraTransform.position ?? SCNVector3Zero)
         }
+        
+        view?.updateGameMap(with: enemies)
     }
     
     func advanceToNextLevel() {

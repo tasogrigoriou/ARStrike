@@ -44,6 +44,8 @@
 		9D4AB242219BB0AB009E558E /* SCNNode+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */; };
 		9D5A825521C870C300EF3D83 /* EndGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9D5A825321C870C300EF3D83 /* EndGameViewController.xib */; };
 		9D5A825621C870C300EF3D83 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A825421C870C300EF3D83 /* EndGameViewController.swift */; };
+		9D5A825821C8BFCB00EF3D83 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A825721C8BFCB00EF3D83 /* Map.swift */; };
+		9D5A825A21C9DD7600EF3D83 /* CGFloat+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A825921C9DD7600EF3D83 /* CGFloat+Helpers.swift */; };
 		9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */; };
 		9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D048D21A1421D00DBD433 /* Bullet.swift */; };
 		9D9AD7D521C214D600D51EBD /* Int+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9AD7D421C214D600D51EBD /* Int+Helpers.swift */; };
@@ -121,6 +123,8 @@
 		9D4AB241219BB0AB009E558E /* SCNNode+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Helpers.swift"; sourceTree = "<group>"; };
 		9D5A825321C870C300EF3D83 /* EndGameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EndGameViewController.xib; sourceTree = "<group>"; };
 		9D5A825421C870C300EF3D83 /* EndGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameViewController.swift; sourceTree = "<group>"; };
+		9D5A825721C8BFCB00EF3D83 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		9D5A825921C9DD7600EF3D83 /* CGFloat+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Helpers.swift"; sourceTree = "<group>"; };
 		9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = portal_gun_fire.wav; sourceTree = "<group>"; };
 		9D7D048D21A1421D00DBD433 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9D9AD7D421C214D600D51EBD /* Int+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Helpers.swift"; sourceTree = "<group>"; };
@@ -210,6 +214,7 @@
 			isa = PBXGroup;
 			children = (
 				9D41D9802198289C00716EA5 /* Portal.swift */,
+				9D5A825721C8BFCB00EF3D83 /* Map.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -378,6 +383,7 @@
 				9D44C08821A6771A003EA650 /* String+Helpers.swift */,
 				9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */,
 				9D9AD7D421C214D600D51EBD /* Int+Helpers.swift */,
+				9D5A825921C9DD7600EF3D83 /* CGFloat+Helpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -550,6 +556,7 @@
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
 				9D9AD7D521C214D600D51EBD /* Int+Helpers.swift in Sources */,
 				9D03639A21BFAA7600A02F41 /* UILabelExtensions.swift in Sources */,
+				9D5A825821C8BFCB00EF3D83 /* Map.swift in Sources */,
 				9D38742321BFA757008C3FF9 /* LinearProgressBar.swift in Sources */,
 				9D41D9852198DE7C00716EA5 /* GameClock.swift in Sources */,
 				9D4AB22A2199660B009E558E /* simd+Helpers.swift in Sources */,
@@ -561,6 +568,7 @@
 				9D03639521BFAA7600A02F41 /* GTProgressBarDirection.swift in Sources */,
 				9D41D9812198289C00716EA5 /* Portal.swift in Sources */,
 				9D03639821BFAA7600A02F41 /* UIViewExtensions.swift in Sources */,
+				9D5A825A21C9DD7600EF3D83 /* CGFloat+Helpers.swift in Sources */,
 				9D44C08921A6771B003EA650 /* String+Helpers.swift in Sources */,
 				9D41D9492196AB9600716EA5 /* AppDelegate.swift in Sources */,
 				9D24E48421AE7B6500D96F9C /* GameLevel.swift in Sources */,

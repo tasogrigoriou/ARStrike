@@ -19,6 +19,7 @@
                 <outlet property="animatedScoreLabel" destination="ZUe-rk-Pd2" id="2L2-Vz-RVH"/>
                 <outlet property="crosshair" destination="T0c-1o-ja6" id="B02-Nr-0xx"/>
                 <outlet property="damageView" destination="nUZ-x6-hPV" id="v9i-2U-okR"/>
+                <outlet property="gameMap" destination="qMR-ix-ojF" id="l2O-Kd-L4q"/>
                 <outlet property="healthBar" destination="K8W-b3-QsR" id="zkw-5S-a1g"/>
                 <outlet property="healthImageView" destination="qRd-7w-eIC" id="bIO-FT-bzH"/>
                 <outlet property="levelLabel" destination="BAk-TU-0Ir" id="Sqs-ut-Ihc"/>
@@ -37,6 +38,14 @@
                 <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" sceneName="CameraSetup.scn" wantsMultisampling="YES" translatesAutoresizingMaskIntoConstraints="NO" id="89C-xm-uon">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                 </arscnView>
+                <view autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMR-ix-ojF" userLabel="Map" customClass="Map" customModule="ARStrike" customModuleProvider="target">
+                    <rect key="frame" x="279" y="30" width="120" height="120"/>
+                    <color key="backgroundColor" white="1" alpha="0.17725278253424659" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="120" id="fHY-nG-IhX"/>
+                        <constraint firstAttribute="width" constant="120" id="hLK-NI-vgx"/>
+                    </constraints>
+                </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tracking Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TKz-PG-oJ3">
                     <rect key="frame" x="40" y="170" width="334" height="31.666666666666657"/>
                     <fontDescription key="fontDescription" name="Calligraphr-Regular" family="Calligraphr" pointSize="33"/>
@@ -127,6 +136,7 @@
                 <constraint firstItem="nUZ-x6-hPV" firstAttribute="bottom" secondItem="Q2F-hY-sod" secondAttribute="bottom" id="L0X-js-Opa"/>
                 <constraint firstItem="TKz-PG-oJ3" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" constant="40" id="LNB-Mi-Po3"/>
                 <constraint firstItem="T0c-1o-ja6" firstAttribute="centerX" secondItem="Q2F-hY-sod" secondAttribute="centerX" id="M8S-kc-svd"/>
+                <constraint firstItem="Jzq-79-NVG" firstAttribute="trailing" secondItem="qMR-ix-ojF" secondAttribute="trailing" constant="15" id="MGU-rC-hGt"/>
                 <constraint firstItem="Jzq-79-NVG" firstAttribute="bottom" secondItem="qRd-7w-eIC" secondAttribute="bottom" constant="25" id="MfF-0l-YCC"/>
                 <constraint firstItem="89C-xm-uon" firstAttribute="top" secondItem="Q2F-hY-sod" secondAttribute="top" id="NeO-uJ-RDs"/>
                 <constraint firstItem="Jzq-79-NVG" firstAttribute="bottom" secondItem="K8W-b3-QsR" secondAttribute="bottom" constant="25" id="O87-5E-HTI"/>
@@ -141,6 +151,7 @@
                 <constraint firstItem="nUZ-x6-hPV" firstAttribute="trailing" secondItem="Q2F-hY-sod" secondAttribute="trailing" id="gob-bX-WcA"/>
                 <constraint firstItem="J5l-9J-lJX" firstAttribute="leading" secondItem="Jzq-79-NVG" secondAttribute="leading" constant="15" id="hPO-DH-JV0"/>
                 <constraint firstItem="89C-xm-uon" firstAttribute="trailing" secondItem="Jzq-79-NVG" secondAttribute="trailing" id="hbi-tG-gKs"/>
+                <constraint firstItem="qMR-ix-ojF" firstAttribute="top" secondItem="Jzq-79-NVG" secondAttribute="top" constant="10" id="hiJ-Un-g3q"/>
                 <constraint firstItem="ZUe-rk-Pd2" firstAttribute="firstBaseline" secondItem="J5l-9J-lJX" secondAttribute="firstBaseline" id="hsG-l0-97v"/>
                 <constraint firstItem="Lfm-Vx-8DB" firstAttribute="centerY" secondItem="Q2F-hY-sod" secondAttribute="centerY" id="lQ1-mK-GV0"/>
                 <constraint firstItem="Jzq-79-NVG" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZUe-rk-Pd2" secondAttribute="trailing" constant="15" id="ozX-DS-hFi"/>
