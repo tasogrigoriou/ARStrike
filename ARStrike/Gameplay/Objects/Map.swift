@@ -56,7 +56,7 @@ class Map: UIView {
             let xPos = (frame.size.width / 2) + (CGFloat(relPos.x) * ((frame.size.width / 2) / GameConstants.maxXPosition))
             let zPos = (frame.size.height / 2) + (CGFloat(relPos.z) * ((frame.size.height / 2) / GameConstants.maxZPosition))
             
-            // check if pos is out of bounds (w.r.t. superview)
+            // check if position of enemy is in bounds (w.r.t. superview)
             if (xPos > 0 + layer.borderWidth && xPos < frame.size.width - layer.borderWidth) &&
                 (zPos > 0 + layer.borderWidth && zPos < frame.size.height - layer.borderWidth) {
                 

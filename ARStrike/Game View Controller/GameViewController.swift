@@ -409,14 +409,6 @@ extension GameViewController: ARSessionDelegate {
     }
 }
 
-enum SessionState {
-    case initialSetup
-    case lookingForSurface
-    case placingPortal
-    case setupLevel
-    case gameInProgress
-}
-
 extension ARFrame.WorldMappingStatus: CustomStringConvertible {
     public var description: String {
         switch self {
@@ -428,6 +420,14 @@ extension ARFrame.WorldMappingStatus: CustomStringConvertible {
             return "Tap to place portal"
         }
     }
+}
+
+enum SessionState {
+    case initialSetup
+    case lookingForSurface
+    case placingPortal
+    case setupLevel
+    case gameInProgress
 }
 
 struct CameraTransform {
