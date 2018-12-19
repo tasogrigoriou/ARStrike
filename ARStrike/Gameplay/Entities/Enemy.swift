@@ -12,31 +12,31 @@ import GameplayKit
 
 class Enemy: SCNNode {
     static let name: String = NSStringFromClass(Enemy.self)
-    let fileName: String
     
     let node: SCNNode?
     
+    let fileName: String
     let duration: Double // time it takes for enemy to move to new random position
     var cooldownPeriod: TimeInterval // time it takes for an enemy to begin attacking the player
     let attackTime: Double // time it takes for an enemy to move from current position to player position and make contact
     
     var isAttackingPlayer: Bool = false
     var lastTimePositionChanged: CFAbsoluteTime = 0
-    
+        
     static var indexCounter = 0
     var index = 0
     static func resetIndexCounter() {
         indexCounter = 0
     }
     
-    init(modelFileName: String, duration: Double, cooldownPeriod: Double, attackTime: Double) {
+    init(components: EnemyComponents) {
         self.index = Enemy.indexCounter
         Enemy.indexCounter += 1
-        self.fileName = modelFileName
-        self.duration = duration
-        self.cooldownPeriod = cooldownPeriod
-        self.attackTime = attackTime
-        node = SCNNode.loadSCNAsset(modelFileName: modelFileName)
+        self.fileName = components.name
+        self.duration = components.duration
+        self.cooldownPeriod = components.cooldownPeriod
+        self.attackTime = components.attackTime
+        node = SCNNode.loadSCNAsset(modelFileName: components.name)
         node?.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         node?.physicsBody!.categoryBitMask = CollisionMask([.enemy]).rawValue
         node?.physicsBody!.collisionBitMask = CollisionMask([.bullet, .player]).rawValue
@@ -93,21 +93,43 @@ class Enemy: SCNNode {
         return image
     }
     
-    func update(deltaTime seconds: TimeInterval) {
+    func update(deltaTime seconds: TimeInterval, offsetPosition: SCNVector3) {
         let now = CFAbsoluteTimeGetCurrent()
         if !isAttackingPlayer {
             if lastTimePositionChanged == 0 || now - lastTimePositionChanged >= duration {
                 lastTimePositionChanged = now
-                moveToNewRandomPosition()
+                moveToNewRandomPosition(with: offsetPosition)
             }
         }
     }
     
-    private func moveToNewRandomPosition() {
+    private func moveToNewRandomPosition(with offsetPosition: SCNVector3) {
         guard let node = node else { return }
-        let randomPosition = SCNVector3(CGFloat.random(in: -2...2), CGFloat.random(in: -1...1), CGFloat.random(in: -2...2))
-//        let randomPosition = SCNVector3(CGFloat.random(in: -1...1), CGFloat.random(in: -1...1), CGFloat.random(in: -1...1))
+        
+        let randomPosition: SCNVector3
+        switch GameSettings.gameplayMode {
+        case .normal:
+            randomPosition = normalModeRandomVector + offsetPosition
+        case .sitting:
+            randomPosition = sittingModeRandomVector + offsetPosition
+        }
+        
         node.runAction(.move(to: randomPosition, duration: duration))
-//        node.look(at: randomPosition, up: node.worldUp, localFront: enemyLocalFront)
     }
+    
+    private var normalModeRandomVector: SCNVector3 {
+        return SCNVector3(CGFloat.random(in: -2...2),
+                          CGFloat.random(in: -1...1),
+                          CGFloat.random(in: -2...2))
+    }
+    
+    private var sittingModeRandomVector: SCNVector3 {
+        return SCNVector3(CGFloat.random(in: -2...2),
+                          CGFloat.random(in: -1...1),
+                          CGFloat.random(in: -2...0))
+    }
+    
+    // ex: offsetPos = (6, 0, 0) random = (-2, -1, -2), randomPos = (4, -1, -2)
+    // ex: offsetPos = (-6, 0, 0) random = (-2, -1, -2), randomPos = (-8, -1, -2)
+
 }

@@ -15,6 +15,7 @@ protocol GameViewable: class {
     var scnView: ARSCNView { get }
     var cameraTransform: CameraTransform { get }
     
+    func updateGameMap(with enemies: Set<Enemy>)
     func updateLevelLabel(_ level: Int)
     func updatePlayerScore(_ score: Float)
     func updatePlayerHealth(_ health: Float)
@@ -39,6 +40,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var animatedScoreLabel: AnimatedLabel!
     
+    @IBOutlet weak var gameMap: Map!
     @IBOutlet weak var healthImageView: UIImageView!
     @IBOutlet weak var healthBar: GTProgressBar!
     
@@ -91,6 +93,8 @@ class GameViewController: UIViewController {
         setupGestureRecognizers()
         hideGameUI()
         
+        gameMap.setup()
+        
         sceneView.delegate = self
         sceneView.session.delegate = self
         
@@ -135,7 +139,6 @@ class GameViewController: UIViewController {
         animatedScoreLabel.alpha = 0
         healthBar.alpha = 0
         healthImageView.alpha = 0
-        animatedScoreLabel.countingMethod = .linear
     }
     
     func configureView() {
@@ -155,6 +158,8 @@ class GameViewController: UIViewController {
 //        sceneView.debugOptions = debugOptions
 
 //        sceneView.showsStatistics = true
+        
+        animatedScoreLabel.countingMethod = .linear
     }
     
     func configureARSession() {
@@ -232,6 +237,15 @@ extension GameViewController: GameViewable {
                 self.animatedScoreLabel.alpha = 1
                 self.healthImageView.alpha = 0.9
                 self.healthBar.alpha = 0.85
+                self.gameMap.alpha = 1
+            }
+        }
+    }
+    
+    func updateGameMap(with enemies: Set<Enemy>) {
+        DispatchQueue.main.async {
+            if let cameraNode = self.sceneView.pointOfView {
+                self.gameMap.update(with: cameraNode, enemies: enemies)
             }
         }
     }
@@ -395,14 +409,6 @@ extension GameViewController: ARSessionDelegate {
     }
 }
 
-enum SessionState {
-    case initialSetup
-    case lookingForSurface
-    case placingPortal
-    case setupLevel
-    case gameInProgress
-}
-
 extension ARFrame.WorldMappingStatus: CustomStringConvertible {
     public var description: String {
         switch self {
@@ -414,6 +420,14 @@ extension ARFrame.WorldMappingStatus: CustomStringConvertible {
             return "Tap to place portal"
         }
     }
+}
+
+enum SessionState {
+    case initialSetup
+    case lookingForSurface
+    case placingPortal
+    case setupLevel
+    case gameInProgress
 }
 
 struct CameraTransform {

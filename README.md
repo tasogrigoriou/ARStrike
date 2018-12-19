@@ -8,8 +8,8 @@ This is the final project made for San Francisco State University course CSC 690
 
 1. Place a portal in real-world space using ARKit tracking detection by moving your device around until you feel satistifed with its translation in the world.
 2. Player is then spawned with Rick's Ray Gun in first-person perspective.
-3. Level one is loaded and enemies spawn out of portal with random movement. Enemies periodically attack the player.
-4. Once all enemies are defeated, the player moves on to the next level where more enemies are spawned, with increasing difficulty.
+3. Level one is loaded and enemies spawn out of portal with random movement. Player must shoot and kill enemies while enemies are periodically attacking the player.
+4. Once all enemies are defeated, the player moves on to the next level where more enemies are spawned with an increasing level of difficulty.
 
 ## Proposal
 
@@ -17,7 +17,6 @@ This is the final project made for San Francisco State University course CSC 690
 
 Must-have features for the app to function properly and be of appropriate scope.
 
-#### Completed:
 - [x] Add 3d obj model assets (portal, weapon, bullet, etc) and convert to scn format [*6 hours*]
 - [x] Place portal on screen [*4 hours*]
 - [x] Place weapon on screen (first person) with correct position and orientation [*3 hours*]
@@ -36,13 +35,12 @@ Must-have features for the app to function properly and be of appropriate scope.
 - [x] Add gravity to enemies when eliminated (to fall down) [*2-3 hours*]
 - [x] Add UI for player health bar, player score, current level [*4-5 hours*]
 
-#### In Progress:
-
 ### Nice-To-Have Features
 
 Nice to have features that may be implemented if time permits
 
-- [ ] Add Gameplay Mode (normal, sitting) which constraints enemy motion to be in front of player [*3-4 hours*]
+- [x] Add Gameplay Mode (normal, sitting) which constraints enemy motion to be in front of player [*3-4 hours*]
+- [x] Add Game Map to upper right corner of screen to show 2d map of enemies nearby [*9-10 hours*]
 - [ ] Add theme music [*3-4 hours*]
 - [ ] Add special effects when weapon fires, bullets hit enemies, etc [*5-6 hours*]
 - [ ] Add animations to enemies while they move [*4-5 hours*]
