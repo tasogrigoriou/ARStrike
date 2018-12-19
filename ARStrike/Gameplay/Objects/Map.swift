@@ -15,7 +15,6 @@ class Map: UIView {
     var enemyDots: [UIView] = []
     
     let dotSize: CGFloat = 4.0
-    let threshold: CGFloat = 20.0
     
     func setup() {
         addBorder()
@@ -35,11 +34,13 @@ class Map: UIView {
     }
     
     private func addPlayerDot() {
-        playerDot = UIView(frame: CGRect(x: frame.width / 2 - (dotSize),
-                                         y: frame.height / 2 - (dotSize),
+        playerDot = UIView(frame: CGRect(x: frame.width / 2 - (dotSize / 2),
+                                         y: frame.height / 2 - (dotSize / 2),
                                          width: dotSize,
                                          height: dotSize))
         playerDot.backgroundColor = UIColor(red: 0.59, green: 0.81, blue: 0.30, alpha: 0.95)
+        playerDot.center.x = frame.width / 2
+        playerDot.center.y = frame.height / 2
         playerDot.layer.cornerRadius = playerDot.frame.size.width / 2
         addSubview(playerDot)
     }
@@ -51,20 +52,18 @@ class Map: UIView {
         for enemy in enemies {
             guard let enemyNode = enemy.node else { continue }
             
-            print ("enemyNode.position = \(enemyNode.position)")
-            let relPos = enemyNode.convertPosition(enemyNode.position, to: cameraNode)
-            print ("relPosition = \(relPos)")
-            
+            let relPos = enemyNode.convertPosition(SCNVector3Zero, to: cameraNode)
             let xPos = (frame.size.width / 2) + (CGFloat(relPos.x) * ((frame.size.width / 2) / GameConstants.maxXPosition))
             let zPos = (frame.size.height / 2) + (CGFloat(relPos.z) * ((frame.size.height / 2) / GameConstants.maxZPosition))
             
-            let enemyDot = UIView(frame: CGRect(x: xPos, y: zPos, width: dotSize, height: dotSize))
-            enemyDot.backgroundColor = enemy.isAttackingPlayer ? .red : .gray
-            enemyDot.layer.cornerRadius = enemyDot.frame.size.width / 2
-            enemyDots.append(enemyDot)
-            
             if (xPos > 0 + layer.borderWidth && xPos < frame.size.width - layer.borderWidth) &&
                 (zPos > 0 + layer.borderWidth && zPos < frame.size.height - layer.borderWidth) {
+                
+                let enemyDot = UIView(frame: CGRect(x: xPos, y: zPos, width: dotSize, height: dotSize))
+                enemyDot.backgroundColor = enemy.isAttackingPlayer ? .red : .gray
+                enemyDot.layer.cornerRadius = enemyDot.frame.size.width / 2
+                enemyDots.append(enemyDot)
+                
                 addSubview(enemyDot)
             }
             

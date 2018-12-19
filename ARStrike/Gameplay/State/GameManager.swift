@@ -157,7 +157,7 @@ class GameManager: NSObject {
             return
         }
         if gameLevel.startAttackingPlayer && enemyReadyToAttack && !isGameOver {
-//            attackPlayer()
+            attackPlayer()
         }
         
         player.update(deltaTime: timeDelta)
