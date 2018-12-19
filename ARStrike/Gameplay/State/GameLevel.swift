@@ -23,14 +23,14 @@ enum Level: Int {
 
 struct EnemyComponents {
     let name: String // name of enemy scn file
-    let count: Int // number of enemies for a particular level
     let duration: Double // time it takes for enemy to move to new random position
     let cooldownPeriod: Double // time it takes for an enemy to begin attacking the player
     let attackTime: Double // time it takes for an enemy to move from current position to player position and make contact
 }
 
 struct StartComponents {
-    static let enemy = EnemyComponents(name: "pickle_low", count: 10, duration: 8.0, cooldownPeriod: 10.0, attackTime: 10.0)
+    static let enemy = EnemyComponents(name: "pickle_low", duration: 8.0, cooldownPeriod: 10.0, attackTime: 10.0)
+    static let enemyCount = 10
 }
 
 class GameLevel {
@@ -70,15 +70,14 @@ class GameLevel {
         enemies.removeAll()
         
 //        if !level.rawValue.isMultipleOfThree() {
-            let numberOfEnemies: Int = StartComponents.enemy.count * level.rawValue
+            let numberOfEnemies: Int = StartComponents.enemyCount * level.rawValue
             for _ in 0..<numberOfEnemies {
-                let enemy = Enemy(modelFileName: StartComponents.enemy.name,
-                                  duration: StartComponents.enemy.duration / Double(level.rawValue),
-                                  cooldownPeriod: StartComponents.enemy.cooldownPeriod / Double(level.rawValue),
-                                  attackTime: StartComponents.enemy.attackTime / Double(level.rawValue))
-//                if i == 0 {
+                let components = EnemyComponents(name: StartComponents.enemy.name,
+                                                 duration: StartComponents.enemy.duration / Double(level.rawValue),
+                                                 cooldownPeriod: StartComponents.enemy.cooldownPeriod / Double(level.rawValue),
+                                                 attackTime: StartComponents.enemy.attackTime / Double(level.rawValue))
+                let enemy = Enemy(components: components)
                 enemies.insert(enemy)
-//                }
             }
             cooldownPeriodForLevel = StartComponents.enemy.cooldownPeriod / Double(level.rawValue)
 //        }

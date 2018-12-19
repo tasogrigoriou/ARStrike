@@ -29,14 +29,14 @@ class Enemy: SCNNode {
         indexCounter = 0
     }
     
-    init(modelFileName: String, duration: Double, cooldownPeriod: Double, attackTime: Double) {
+    init(components: EnemyComponents) {
         self.index = Enemy.indexCounter
         Enemy.indexCounter += 1
-        self.fileName = modelFileName
-        self.duration = duration
-        self.cooldownPeriod = cooldownPeriod
-        self.attackTime = attackTime
-        node = SCNNode.loadSCNAsset(modelFileName: modelFileName)
+        self.fileName = components.name
+        self.duration = components.duration
+        self.cooldownPeriod = components.cooldownPeriod
+        self.attackTime = components.attackTime
+        node = SCNNode.loadSCNAsset(modelFileName: components.name)
         node?.physicsBody = SCNPhysicsBody(type: .dynamic, shape: nil)
         node?.physicsBody!.categoryBitMask = CollisionMask([.enemy]).rawValue
         node?.physicsBody!.collisionBitMask = CollisionMask([.bullet, .player]).rawValue
@@ -109,9 +109,9 @@ class Enemy: SCNNode {
         let randomPosition: SCNVector3
         switch GameSettings.gameplayMode {
         case .normal:
-            randomPosition = offsetPosition + normalModeRandomVector
+            randomPosition = normalModeRandomVector + offsetPosition
         case .sitting:
-            randomPosition = offsetPosition + sittingModeRandomVector
+            randomPosition = sittingModeRandomVector + offsetPosition
         }
         
         node.runAction(.move(to: randomPosition, duration: duration))
