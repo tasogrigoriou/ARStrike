@@ -12,10 +12,10 @@ import GameplayKit
 
 class Enemy: SCNNode {
     static let name: String = NSStringFromClass(Enemy.self)
-    let fileName: String
     
     let node: SCNNode?
     
+    let fileName: String
     let duration: Double // time it takes for enemy to move to new random position
     var cooldownPeriod: TimeInterval // time it takes for an enemy to begin attacking the player
     let attackTime: Double // time it takes for an enemy to move from current position to player position and make contact
