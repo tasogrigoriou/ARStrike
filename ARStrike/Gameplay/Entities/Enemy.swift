@@ -53,12 +53,9 @@ class Enemy: SCNNode {
     var enemyLocalFront: SCNVector3 {
         let localFront: SCNVector3
         switch fileName {
-        case "pickle_low":
-            localFront = SCNVector3(0, 0, 1)
-        case "picklerick":
-            localFront = SCNVector3(0, 0, 0)
-        default:
-            localFront = SCNVector3(0, 0, -1)
+        case "pickle_low": localFront = SCNVector3(0, 0, 1)
+        case "picklerick": localFront = SCNVector3(0, 0, 0)
+        default: localFront = SCNVector3(0, 0, -1)
         }
         return localFront
     }
@@ -66,14 +63,10 @@ class Enemy: SCNNode {
     var childNodeWithGeometry: SCNNode? {
         let childNode: SCNNode?
         switch fileName {
-        case "pickle_low":
-            childNode = node?.childNode(withName: "pickle_rick_low", recursively: true)
-        case "picklerick":
-            childNode = node?.childNode(withName: "Highpoly_Highpoly", recursively: true)
-        case "meeseeks_box":
-            childNode = node
-        default:
-            childNode = nil
+        case "pickle_low": childNode = node?.childNode(withName: "pickle_rick_low", recursively: true)
+        case "picklerick": childNode = node?.childNode(withName: "Highpoly_Highpoly", recursively: true)
+        case "meeseeks_box": childNode = node
+        default: childNode = nil
         }
         return childNode
     }
@@ -81,14 +74,10 @@ class Enemy: SCNNode {
     var image: UIImage? {
         let image: UIImage?
         switch fileName {
-        case "pickle_low":
-            image = UIImage(named: "picke_bake.jpeg")
-        case "picklerick":
-            image = UIImage(named: "Highpoly_TXTR.png")
-        case "meeseeks_box":
-            image = UIImage(named: "meeseeksbox.png")
-        default:
-            image = nil
+        case "pickle_low": image = UIImage(named: "picke_bake.jpeg")
+        case "picklerick": image = UIImage(named: "Highpoly_TXTR.png")
+        case "meeseeks_box": image = UIImage(named: "meeseeksbox.png")
+        default: image = nil
         }
         return image
     }
@@ -104,17 +93,12 @@ class Enemy: SCNNode {
     }
     
     private func moveToNewRandomPosition(with offsetPosition: SCNVector3) {
-        guard let node = node else { return }
-        
         let randomPosition: SCNVector3
         switch GameSettings.gameplayMode {
-        case .normal:
-            randomPosition = normalModeRandomVector + offsetPosition
-        case .sitting:
-            randomPosition = sittingModeRandomVector + offsetPosition
+        case .normal: randomPosition = normalModeRandomVector + offsetPosition
+        case .sitting: randomPosition = sittingModeRandomVector + offsetPosition
         }
-        
-        node.runAction(.move(to: randomPosition, duration: duration))
+        node?.runAction(.move(to: randomPosition, duration: duration))
     }
     
     private var normalModeRandomVector: SCNVector3 {

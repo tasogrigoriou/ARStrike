@@ -71,11 +71,12 @@ class GameLevel {
         
 //        if !level.rawValue.isMultipleOfThree() {
             let numberOfEnemies: Int = StartComponents.enemyCount * level.rawValue
+            let rawLevel = Double(level.rawValue)
             for _ in 0..<numberOfEnemies {
                 let components = EnemyComponents(name: StartComponents.enemy.name,
-                                                 duration: StartComponents.enemy.duration / Double(level.rawValue),
-                                                 cooldownPeriod: StartComponents.enemy.cooldownPeriod / Double(level.rawValue),
-                                                 attackTime: StartComponents.enemy.attackTime / Double(level.rawValue))
+                                                 duration: StartComponents.enemy.duration / rawLevel,
+                                                 cooldownPeriod: StartComponents.enemy.cooldownPeriod / rawLevel,
+                                                 attackTime: StartComponents.enemy.attackTime / rawLevel)
                 let enemy = Enemy(components: components)
                 enemies.insert(enemy)
             }

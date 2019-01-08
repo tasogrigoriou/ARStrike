@@ -237,6 +237,31 @@ class GameManager: NSObject {
         applyRecoilAnimation(node: weaponNode)
     }
     
+    private func handleBulletEnemyCollision(contact: SCNPhysicsContact, nodeAMask: Int) {
+        let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
+        let bulletNode = nodeAMask == CollisionMask.bullet.rawValue ? contact.nodeA : contact.nodeB
+        guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) else { return }
+        player.addToScore(points)
+        view?.updatePlayerScore(player.score)
+        addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
+        bulletNode.removeFromParentNode()
+    }
+    
+    private func handlePlayerEnemyCollision(contact: SCNPhysicsContact, nodeAMask: Int) {
+        if !contactFinished { return }
+        let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
+        guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
+        player.takeDamage(damage)
+        view?.updatePlayerHealth(player.health)
+        addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
+        UIDevice.vibrate()
+        if player.health <= 0 {
+            endGame()
+        } else {
+            view?.showDamageScreen()
+        }
+    }
+    
     private func applyRecoilAnimation(node: SCNNode) {
         let startAngles = node.eulerAngles
         let endAngles = SCNVector3Make(startAngles.x, startAngles.y - 0.24, startAngles.z)
@@ -318,27 +343,10 @@ extension GameManager: SCNPhysicsContactDelegate {
         let masks = nodeAMask | nodeBMask
         
         if masks == CollisionMask([.bullet, .enemy]).rawValue {
-            let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
-            let bulletNode = nodeAMask == CollisionMask.bullet.rawValue ? contact.nodeA : contact.nodeB
-            guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) else { return }
-            player.addToScore(points)
-            view?.updatePlayerScore(player.score)
-            addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
-            bulletNode.removeFromParentNode()
+            handleBulletEnemyCollision(contact: contact, nodeAMask: nodeAMask)
         }
         else if masks == CollisionMask([.player, .enemy]).rawValue {
-            if !contactFinished { return }
-            let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
-            guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
-            player.takeDamage(damage)
-            view?.updatePlayerHealth(player.health)
-            addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
-            UIDevice.vibrate()
-            if player.health <= 0 {
-                endGame()
-            } else {
-                view?.showDamageScreen()
-            }
+            handlePlayerEnemyCollision(contact: contact, nodeAMask: nodeAMask)
         }
     }
 }
