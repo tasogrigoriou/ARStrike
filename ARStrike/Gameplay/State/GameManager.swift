@@ -128,11 +128,12 @@ class GameManager: NSObject {
             waitTime += 0.2
             if let enemyNode = enemy.node {
                 enemyNode.worldPosition = planeNode.worldPosition + SCNVector3(0, 0, -0.05)
-                enemyNode.opacity = 0.75
+                enemyNode.opacity = 0.8
                 enemyNode.constraints = [SCNBillboardConstraint()]
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
                     self.scene.rootNode.addChildNode(enemyNode)
-                    enemyNode.runAction(.fadeIn(duration: 0.5))
+                    enemyNode.runAction(.fadeIn(duration: 0.3))
                 }
             }
         }

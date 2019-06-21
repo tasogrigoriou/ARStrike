@@ -9,7 +9,7 @@
 import Foundation
 
 struct GameSettings {
-    static var gameplayMode: GameplayMode = .normal
+    static var gameplayMode: GameplayMode = .sitting
 }
 
 enum GameplayMode {
