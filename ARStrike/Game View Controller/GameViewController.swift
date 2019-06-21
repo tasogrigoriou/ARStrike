@@ -47,6 +47,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var damageView: UIView!
     
+    var audioSources: [String: SCNAudioSource] = [:]
+    
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
     
@@ -87,6 +89,8 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        playThemeMusic()
         
         createGameManager()
 
@@ -207,6 +211,23 @@ class GameViewController: UIViewController {
         gameManager.start()
         
         sessionState = .gameInProgress
+    }
+    
+    func playThemeMusic() {
+        let theme = "portal_gun_fire.wav"
+        audioSources[theme] = SCNAudioSource(fileNamed: theme)
+        audioSources[theme]?.loops = true
+        audioSources[theme]?.load()
+        if let themeSource = audioSources[theme] {
+            sceneView.scene.rootNode.addAudioPlayer(SCNAudioPlayer(source: themeSource))
+        }
+    }
+    
+    func setupAudio() {
+        let fire = "portal_gun_fire.wav"
+        audioSources[fire] = SCNAudioSource(fileNamed: fire)
+        audioSources[fire]?.loops = true
+        audioSources[fire]?.load()
     }
     
     private func createGameManager() {
