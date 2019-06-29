@@ -102,15 +102,15 @@ class Enemy: SCNNode {
     }
     
     private var normalModeRandomVector: SCNVector3 {
-        return SCNVector3(CGFloat.random(in: -2...2),
-                          CGFloat.random(in: -1...1),
-                          CGFloat.random(in: -2...2))
+        return SCNVector3(CGFloat.random(in: -2 ... 2),
+                          CGFloat.random(in: -1 ... 1),
+                          CGFloat.random(in: -2 ... 2))
     }
     
     private var sittingModeRandomVector: SCNVector3 {
-        return SCNVector3(CGFloat.random(in: -2...2),
-                          CGFloat.random(in: -1...1),
-                          CGFloat.random(in: -2...0))
+        return SCNVector3(CGFloat.random(in: -2 ... 2),
+                          CGFloat.random(in: -1 ... 1),
+                          CGFloat.random(in: -2 ... -0.5))
     }
     
     // ex: offsetPos = (6, 0, 0) random = (-2, -1, -2), randomPos = (4, -1, -2)

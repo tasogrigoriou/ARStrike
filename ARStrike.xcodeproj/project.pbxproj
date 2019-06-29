@@ -58,6 +58,9 @@
 		9DFB8AAD21B0CD8D009E1EA4 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */; };
 		9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */; };
 		9F36A8D721C74B4600754F74 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F36A8D621C74B4600754F74 /* GameSettings.swift */; };
+		9F4BD01722C6C74B0002B93A /* StartGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BD01522C6C74B0002B93A /* StartGameViewController.swift */; };
+		9F4BD01822C6C74B0002B93A /* StartGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4BD01622C6C74B0002B93A /* StartGameViewController.xib */; };
+		9F4BD01A22C815F60002B93A /* GameAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BD01922C815F60002B93A /* GameAudio.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +140,9 @@
 		9DFB8AAC21B0CD8D009E1EA4 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		9DFDFD4C219D516F00ABF8E1 /* SCNNode+Materials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SCNNode+Materials.swift"; sourceTree = "<group>"; };
 		9F36A8D621C74B4600754F74 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		9F4BD01522C6C74B0002B93A /* StartGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameViewController.swift; sourceTree = "<group>"; };
+		9F4BD01622C6C74B0002B93A /* StartGameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartGameViewController.xib; sourceTree = "<group>"; };
+		9F4BD01922C815F60002B93A /* GameAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAudio.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +212,7 @@
 				9D41D97821980B0200716EA5 /* GameManager.swift */,
 				9D24E48321AE7B6500D96F9C /* GameLevel.swift */,
 				9D41D9842198DE7C00716EA5 /* GameClock.swift */,
+				9F4BD01922C815F60002B93A /* GameAudio.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -316,6 +323,8 @@
 		9D4AB235219B7F74009E558E /* Supporting View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9F4BD01522C6C74B0002B93A /* StartGameViewController.swift */,
+				9F4BD01622C6C74B0002B93A /* StartGameViewController.xib */,
 				9D5A825421C870C300EF3D83 /* EndGameViewController.swift */,
 				9D5A825321C870C300EF3D83 /* EndGameViewController.xib */,
 			);
@@ -473,13 +482,16 @@
 				TargetAttributes = {
 					9D41D9442196AB9600716EA5 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 					};
 					9D41D95A2196AB9800716EA5 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 						TestTargetID = 9D41D9442196AB9600716EA5;
 					};
 					9D41D9652196AB9800716EA5 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1020;
 						TestTargetID = 9D41D9442196AB9600716EA5;
 					};
 				};
@@ -512,6 +524,7 @@
 				9D9AD7DC21C2438000D51EBD /* calligraphr-regular.ttf in Resources */,
 				9D41D94B2196AB9600716EA5 /* art.scnassets in Resources */,
 				9D41D9552196AB9800716EA5 /* LaunchScreen.storyboard in Resources */,
+				9F4BD01822C6C74B0002B93A /* StartGameViewController.xib in Resources */,
 				9D03639C21BFAA7600A02F41 /* Info3.plist in Resources */,
 				9D38742521BFA757008C3FF9 /* Info2.plist in Resources */,
 				9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */,
@@ -555,6 +568,7 @@
 				9D5A825621C870C300EF3D83 /* EndGameViewController.swift in Sources */,
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
 				9D9AD7D521C214D600D51EBD /* Int+Helpers.swift in Sources */,
+				9F4BD01722C6C74B0002B93A /* StartGameViewController.swift in Sources */,
 				9D03639A21BFAA7600A02F41 /* UILabelExtensions.swift in Sources */,
 				9D5A825821C8BFCB00EF3D83 /* Map.swift in Sources */,
 				9D38742321BFA757008C3FF9 /* LinearProgressBar.swift in Sources */,
@@ -563,6 +577,7 @@
 				9D38742421BFA757008C3FF9 /* Clamp.swift in Sources */,
 				9D41D97D219822D200716EA5 /* Enemy.swift in Sources */,
 				9DFDFD4D219D516F00ABF8E1 /* SCNNode+Materials.swift in Sources */,
+				9F4BD01A22C815F60002B93A /* GameAudio.swift in Sources */,
 				9D03639621BFAA7600A02F41 /* VerticalLabelPositionFrameCalculator.swift in Sources */,
 				9D03639921BFAA7600A02F41 /* GTProgressBarOrientation.swift in Sources */,
 				9D03639521BFAA7600A02F41 /* GTProgressBarDirection.swift in Sources */,
@@ -757,7 +772,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.taso.ARStrike;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -775,7 +790,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.taso.ARStrike;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -795,7 +810,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ARStrikeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARStrike.app/ARStrike";
 			};
@@ -816,7 +831,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ARStrikeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARStrike.app/ARStrike";
 			};
@@ -836,7 +851,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ARStrikeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = ARStrike;
 			};
@@ -856,7 +871,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ARStrikeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = ARStrike;
 			};

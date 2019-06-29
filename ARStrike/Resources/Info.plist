@@ -21,7 +21,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Must use camera for Augmented Reality</string>
+	<string>This application will use the camera for Augmented Reality in order to place objects in real-world space</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>get_schwifty.tff</string>

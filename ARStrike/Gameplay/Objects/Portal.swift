@@ -37,7 +37,7 @@ class Portal: SCNNode {
         recentPositions = Array(recentPositions.suffix(10))
         
         // Move to average of recent positions to avoid jitter.
-        let average = recentPositions.reduce(float3(0), { $0 + $1 }) / Float(recentPositions.count)
+        let average = recentPositions.reduce(float3(repeating: 0), { $0 + $1 }) / Float(recentPositions.count)
         node.simdPosition = average
         
         // Orient bounds to plane if possible
@@ -47,7 +47,7 @@ class Portal: SCNNode {
         } else {
             // Fall back to camera orientation
             orientToCamera(camera)
-            node.simdScale = float3(Portal.minimumScale)
+            node.simdScale = float3(repeating: Portal.minimumScale)
         }
     }
     
@@ -102,7 +102,7 @@ class Portal: SCNNode {
         var width = min(planeExtent.x, Portal.maximumScale)
         let depth = min(planeExtent.z, width * aspectRatio)
         width = depth / aspectRatio
-        node.simdScale = float3(width)
+        node.simdScale = float3(repeating: width)
         
         // Adjust position of board within plane's bounds
         var planeLocalExtent = float3(width, 0, depth)

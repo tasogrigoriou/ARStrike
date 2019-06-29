@@ -47,8 +47,6 @@ class GameViewController: UIViewController {
     @IBOutlet weak var startLabel: UILabel!
     @IBOutlet weak var damageView: UIView!
     
-    var audioSources: [String: SCNAudioSource] = [:]
-    
     var tapGestureRecognizer: UITapGestureRecognizer?
     var longPressGestureRecognizer: UILongPressGestureRecognizer?
     
@@ -76,6 +74,8 @@ class GameViewController: UIViewController {
     
     var timer: Timer?
     
+    var shouldStartGame: Bool = false
+    
     private(set) var isShowingDamageScreen = false
     
     init() {
@@ -90,7 +90,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        playThemeMusic()
+        GameAudio.shared.playThemeMusic(sceneView: sceneView)
         
         createGameManager()
 
@@ -102,6 +102,8 @@ class GameViewController: UIViewController {
         sceneView.delegate = self
         sceneView.session.delegate = self
         
+        mappingStatusLabel.text = ""
+        
         sessionState = .initialSetup
     }
     
@@ -109,6 +111,11 @@ class GameViewController: UIViewController {
         super.viewWillAppear(animated)
         configureView()
         configureARSession()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.present(StartGameViewController(delegate: self), animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -146,20 +153,20 @@ class GameViewController: UIViewController {
     }
     
     func configureView() {
-        var debugOptions: SCNDebugOptions = []
+        let debugOptions: SCNDebugOptions = []
         
         // fix the scaling of the physics debug view to match the world
-        debugOptions.insert(.showPhysicsShapes)
+//        debugOptions.insert(.showPhysicsShapes)
 
         // show where ARKit is detecting feature points
-        debugOptions.insert(ARSCNDebugOptions.showFeaturePoints)
+//        debugOptions.insert(ARSCNDebugOptions.showFeaturePoints)
 
         // see high poly-count and LOD transitions - wireframe overlay
-        debugOptions.insert(SCNDebugOptions.showWireframe)
+//        debugOptions.insert(SCNDebugOptions.showWireframe)
         
         sceneView.autoenablesDefaultLighting = true
 
-//        sceneView.debugOptions = debugOptions
+        sceneView.debugOptions = debugOptions
 
 //        sceneView.showsStatistics = true
         
@@ -187,6 +194,9 @@ class GameViewController: UIViewController {
     }
     
     func updateGamePortal(frame: ARFrame) {
+        if !shouldStartGame {
+            return
+        }
         if sessionState == .setupLevel {
             setupLevel()
             return
@@ -211,23 +221,6 @@ class GameViewController: UIViewController {
         gameManager.start()
         
         sessionState = .gameInProgress
-    }
-    
-    func playThemeMusic() {
-        let theme = "portal_gun_fire.wav"
-        audioSources[theme] = SCNAudioSource(fileNamed: theme)
-        audioSources[theme]?.loops = true
-        audioSources[theme]?.load()
-        if let themeSource = audioSources[theme] {
-            sceneView.scene.rootNode.addAudioPlayer(SCNAudioPlayer(source: themeSource))
-        }
-    }
-    
-    func setupAudio() {
-        let fire = "portal_gun_fire.wav"
-        audioSources[fire] = SCNAudioSource(fileNamed: fire)
-        audioSources[fire]?.loops = true
-        audioSources[fire]?.load()
     }
     
     private func createGameManager() {
@@ -285,7 +278,7 @@ extension GameViewController: GameViewable {
     
     func updatePlayerScore(_ score: Float) {
         DispatchQueue.main.async {
-            self.animatedScoreLabel.countFromCurrent(to: score, duration: 1.5)
+            self.animatedScoreLabel.countFromCurrent(to: score, duration: 1.2)
         }
     }
     
@@ -362,6 +355,12 @@ extension GameViewController: GameViewable {
     }
 }
 
+extension GameViewController: StartGameDelegate {
+    func startGame() {
+        shouldStartGame = true
+    }
+}
+
 extension GameViewController: EndGameDelegate {
     func resumeGame() {
         gameManager?.resumeGame()
@@ -415,16 +414,27 @@ extension GameViewController: ARSessionDelegate {
             return
         }
         
+        if !shouldStartGame {
+//            sceneView.session.pause()
+            return
+        }
+        
         if gameManager != nil {
+            sceneView.debugOptions.insert(ARSCNDebugOptions.showFeaturePoints)
             updateGamePortal(frame: frame)
         }
         
         switch frame.worldMappingStatus {
         case .notAvailable, .limited:
             tapGestureRecognizer?.isEnabled = false
-        case .extending, .mapped:
+        case .extending:
+            tapGestureRecognizer?.isEnabled = false
+        case .mapped:
             gameManager?.addPortalNode()
             tapGestureRecognizer?.isEnabled = true
+            sceneView.debugOptions.remove(ARSCNDebugOptions.showFeaturePoints)
+        @unknown default:
+            break
         }
         mappingStatusLabel.text = frame.worldMappingStatus.description
     }
@@ -435,10 +445,14 @@ extension ARFrame.WorldMappingStatus: CustomStringConvertible {
         switch self {
         case .notAvailable:
             return "Tracking unavailable"
-        case .limited, .extending:
-            return "Point straight ahead to place portal"
+        case .limited:
+            return "Point at floor to find surface"
+        case .extending:
+            return "Move camera position to fully map the portal"
         case .mapped:
             return "Tap to place portal"
+        @unknown default:
+            return "Tracking unavailable"
         }
     }
 }
