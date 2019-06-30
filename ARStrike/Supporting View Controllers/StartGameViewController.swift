@@ -10,9 +10,19 @@ import UIKit
 
 protocol StartGameDelegate: class {
     func startGame()
+    func resumeGame(fromLevel: Int)
 }
 
 class StartGameViewController: UIViewController {
+    @IBOutlet weak var resumeButton: UIButton!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var fromLevelLabel: UILabel!
+    
+    @IBOutlet weak var audioButton: UIButton!
+    
+    private var highestLevel: Int {
+        return GameLevel.shared.getHighestLevel()
+    }
     
     weak var delegate: StartGameDelegate?
     
@@ -29,10 +39,30 @@ class StartGameViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
-            self.dismiss(animated: true) {
-                self.delegate?.startGame()
-            }
+        setupUI()
+    }
+    
+    private func setupUI() {
+        resumeButton.layer.cornerRadius = 6
+        resumeButton.layer.borderWidth = 1
+        resumeButton.layer.borderColor = resumeButton.backgroundColor?.cgColor
+        
+        startButton.layer.cornerRadius = 6
+        startButton.layer.borderWidth = 1
+        startButton.layer.borderColor = startButton.backgroundColor?.cgColor
+        
+        fromLevelLabel.text = "From Level \(highestLevel)"
+    }
+    
+    @IBAction func startButtonPressed(_ sender: Any) {
+        dismiss(animated: true) {
+            self.delegate?.startGame()
+        }
+    }
+    
+    @IBAction func resumeButtonPressed(_ sender: Any) {
+        dismiss(animated: true) {
+            self.delegate?.resumeGame(fromLevel: self.highestLevel)
         }
     }
 }

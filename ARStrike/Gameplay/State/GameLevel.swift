@@ -34,13 +34,15 @@ struct StartComponents {
 }
 
 class GameLevel {
+    public static let shared = GameLevel()
+    
     private var level: Level
     private var enemies: Set<Enemy> = []
     
     var lastAttackTime: CFAbsoluteTime = 0
     var cooldownPeriodForLevel: Double = StartComponents.enemy.cooldownPeriod
     
-    init(level: Level = .one) {
+    private init(level: Level = .one) {
         self.level = level
         setLevel(level.rawValue)
     }

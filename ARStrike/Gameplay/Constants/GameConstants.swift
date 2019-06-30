@@ -23,3 +23,7 @@ struct GameConstants {
         "meeseeks_box"
     ]
 }
+
+enum Audio: String {
+    case portalGun = "portal_gun_fire.wav"
+}

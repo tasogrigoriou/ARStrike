@@ -28,7 +28,7 @@ class GameManager: NSObject {
     private let weapon = Weapon()
     private var enemies: Set<Enemy> = []
     
-    private let gameLevel = GameLevel()
+    private let gameLevel = GameLevel.shared
     
     weak var view: GameViewable?
     
@@ -53,6 +53,10 @@ class GameManager: NSObject {
 
     func addPortalNode() {
         scene.rootNode.addChildNode(portal.node)
+    }
+    
+    func removePortalNode() {
+        portal.node.removeFromParentNode()
     }
 
     func addWeaponNode() {
@@ -138,6 +142,7 @@ class GameManager: NSObject {
             }
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+            self.view?.showGameUI()
             self.view?.enableWeapon()
             self.view?.showStartLevel()
             self.enemyReadyToAttack = true
@@ -148,6 +153,9 @@ class GameManager: NSObject {
         view?.updateLevelLabel(gameLevel.getLevel())
         view?.updatePlayerHealth(player.health)
         view?.updatePlayerScore(player.score)
+    }
+    
+    private func showGameUI() {
         view?.showGameUI()
     }
     

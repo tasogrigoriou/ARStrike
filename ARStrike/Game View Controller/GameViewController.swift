@@ -358,6 +358,15 @@ extension GameViewController: GameViewable {
 extension GameViewController: StartGameDelegate {
     func startGame() {
         shouldStartGame = true
+        gameManager = nil
+        createGameManager()
+    }
+    
+    func resumeGame(fromLevel: Int) {
+        shouldStartGame = true
+        GameLevel.shared.setLevel(fromLevel)
+        gameManager = nil
+        createGameManager()
     }
 }
 
