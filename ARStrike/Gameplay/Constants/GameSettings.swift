@@ -9,10 +9,17 @@
 import Foundation
 
 struct GameSettings {
-    static var gameplayMode: GameplayMode = .sitting
+    static var gameplayMode: GameplayMode = .normal
 }
 
 enum GameplayMode {
     case normal
     case sitting
+    
+    mutating func toggle() {
+        switch self {
+        case .normal: self = .sitting
+        case .sitting: self = .normal
+        }
+    }
 }

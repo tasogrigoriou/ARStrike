@@ -9,8 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="calligraphr-regular.ttf">
-            <string>Calligraphr-Regular</string>
+        <array key="get_schwifty.ttf">
+            <string>GetSchwifty-Regular</string>
+        </array>
+        <array key="rick_and_morty.ttf">
+            <string>Rick_and_Morty</string>
         </array>
     </customFonts>
     <objects>
@@ -18,7 +21,11 @@
             <connections>
                 <outlet property="audioButton" destination="Ksc-17-4Pw" id="ZEN-jD-3bI"/>
                 <outlet property="fromLevelLabel" destination="HqO-8B-PKf" id="Xum-18-NSf"/>
+                <outlet property="gameplayButton" destination="qbQ-0O-pAe" id="Vjf-O2-lzu"/>
+                <outlet property="leaderboardButton" destination="UPx-UR-6KU" id="i8M-Rz-W2z"/>
+                <outlet property="loveButton" destination="czP-uf-1Cs" id="Lkh-TO-aYL"/>
                 <outlet property="resumeButton" destination="VGh-vB-qjU" id="qUA-i3-GvB"/>
+                <outlet property="rickAndMortyLabel" destination="Zgj-NT-9SB" id="5WP-Fr-bCa"/>
                 <outlet property="startButton" destination="9FB-Yl-Omw" id="99j-9p-4vR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -29,109 +36,121 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGh-vB-qjU">
-                    <rect key="frame" x="117" y="498.5" width="180" height="45"/>
-                    <color key="backgroundColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="104.5" y="498.5" width="205" height="45"/>
+                    <color key="backgroundColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="0.79972680214723924" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="180" id="3jw-V6-7j4"/>
+                        <constraint firstAttribute="width" constant="205" id="3jw-V6-7j4"/>
                         <constraint firstAttribute="height" constant="45" id="zga-n6-BQ9"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Calligraphr-Regular" family="Calligraphr" pointSize="33"/>
-                    <state key="normal" title="Resume">
-                        <color key="titleColor" red="0.42204078249999999" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Rick_and_Morty" family="Rick_and_Morty" pointSize="55"/>
+                    <state key="normal" title="Continue">
+                        <color key="titleColor" red="0.50934427179999997" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="resumeButtonPressed:" destination="-1" eventType="touchUpInside" id="vDI-WE-d7q"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9FB-Yl-Omw">
-                    <rect key="frame" x="117" y="425.5" width="180" height="45"/>
-                    <color key="backgroundColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="104.5" y="425.5" width="205" height="45"/>
+                    <color key="backgroundColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="0.7987682131901841" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="180" id="NG7-1t-yrl"/>
+                        <constraint firstAttribute="width" constant="205" id="NG7-1t-yrl"/>
                         <constraint firstAttribute="height" constant="45" id="h7d-CP-EZV"/>
                     </constraints>
-                    <fontDescription key="fontDescription" name="Calligraphr-Regular" family="Calligraphr" pointSize="33"/>
+                    <fontDescription key="fontDescription" name="Rick_and_Morty" family="Rick_and_Morty" pointSize="54"/>
                     <state key="normal" title="Start">
-                        <color key="titleColor" red="0.42204078249336874" green="0.1017842374150164" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="0.50934427179999997" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="startButtonPressed:" destination="-1" eventType="touchUpInside" id="O81-dG-u7M"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From level..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HqO-8B-PKf">
-                    <rect key="frame" x="138" y="563.5" width="138.5" height="26"/>
-                    <fontDescription key="fontDescription" name="Calligraphr-Regular" family="Calligraphr" pointSize="27"/>
-                    <color key="textColor" red="0.42204078249999999" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="134" y="563.5" width="146" height="34.5"/>
+                    <fontDescription key="fontDescription" name="Rick_and_Morty" family="Rick_and_Morty" pointSize="39"/>
+                    <color key="textColor" red="0.50934427179999997" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rick and Morty AR" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgj-NT-9SB">
-                    <rect key="frame" x="16" y="221.5" width="382" height="144"/>
-                    <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="57"/>
-                    <color key="textColor" red="0.42204078249999999" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <rect key="frame" x="16" y="185.5" width="382" height="180"/>
+                    <fontDescription key="fontDescription" name="GetSchwifty-Regular" family="Get Schwifty" pointSize="90"/>
+                    <color key="textColor" red="0.50934427176380359" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ja6-F5-F7p">
-                    <rect key="frame" x="20" y="822" width="374" height="40"/>
+                    <rect key="frame" x="24" y="818" width="366" height="36"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ksc-17-4Pw">
-                            <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="40" id="6mb-jd-j3e"/>
-                                <constraint firstAttribute="height" constant="40" id="NvO-ar-QBO"/>
+                                <constraint firstAttribute="width" constant="36" id="6mb-jd-j3e"/>
+                                <constraint firstAttribute="height" constant="36" id="NvO-ar-QBO"/>
                             </constraints>
-                            <color key="tintColor" red="0.42204078249999999" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.50922359933237105" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="audio"/>
+                            <connections>
+                                <action selector="audioButtonPressed:" destination="-1" eventType="touchUpInside" id="ucw-z9-09N"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbQ-0O-pAe">
-                            <rect key="frame" x="111.5" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="110" y="0.0" width="36" height="36"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="40" id="bWV-Rd-b1Q"/>
-                                <constraint firstAttribute="height" constant="40" id="v5G-jj-W8N"/>
+                                <constraint firstAttribute="width" constant="36" id="bWV-Rd-b1Q"/>
+                                <constraint firstAttribute="height" constant="36" id="v5G-jj-W8N"/>
                             </constraints>
-                            <color key="tintColor" red="0.42204078249999999" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.50882903023803683" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="standing"/>
+                            <connections>
+                                <action selector="gameplayButtonPressed:" destination="-1" eventType="touchUpInside" id="Dsn-SR-IWJ"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UPx-UR-6KU">
-                            <rect key="frame" x="222.5" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="220" y="0.0" width="36" height="36"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="40" id="9vk-oc-VYY"/>
-                                <constraint firstAttribute="width" constant="40" id="fCD-9z-rWe"/>
+                                <constraint firstAttribute="height" constant="36" id="9vk-oc-VYY"/>
+                                <constraint firstAttribute="width" constant="36" id="fCD-9z-rWe"/>
                             </constraints>
-                            <color key="tintColor" red="0.42204078249999999" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.51130937916441721" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="leaderboard">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="leaderboardButtonPressed:" destination="-1" eventType="touchUpInside" id="dPg-Gd-Ln9"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="czP-uf-1Cs">
-                            <rect key="frame" x="334" y="0.0" width="40" height="40"/>
+                            <rect key="frame" x="330" y="0.0" width="36" height="36"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="40" id="Yr6-33-Sjg"/>
-                                <constraint firstAttribute="height" constant="40" id="nxj-qo-DQE"/>
+                                <constraint firstAttribute="width" constant="36" id="Yr6-33-Sjg"/>
+                                <constraint firstAttribute="height" constant="36" id="nxj-qo-DQE"/>
                             </constraints>
-                            <color key="tintColor" red="0.42204078249999999" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.50834973575950926" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="love"/>
+                            <connections>
+                                <action selector="loveButtonPressed:" destination="-1" eventType="touchUpInside" id="6Ts-x2-ul9"/>
+                            </connections>
                         </button>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="rgV-S8-gZl"/>
+                        <constraint firstAttribute="height" constant="36" id="rgV-S8-gZl"/>
                     </constraints>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" red="0.2540212589873927" green="1" blue="0.0" alpha="0.29712662960122699" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.2540212589873927" green="1" blue="0.0" alpha="0.25315136119631904" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Zgj-NT-9SB" secondAttribute="trailing" constant="16" id="9g5-E0-FHC"/>
                 <constraint firstItem="9FB-Yl-Omw" firstAttribute="top" secondItem="Zgj-NT-9SB" secondAttribute="bottom" constant="60" id="MZj-1w-7hN"/>
                 <constraint firstItem="HqO-8B-PKf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="MzF-c5-Az3"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ja6-F5-F7p" secondAttribute="trailing" constant="20" id="TvQ-dc-eUK"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ja6-F5-F7p" secondAttribute="trailing" constant="24" id="TvQ-dc-eUK"/>
                 <constraint firstItem="9FB-Yl-Omw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Y3K-kP-aNn"/>
                 <constraint firstItem="Zgj-NT-9SB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Zm3-ge-Ggk"/>
                 <constraint firstItem="9FB-Yl-Omw" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="bsS-on-CC4"/>
                 <constraint firstItem="Zgj-NT-9SB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="f41-cL-ewU"/>
                 <constraint firstItem="HqO-8B-PKf" firstAttribute="top" secondItem="VGh-vB-qjU" secondAttribute="bottom" constant="20" id="rFo-9h-fsE"/>
                 <constraint firstItem="VGh-vB-qjU" firstAttribute="top" secondItem="9FB-Yl-Omw" secondAttribute="bottom" constant="28" id="ss0-5P-Dh6"/>
-                <constraint firstItem="ja6-F5-F7p" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="taD-4i-JWm"/>
+                <constraint firstItem="ja6-F5-F7p" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="taD-4i-JWm"/>
                 <constraint firstItem="VGh-vB-qjU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="v0C-Ue-Wyw"/>
-                <constraint firstItem="ja6-F5-F7p" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="yMe-UU-vW7"/>
+                <constraint firstItem="ja6-F5-F7p" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-8" id="yMe-UU-vW7"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="47.826086956521742" y="35.491071428571423"/>

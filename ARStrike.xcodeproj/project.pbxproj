@@ -61,6 +61,8 @@
 		9F4BD01722C6C74B0002B93A /* StartGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BD01522C6C74B0002B93A /* StartGameViewController.swift */; };
 		9F4BD01822C6C74B0002B93A /* StartGameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9F4BD01622C6C74B0002B93A /* StartGameViewController.xib */; };
 		9F4BD01A22C815F60002B93A /* GameAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BD01922C815F60002B93A /* GameAudio.swift */; };
+		9FE3E9F322C96DE80031284C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE3E9F222C96DE80031284C /* GameKit.framework */; };
+		9FE3E9F922CC19510031284C /* ARSCNView+HitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3E9F822CC19510031284C /* ARSCNView+HitTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +145,9 @@
 		9F4BD01522C6C74B0002B93A /* StartGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameViewController.swift; sourceTree = "<group>"; };
 		9F4BD01622C6C74B0002B93A /* StartGameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StartGameViewController.xib; sourceTree = "<group>"; };
 		9F4BD01922C815F60002B93A /* GameAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameAudio.swift; sourceTree = "<group>"; };
+		9FE3E9F222C96DE80031284C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		9FE3E9F422C96DF40031284C /* ARStrike.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARStrike.entitlements; sourceTree = "<group>"; };
+		9FE3E9F822CC19510031284C /* ARSCNView+HitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+HitTests.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +155,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE3E9F322C96DE80031284C /* GameKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +250,7 @@
 				9D41D95E2196AB9800716EA5 /* ARStrikeTests */,
 				9D41D9692196AB9800716EA5 /* ARStrikeUITests */,
 				9D41D9462196AB9600716EA5 /* Products */,
+				9FE3E9F122C96DE80031284C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -260,6 +267,7 @@
 		9D41D9472196AB9600716EA5 /* ARStrike */ = {
 			isa = PBXGroup;
 			children = (
+				9FE3E9F422C96DF40031284C /* ARStrike.entitlements */,
 				9D4AB238219B80D9009E558E /* Core */,
 				9D4AB237219B8092009E558E /* Resources */,
 				9D4AB234219B7F67009E558E /* Game View Controller */,
@@ -393,6 +401,7 @@
 				9DE4D59821B9F5BF00656985 /* UIDevice+Helpers.swift */,
 				9D9AD7D421C214D600D51EBD /* Int+Helpers.swift */,
 				9D5A825921C9DD7600EF3D83 /* CGFloat+Helpers.swift */,
+				9FE3E9F822CC19510031284C /* ARSCNView+HitTests.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -412,6 +421,14 @@
 				9F36A8D621C74B4600754F74 /* GameSettings.swift */,
 			);
 			path = Constants;
+			sourceTree = "<group>";
+		};
+		9FE3E9F122C96DE80031284C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9FE3E9F222C96DE80031284C /* GameKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -483,6 +500,14 @@
 					9D41D9442196AB9600716EA5 = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1020;
+						SystemCapabilities = {
+							com.apple.GameCenter.iOS = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					9D41D95A2196AB9800716EA5 = {
 						CreatedOnToolsVersion = 10.0;
@@ -566,6 +591,7 @@
 				9D41D94D2196AB9600716EA5 /* GameViewController.swift in Sources */,
 				9D03639121BFAA7600A02F41 /* HorizontalLabelPositionFrameCalculator.swift in Sources */,
 				9D5A825621C870C300EF3D83 /* EndGameViewController.swift in Sources */,
+				9FE3E9F922CC19510031284C /* ARSCNView+HitTests.swift in Sources */,
 				9D41D97921980B0200716EA5 /* GameManager.swift in Sources */,
 				9D9AD7D521C214D600D51EBD /* Int+Helpers.swift in Sources */,
 				9F4BD01722C6C74B0002B93A /* StartGameViewController.swift in Sources */,
@@ -763,6 +789,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ARStrike/ARStrike.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6X7DGG368N;
 				INFOPLIST_FILE = "$(SRCROOT)/ARStrike/Resources/Info.plist";
@@ -770,7 +797,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.taso.ARStrike;
+				PRODUCT_BUNDLE_IDENTIFIER = com.taso.RickAndMortyAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -781,6 +808,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ARStrike/ARStrike.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6X7DGG368N;
 				INFOPLIST_FILE = "$(SRCROOT)/ARStrike/Resources/Info.plist";
@@ -788,7 +816,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.taso.ARStrike;
+				PRODUCT_BUNDLE_IDENTIFIER = com.taso.RickAndMortyAR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -30,6 +30,7 @@ struct EnemyComponents {
 
 struct StartComponents {
     static let enemy = EnemyComponents(name: "pickle_low", duration: 8.0, cooldownPeriod: 10.0, attackTime: 10.0)
+//    static let enemy = EnemyComponents(name: "picklerick", duration: 8.0, cooldownPeriod: 10.0, attackTime: 10.0)
     static let enemyCount = 10
 }
 
