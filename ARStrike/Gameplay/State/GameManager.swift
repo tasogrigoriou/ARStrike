@@ -55,11 +55,14 @@ class GameManager: NSObject {
     func addPortalNode() {
         if portal.node.parent == nil {
             scene.rootNode.addChildNode(portal.node)
+            GameAudio.shared.playPortalPlacedSound(scene: scene, node: portal.node)
         }
     }
     
     func removePortalNode() {
-        portal.node.removeFromParentNode()
+        if portal.node.parent != nil {
+            portal.node.removeFromParentNode()
+        }
     }
 
     func addWeaponNode() {
@@ -151,7 +154,8 @@ class GameManager: NSObject {
     func start() {
         addWeaponNode()
         addPlayerNode()
-//        preloadAllSounds()
+        
+        GameAudio.shared.playMusicForLevel(scene: scene)
         
         DispatchQueue.global(qos: .userInteractive).async {
             self.setupLevel()
@@ -197,7 +201,10 @@ class GameManager: NSObject {
     }
     
     func preloadAllSounds() {
+        GameAudio.shared.playPortalPlacedSound(scene: scene, node: portal.node)
+        GameAudio.shared.playBulletFiredSound(scene: scene, bulletNode: portal.node)
         GameAudio.shared.playBulletEnemyCollisionSound(scene: scene, node: portal.node)
+        GameAudio.shared.playEnemyPlayerCollisionSound(scene: scene, node: portal.node)
     }
     
     private func updateGameUI() {
@@ -228,7 +235,7 @@ class GameManager: NSObject {
     
     // Called from rendering loop once per frame
     func update(timeDelta: TimeInterval) {
-        if enemies.isEmpty {
+        if enemies.isEmpty && !isGameOver {
             advanceToNextLevel()
             return
         }
@@ -318,6 +325,8 @@ class GameManager: NSObject {
             
         scene.rootNode.addChildNode(bulletNode)
         
+        GameAudio.shared.playBulletFiredSound(scene: scene, bulletNode: bulletNode)
+        
         bulletNode.runAction(.fadeOut(duration: 1.0)) {
             bulletNode.removeFromParentNode()
         }
@@ -330,9 +339,9 @@ class GameManager: NSObject {
         let bulletNode = nodeAMask == CollisionMask.bullet.rawValue ? contact.nodeA : contact.nodeB
         guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) else { return }
         enemy.isAttackingPlayer = false
-        GameAudio.shared.playBulletEnemyCollisionSound(scene: scene, node: enemyNode)
         player.addToScore(points)
         view?.updatePlayerScore(player.score)
+        GameAudio.shared.playBulletEnemyCollisionSound(scene: scene, node: enemyNode)
         addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
         bulletNode.removeFromParentNode()
     }
@@ -343,6 +352,7 @@ class GameManager: NSObject {
         guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
         player.takeDamage(damage)
         view?.updatePlayerHealth(player.health)
+        GameAudio.shared.playEnemyPlayerCollisionSound(scene: scene, node: enemyNode)
         addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
         UIDevice.vibrate()
         if player.health <= 0 {

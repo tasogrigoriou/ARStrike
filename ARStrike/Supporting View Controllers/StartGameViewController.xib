@@ -44,7 +44,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" name="Rick_and_Morty" family="Rick_and_Morty" pointSize="55"/>
                     <state key="normal" title="Continue">
-                        <color key="titleColor" red="0.50934427179999997" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="0.2666666667" green="0.15686274510000001" blue="0.1137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="resumeButtonPressed:" destination="-1" eventType="touchUpInside" id="vDI-WE-d7q"/>
@@ -59,7 +59,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" name="Rick_and_Morty" family="Rick_and_Morty" pointSize="54"/>
                     <state key="normal" title="Start">
-                        <color key="titleColor" red="0.50934427179999997" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleColor" red="0.26666666666666666" green="0.15686274509803921" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="startButtonPressed:" destination="-1" eventType="touchUpInside" id="O81-dG-u7M"/>
@@ -68,13 +68,13 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From level..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HqO-8B-PKf">
                     <rect key="frame" x="134" y="563.5" width="146" height="34.5"/>
                     <fontDescription key="fontDescription" name="Rick_and_Morty" family="Rick_and_Morty" pointSize="39"/>
-                    <color key="textColor" red="0.50934427179999997" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="0.94392254601226999" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rick and Morty AR" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgj-NT-9SB">
                     <rect key="frame" x="16" y="185.5" width="382" height="180"/>
                     <fontDescription key="fontDescription" name="GetSchwifty-Regular" family="Get Schwifty" pointSize="90"/>
-                    <color key="textColor" red="0.50934427176380359" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.59215686274509804" green="0.80784313725490198" blue="0.29803921568627451" alpha="0.93758387653374231" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="ja6-F5-F7p">
@@ -86,7 +86,7 @@
                                 <constraint firstAttribute="width" constant="36" id="6mb-jd-j3e"/>
                                 <constraint firstAttribute="height" constant="36" id="NvO-ar-QBO"/>
                             </constraints>
-                            <color key="tintColor" red="0.50922359933237105" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="0.94196942101226999" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="audio"/>
                             <connections>
                                 <action selector="audioButtonPressed:" destination="-1" eventType="touchUpInside" id="ucw-z9-09N"/>
@@ -98,7 +98,7 @@
                                 <constraint firstAttribute="width" constant="36" id="bWV-Rd-b1Q"/>
                                 <constraint firstAttribute="height" constant="36" id="v5G-jj-W8N"/>
                             </constraints>
-                            <color key="tintColor" red="0.50882903023803683" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="0.94255655674846628" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="standing"/>
                             <connections>
                                 <action selector="gameplayButtonPressed:" destination="-1" eventType="touchUpInside" id="Dsn-SR-IWJ"/>
@@ -110,7 +110,7 @@
                                 <constraint firstAttribute="height" constant="36" id="9vk-oc-VYY"/>
                                 <constraint firstAttribute="width" constant="36" id="fCD-9z-rWe"/>
                             </constraints>
-                            <color key="tintColor" red="0.51130937916441721" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="0.94387461656441718" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="leaderboard">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
@@ -124,7 +124,7 @@
                                 <constraint firstAttribute="width" constant="36" id="Yr6-33-Sjg"/>
                                 <constraint firstAttribute="height" constant="36" id="nxj-qo-DQE"/>
                             </constraints>
-                            <color key="tintColor" red="0.50834973575950926" green="0.1017842374" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" red="0.59215686270000001" green="0.80784313730000001" blue="0.29803921570000003" alpha="0.94393452837423308" colorSpace="custom" customColorSpace="sRGB"/>
                             <state key="normal" backgroundImage="love"/>
                             <connections>
                                 <action selector="loveButtonPressed:" destination="-1" eventType="touchUpInside" id="6Ts-x2-ul9"/>
@@ -136,7 +136,7 @@
                     </constraints>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" red="0.2540212589873927" green="1" blue="0.0" alpha="0.25315136119631904" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.50428968558282206" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Zgj-NT-9SB" secondAttribute="trailing" constant="16" id="9g5-E0-FHC"/>
                 <constraint firstItem="9FB-Yl-Omw" firstAttribute="top" secondItem="Zgj-NT-9SB" secondAttribute="bottom" constant="60" id="MZj-1w-7hN"/>

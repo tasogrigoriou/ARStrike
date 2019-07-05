@@ -46,7 +46,6 @@
 		9D5A825621C870C300EF3D83 /* EndGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A825421C870C300EF3D83 /* EndGameViewController.swift */; };
 		9D5A825821C8BFCB00EF3D83 /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A825721C8BFCB00EF3D83 /* Map.swift */; };
 		9D5A825A21C9DD7600EF3D83 /* CGFloat+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5A825921C9DD7600EF3D83 /* CGFloat+Helpers.swift */; };
-		9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */; };
 		9D7D048E21A1421D00DBD433 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7D048D21A1421D00DBD433 /* Bullet.swift */; };
 		9D9AD7D521C214D600D51EBD /* Int+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9AD7D421C214D600D51EBD /* Int+Helpers.swift */; };
 		9D9AD7DB21C2438000D51EBD /* get_schwifty.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9D9AD7D721C2438000D51EBD /* get_schwifty.ttf */; };
@@ -63,6 +62,12 @@
 		9F4BD01A22C815F60002B93A /* GameAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4BD01922C815F60002B93A /* GameAudio.swift */; };
 		9FE3E9F322C96DE80031284C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FE3E9F222C96DE80031284C /* GameKit.framework */; };
 		9FE3E9F922CC19510031284C /* ARSCNView+HitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FE3E9F822CC19510031284C /* ARSCNView+HitTests.swift */; };
+		9FE3EA0922CDED4A0031284C /* rick_and_morty_theme.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3EA0422CDED4A0031284C /* rick_and_morty_theme.wav */; };
+		9FE3EA0A22CDED4A0031284C /* rick_and_morty_ray_gun_shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3EA0522CDED4A0031284C /* rick_and_morty_ray_gun_shot.wav */; };
+		9FE3EA0B22CDED4A0031284C /* rick_and_morty_portal.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3EA0622CDED4A0031284C /* rick_and_morty_portal.wav */; };
+		9FE3EA0C22CDED4A0031284C /* rick_and_morty_schwifty.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3EA0722CDED4A0031284C /* rick_and_morty_schwifty.wav */; };
+		9FE3EA0D22CDED4A0031284C /* rick_and_morty_pickle_rick_shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3EA0822CDED4A0031284C /* rick_and_morty_pickle_rick_shot.wav */; };
+		9FE3EA0F22CFBD100031284C /* rick_and_morty_level_theme.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9FE3EA0E22CFBD0F0031284C /* rick_and_morty_level_theme.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,7 +135,6 @@
 		9D5A825421C870C300EF3D83 /* EndGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndGameViewController.swift; sourceTree = "<group>"; };
 		9D5A825721C8BFCB00EF3D83 /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		9D5A825921C9DD7600EF3D83 /* CGFloat+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGFloat+Helpers.swift"; sourceTree = "<group>"; };
-		9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = portal_gun_fire.wav; sourceTree = "<group>"; };
 		9D7D048D21A1421D00DBD433 /* Bullet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
 		9D9AD7D421C214D600D51EBD /* Int+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Helpers.swift"; sourceTree = "<group>"; };
 		9D9AD7D721C2438000D51EBD /* get_schwifty.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = get_schwifty.ttf; sourceTree = "<group>"; };
@@ -148,6 +152,12 @@
 		9FE3E9F222C96DE80031284C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		9FE3E9F422C96DF40031284C /* ARStrike.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ARStrike.entitlements; sourceTree = "<group>"; };
 		9FE3E9F822CC19510031284C /* ARSCNView+HitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ARSCNView+HitTests.swift"; sourceTree = "<group>"; };
+		9FE3EA0422CDED4A0031284C /* rick_and_morty_theme.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rick_and_morty_theme.wav; sourceTree = "<group>"; };
+		9FE3EA0522CDED4A0031284C /* rick_and_morty_ray_gun_shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rick_and_morty_ray_gun_shot.wav; sourceTree = "<group>"; };
+		9FE3EA0622CDED4A0031284C /* rick_and_morty_portal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rick_and_morty_portal.wav; sourceTree = "<group>"; };
+		9FE3EA0722CDED4A0031284C /* rick_and_morty_schwifty.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rick_and_morty_schwifty.wav; sourceTree = "<group>"; };
+		9FE3EA0822CDED4A0031284C /* rick_and_morty_pickle_rick_shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rick_and_morty_pickle_rick_shot.wav; sourceTree = "<group>"; };
+		9FE3EA0E22CFBD0F0031284C /* rick_and_morty_level_theme.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rick_and_morty_level_theme.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -373,7 +383,12 @@
 		9D7D048A21A0CADB00DBD433 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				9D7D048B21A0CB0B00DBD433 /* portal_gun_fire.wav */,
+				9FE3EA0E22CFBD0F0031284C /* rick_and_morty_level_theme.wav */,
+				9FE3EA0822CDED4A0031284C /* rick_and_morty_pickle_rick_shot.wav */,
+				9FE3EA0622CDED4A0031284C /* rick_and_morty_portal.wav */,
+				9FE3EA0522CDED4A0031284C /* rick_and_morty_ray_gun_shot.wav */,
+				9FE3EA0722CDED4A0031284C /* rick_and_morty_schwifty.wav */,
+				9FE3EA0422CDED4A0031284C /* rick_and_morty_theme.wav */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -547,17 +562,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D9AD7DC21C2438000D51EBD /* calligraphr-regular.ttf in Resources */,
+				9FE3EA0922CDED4A0031284C /* rick_and_morty_theme.wav in Resources */,
+				9FE3EA0D22CDED4A0031284C /* rick_and_morty_pickle_rick_shot.wav in Resources */,
 				9D41D94B2196AB9600716EA5 /* art.scnassets in Resources */,
 				9D41D9552196AB9800716EA5 /* LaunchScreen.storyboard in Resources */,
 				9F4BD01822C6C74B0002B93A /* StartGameViewController.xib in Resources */,
 				9D03639C21BFAA7600A02F41 /* Info3.plist in Resources */,
 				9D38742521BFA757008C3FF9 /* Info2.plist in Resources */,
-				9D7D048C21A0CB0B00DBD433 /* portal_gun_fire.wav in Resources */,
+				9FE3EA0A22CDED4A0031284C /* rick_and_morty_ray_gun_shot.wav in Resources */,
 				9DE3E76121C105A800085B50 /* GameViewController.xib in Resources */,
+				9FE3EA0F22CFBD100031284C /* rick_and_morty_level_theme.wav in Resources */,
 				9D9AD7DB21C2438000D51EBD /* get_schwifty.ttf in Resources */,
 				9D9AD7DE21C2438000D51EBD /* adult_swim.ttf in Resources */,
+				9FE3EA0B22CDED4A0031284C /* rick_and_morty_portal.wav in Resources */,
 				9D9AD7DD21C2438000D51EBD /* rick_and_morty.ttf in Resources */,
 				9D41D9522196AB9800716EA5 /* Assets.xcassets in Resources */,
+				9FE3EA0C22CDED4A0031284C /* rick_and_morty_schwifty.wav in Resources */,
 				9D5A825521C870C300EF3D83 /* EndGameViewController.xib in Resources */,
 				9D03639B21BFAA7600A02F41 /* .gitkeep in Resources */,
 			);

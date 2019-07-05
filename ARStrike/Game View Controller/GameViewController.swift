@@ -73,6 +73,7 @@ class GameViewController: UIViewController {
     }
     
     var timer: Timer?
+    var arSessionTimer: Timer?
     
     var shouldStartGame: Bool = false
     
@@ -107,6 +108,8 @@ class GameViewController: UIViewController {
         mappingStatusLabel.text = ""
         
         sessionState = .initialSetup
+        
+        setupARSessionTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -154,6 +157,10 @@ class GameViewController: UIViewController {
         
         sceneView.addGestureRecognizer(tapGestureRecognizer!)
         sceneView.addGestureRecognizer(longPressGestureRecognizer!)
+    }
+    
+    private func setupARSessionTimer() {
+        arSessionTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(resetTracking), userInfo: nil, repeats: true)
     }
     
     private func hideGameUI() {
@@ -208,6 +215,13 @@ class GameViewController: UIViewController {
         sceneView.session.run(configuration, options: options)
     }
     
+    @objc private func resetTracking() {
+        if sessionState == .gameInProgress { return }
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = [.horizontal]
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
     func updateGamePortal(frame: ARFrame) {
         if !shouldStartGame {
             return
@@ -235,8 +249,8 @@ class GameViewController: UIViewController {
         sceneView.debugOptions.remove(ARSCNDebugOptions.showFeaturePoints)
         
         GameClock.setLevelStartTime()
+        GameAudio.shared.stopThemeMusic(scene: sceneView.scene)
         gameManager.start()
-        //        showGameUI()
         
         sessionState = .gameInProgress
     }
@@ -411,6 +425,7 @@ extension GameViewController: EndGameDelegate {
         gameManager = nil
         shouldStartGame = false
         present(StartGameViewController(delegate: self), animated: true, completion: nil)
+        GameAudio.shared.playThemeMusic(scene: sceneView.scene)
     }
 }
 
@@ -431,7 +446,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
     
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
-            timer = Timer.scheduledTimer(timeInterval: 0.15, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.16, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
         } else if gesture.state == .ended || gesture.state == .cancelled {
             timer?.invalidate()
             timer = nil
@@ -481,6 +496,7 @@ extension GameViewController: ARSessionDelegate {
         case .extending:
             gameManager?.addPortalNode()
             tapGestureRecognizer?.isEnabled = true
+            sceneView.debugOptions.remove(ARSCNDebugOptions.showFeaturePoints)
         case .mapped:
             gameManager?.addPortalNode()
             tapGestureRecognizer?.isEnabled = true
@@ -498,10 +514,8 @@ extension ARFrame.WorldMappingStatus: CustomStringConvertible {
         case .notAvailable:
             return "Tracking unavailable"
         case .limited:
-            return "Point at floor or wall to find surface"
-        case .extending:
-            return "Move camera position to fully map the portal"
-        case .mapped:
+            return "Move camera position on floor or wall to map the portal"
+        case .extending, .mapped:
             return "Tap to place portal"
         @unknown default:
             return "Tracking unavailable"
