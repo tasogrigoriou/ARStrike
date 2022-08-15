@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 internal extension UILabel {
-    internal static func sizeFor(content: NSString, font: UIFont) -> CGSize {
+    static func sizeFor(content: NSString, font: UIFont) -> CGSize {
         let text: NSString = content
       
         #if swift(>=4.2)

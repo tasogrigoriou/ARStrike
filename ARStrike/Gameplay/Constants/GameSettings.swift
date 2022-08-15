@@ -15,4 +15,11 @@ struct GameSettings {
 enum GameplayMode {
     case normal
     case sitting
+    
+    mutating func toggle() {
+        switch self {
+        case .normal: self = .sitting
+        case .sitting: self = .normal
+        }
+    }
 }

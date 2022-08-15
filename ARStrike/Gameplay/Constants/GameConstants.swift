@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import SceneKit
 
 struct GameConstants {
     static let maxPlayerHealth: Float = 200
@@ -22,4 +23,17 @@ struct GameConstants {
         "picklerick",
         "meeseeks_box"
     ]
+    
+    static let HIGH_SCORE_ID = "com.taso.RickAndMortyAR.HighScore"
+    static let HIGH_LEVEL_ID = "com.taso.RickAndMortyAR.HighLevel"
+    
+    static var audioEnabled: Bool = true
+}
+
+struct SCNNodeCache {
+    static var cachedNodes: [String: SCNNode] = [:]
+}
+
+struct Audio {
+    static let portalGun: String = "portal_gun_fire.wav"
 }

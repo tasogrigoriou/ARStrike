@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SceneKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,12 +15,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        preloadAllSCNNodes()
+        preloadGameSettings()
+        preloadAudio()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window!.rootViewController = GameViewController()
         window!.makeKeyAndVisible()
+        
         return true
     }
+    
+    private func preloadAllSCNNodes() {
+        let _ = SCNNode.loadSCNAsset(modelFileName: "pickle_low")
+        let _ = SCNNode.loadSCNAsset(modelFileName: "picklerick")
+        let _ = SCNNode.loadSCNAsset(modelFileName: "rick_and_morty_portal")
+        let _ = SCNNode.loadSCNAsset(modelFileName: "ray_gun7")
+        let _ = SCNNode.loadSCNAsset(modelFileName: "player")
+    }
+    
+    private func preloadGameSettings() {
+        if let isAudioEnabled = UserDefaults.standard.value(forKey: "is_audio_enabled") as? Bool {
+            if !isAudioEnabled {
+                GameConstants.audioEnabled = false
+            }
+        }
+    }
 
+    private func preloadAudio() {
+        GameAudio.shared.setupAudio()
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

@@ -45,6 +45,10 @@ extension SCNTransaction {
 
 extension SCNNode {
     static func loadSCNAsset(modelFileName: String) -> SCNNode? {
+        if let cachedNode = SCNNodeCache.cachedNodes[modelFileName] {
+            return cachedNode.clone()
+        }
+        
         var nodeRefSearch: SCNReferenceNode?
         for path in Constants.assetPaths {
             for ext in Constants.assetExtensions {
@@ -67,7 +71,18 @@ extension SCNNode {
         // walk down the scenegraph and update all children
         node.fixMaterials()
         
+        SCNNodeCache.cachedNodes[modelFileName] = node
+        
         return node
+    }
+    
+    static func loadSoundNode() -> SCNNode {
+        if let cachedNode = SCNNodeCache.cachedNodes["soundNode"] {
+            return cachedNode.clone()
+        }
+        let soundNode = SCNNode(geometry: nil)
+        SCNNodeCache.cachedNodes["soundNode"] = soundNode
+        return soundNode
     }
 }
 

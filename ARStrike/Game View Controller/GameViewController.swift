@@ -73,6 +73,9 @@ class GameViewController: UIViewController {
     }
     
     var timer: Timer?
+    var arSessionTimer: Timer?
+    
+    var shouldStartGame: Bool = false
     
     private(set) var isShowingDamageScreen = false
     
@@ -88,8 +91,12 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        GameAudio.shared.playThemeMusic(scene: sceneView.scene)
+        
         createGameManager()
-
+        gameManager?.preloadAllSounds()
+        
+        setupCamera()
         setupGestureRecognizers()
         hideGameUI()
         
@@ -98,13 +105,22 @@ class GameViewController: UIViewController {
         sceneView.delegate = self
         sceneView.session.delegate = self
         
+        mappingStatusLabel.text = ""
+        
         sessionState = .initialSetup
+        
+        setupARSessionTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureView()
         configureARSession()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        present(StartGameViewController(delegate: self), animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -115,6 +131,16 @@ class GameViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         gameManager?.updateWeaponNodePosition()
+    }
+    
+    private func setupCamera() {
+        guard let camera = sceneView.pointOfView?.camera else { return }
+        // Enable HDR camera settings for the most realistic appearance
+        // with environmental lighting and physically based materials.
+        camera.wantsHDR = true
+        camera.exposureOffset = -1
+        camera.minimumExposure = -1
+        camera.maximumExposure = 3
     }
     
     private func setupGestureRecognizers() {
@@ -133,6 +159,10 @@ class GameViewController: UIViewController {
         sceneView.addGestureRecognizer(longPressGestureRecognizer!)
     }
     
+    private func setupARSessionTimer() {
+        arSessionTimer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(resetTracking), userInfo: nil, repeats: true)
+    }
+    
     private func hideGameUI() {
         levelLabel.alpha = 0
         scoreLabel.alpha = 0
@@ -142,22 +172,25 @@ class GameViewController: UIViewController {
     }
     
     func configureView() {
-        var debugOptions: SCNDebugOptions = []
+        // Prevent the screen from being dimmed to avoid interuppting the AR experience.
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        let debugOptions: SCNDebugOptions = []
         
         // fix the scaling of the physics debug view to match the world
-        debugOptions.insert(.showPhysicsShapes)
-
+        //        debugOptions.insert(.showPhysicsShapes)
+        
         // show where ARKit is detecting feature points
-        debugOptions.insert(ARSCNDebugOptions.showFeaturePoints)
-
+        //        debugOptions.insert(ARSCNDebugOptions.showFeaturePoints)
+        
         // see high poly-count and LOD transitions - wireframe overlay
-        debugOptions.insert(SCNDebugOptions.showWireframe)
+        //        debugOptions.insert(SCNDebugOptions.showWireframe)
         
         sceneView.autoenablesDefaultLighting = true
-
-//        sceneView.debugOptions = debugOptions
-
-//        sceneView.showsStatistics = true
+        
+        sceneView.debugOptions = debugOptions
+        
+        //        sceneView.showsStatistics = true
         
         animatedScoreLabel.countingMethod = .linear
     }
@@ -182,7 +215,17 @@ class GameViewController: UIViewController {
         sceneView.session.run(configuration, options: options)
     }
     
+    @objc private func resetTracking() {
+        if sessionState == .gameInProgress { return }
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = [.horizontal]
+        sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+    }
+    
     func updateGamePortal(frame: ARFrame) {
+        if !shouldStartGame {
+            return
+        }
         if sessionState == .setupLevel {
             setupLevel()
             return
@@ -203,14 +246,17 @@ class GameViewController: UIViewController {
     func setupLevel() {
         guard let gameManager = gameManager, sessionState == .setupLevel else { return }
         
+        sceneView.debugOptions.remove(ARSCNDebugOptions.showFeaturePoints)
+        
         GameClock.setLevelStartTime()
+        GameAudio.shared.stopThemeMusic(scene: sceneView.scene)
         gameManager.start()
         
         sessionState = .gameInProgress
     }
     
     private func createGameManager() {
-       gameManager = GameManager(sceneView: sceneView, view: self)
+        gameManager = GameManager(sceneView: sceneView, view: self)
     }
 }
 
@@ -264,7 +310,7 @@ extension GameViewController: GameViewable {
     
     func updatePlayerScore(_ score: Float) {
         DispatchQueue.main.async {
-            self.animatedScoreLabel.countFromCurrent(to: score, duration: 1.5)
+            self.animatedScoreLabel.countFromCurrent(to: score, duration: 1.2)
         }
     }
     
@@ -284,8 +330,9 @@ extension GameViewController: GameViewable {
     
     func showLevel(_ level: Int) {
         DispatchQueue.main.async {
+            //            self.hideGameUI()
             self.crosshair.alpha = 0
-            self.startLabel.text = "Level \(level)"
+            self.startLabel.text = "LEVEL \(level)"
             UIView.animate(withDuration: 0.8, delay: 0, options: .transitionCrossDissolve, animations: {
                 self.startLabel.alpha = 1
             }, completion: { _ in
@@ -300,7 +347,7 @@ extension GameViewController: GameViewable {
     
     func showStartLevel() {
         DispatchQueue.main.async {
-            self.startLabel.text = "Start!"
+            self.startLabel.text = "START!"
             UIView.animate(withDuration: 0.7, delay: 0, options: .transitionCrossDissolve, animations: {
                 self.startLabel.alpha = 1
             }, completion: { _ in
@@ -341,9 +388,44 @@ extension GameViewController: GameViewable {
     }
 }
 
+extension GameViewController: StartGameDelegate {
+    func startGame() {
+        shouldStartGame = true
+        GameLevel.shared.setLevel(1)
+        gameManager = nil
+        createGameManager()
+    }
+    
+    func resumeGame(fromLevel: Int) {
+        shouldStartGame = true
+        GameLevel.shared.setLevel(fromLevel)
+        gameManager = nil
+        createGameManager()
+    }
+    
+    func playThemeMusic() {
+        GameAudio.shared.playThemeMusic(scene: sceneView.scene)
+    }
+    
+    func stopThemeMusic() {
+        GameAudio.shared.stopThemeMusic(scene: sceneView.scene)
+    }
+}
+
 extension GameViewController: EndGameDelegate {
     func resumeGame() {
         gameManager?.resumeGame()
+    }
+    
+    func showMenu() {
+        hideGameUI()
+        gameMap.alpha = 0
+        gameManager?.resetVariables()
+        gameManager?.removeAllGameEntities()
+        gameManager = nil
+        shouldStartGame = false
+        present(StartGameViewController(delegate: self), animated: true, completion: nil)
+        GameAudio.shared.playThemeMusic(scene: sceneView.scene)
     }
 }
 
@@ -364,7 +446,7 @@ extension GameViewController: UIGestureRecognizerDelegate {
     
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         if gesture.state == .began {
-            timer = Timer.scheduledTimer(timeInterval: 0.18, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 0.16, target: self, selector: #selector(fireBullets), userInfo: nil, repeats: true)
         } else if gesture.state == .ended || gesture.state == .cancelled {
             timer?.invalidate()
             timer = nil
@@ -393,17 +475,34 @@ extension GameViewController: ARSessionDelegate {
             mappingStatusLabel.text = ""
             return
         }
+        if !shouldStartGame {
+            mappingStatusLabel.text = ""
+            return
+        }
         
         if gameManager != nil {
+            if !sceneView.debugOptions.contains(ARSCNDebugOptions.showFeaturePoints) {
+                sceneView.debugOptions.insert(ARSCNDebugOptions.showFeaturePoints)
+            }
             updateGamePortal(frame: frame)
         }
         
         switch frame.worldMappingStatus {
-        case .notAvailable, .limited:
+        case .notAvailable:
+            gameManager?.removePortalNode()
             tapGestureRecognizer?.isEnabled = false
-        case .extending, .mapped:
+        case .limited:
+            tapGestureRecognizer?.isEnabled = false
+        case .extending:
             gameManager?.addPortalNode()
             tapGestureRecognizer?.isEnabled = true
+            sceneView.debugOptions.remove(ARSCNDebugOptions.showFeaturePoints)
+        case .mapped:
+            gameManager?.addPortalNode()
+            tapGestureRecognizer?.isEnabled = true
+            sceneView.debugOptions.remove(ARSCNDebugOptions.showFeaturePoints)
+        @unknown default:
+            break
         }
         mappingStatusLabel.text = frame.worldMappingStatus.description
     }
@@ -414,10 +513,12 @@ extension ARFrame.WorldMappingStatus: CustomStringConvertible {
         switch self {
         case .notAvailable:
             return "Tracking unavailable"
-        case .limited, .extending:
-            return "Point straight ahead to place portal"
-        case .mapped:
+        case .limited:
+            return "Move camera position on floor or wall to map the portal"
+        case .extending, .mapped:
             return "Tap to place portal"
+        @unknown default:
+            return "Tracking unavailable"
         }
     }
 }

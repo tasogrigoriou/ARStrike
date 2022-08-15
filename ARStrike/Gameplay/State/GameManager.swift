@@ -10,6 +10,7 @@ import Foundation
 import SceneKit
 import ARKit
 import GameplayKit
+import GameKit
 
 struct CollisionMask: OptionSet {
     let rawValue: Int
@@ -28,7 +29,7 @@ class GameManager: NSObject {
     private let weapon = Weapon()
     private var enemies: Set<Enemy> = []
     
-    private let gameLevel = GameLevel()
+    private let gameLevel = GameLevel.shared
     
     weak var view: GameViewable?
     
@@ -52,7 +53,16 @@ class GameManager: NSObject {
     }
 
     func addPortalNode() {
-        scene.rootNode.addChildNode(portal.node)
+        if portal.node.parent == nil {
+            scene.rootNode.addChildNode(portal.node)
+            GameAudio.shared.playPortalPlacedSound(scene: scene, node: portal.node)
+        }
+    }
+    
+    func removePortalNode() {
+        if portal.node.parent != nil {
+            portal.node.removeFromParentNode()
+        }
     }
 
     func addWeaponNode() {
@@ -75,10 +85,48 @@ class GameManager: NSObject {
         }
     }
     
+    func removeAllGameEntities() {
+        removeAnchors()
+        removeNodes()
+        removeAllEnemyNodes()
+        enemies = []
+        view?.updateGameMap(with: enemies)
+    }
+    
     func addAnchors() {
         addPlayerAnchor()
         addWeaponAnchor()
         addPortalAnchor()
+    }
+    
+    func removeAnchors() {
+        if let portalAnchor = portal.anchor {
+            view?.scnView.session.remove(anchor: portalAnchor)
+            portal.anchor = nil
+        }
+        if let weaponAnchor = weapon.anchor {
+            view?.scnView.session.remove(anchor: weaponAnchor)
+            weapon.anchor = nil
+        }
+        if let playerAnchor = player.anchor {
+            view?.scnView.session.remove(anchor: playerAnchor)
+            player.anchor = nil
+        }
+    }
+    
+    func removeNodes() {
+        if portal.node.parent != nil {
+            portal.node.removeFromParentNode()
+        }
+        if let weaponNode = weapon.node, weaponNode.parent != nil {
+            weapon.node?.removeFromParentNode()
+        }
+        if weapon.offsetNode.parent != nil {
+            weapon.offsetNode.removeFromParentNode()
+        }
+        if player.node.parent != nil {
+            player.node.removeFromParentNode()
+        }
     }
     
     private func addPortalAnchor() {
@@ -107,6 +155,8 @@ class GameManager: NSObject {
         addWeaponNode()
         addPlayerNode()
         
+        GameAudio.shared.playMusicForLevel(scene: scene)
+        
         DispatchQueue.global(qos: .userInteractive).async {
             self.setupLevel()
             DispatchQueue.main.async {
@@ -119,40 +169,73 @@ class GameManager: NSObject {
     
     private func setupLevel() {
         guard let planeNode = portal.node.childNode(withName: "plane", recursively: true) else { return }
+//        hideWeapon()
         view?.disableWeapon()
         enemyReadyToAttack = false
         points = gameLevel.pointsForLevel()
         enemies = gameLevel.enemiesForLevel()
         var waitTime = 0.0
+        let now = DispatchTime.now()
         for enemy in enemies {
-            waitTime += 0.2
-            if let enemyNode = enemy.node {
-                enemyNode.worldPosition = planeNode.worldPosition + SCNVector3(0, 0, -0.05)
-                enemyNode.opacity = 0.75
-                enemyNode.constraints = [SCNBillboardConstraint()]
-                DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+            waitTime += 0.25
+            DispatchQueue.main.asyncAfter(deadline: now + waitTime) {
+                enemy.loadSCNNode()
+                if let enemyNode = enemy.node {
+                    enemy.moveToNewRandomPosition(with: self.view?.cameraTransform.position ?? SCNVector3Zero, addBreathing: false)
+                    enemyNode.worldPosition = planeNode.worldPosition + SCNVector3(0, 0, -0.05)
+                    enemyNode.opacity = 0.8
+                    enemyNode.constraints = [SCNBillboardConstraint()]
                     self.scene.rootNode.addChildNode(enemyNode)
-                    enemyNode.runAction(.fadeIn(duration: 0.5))
+                    enemyNode.runAction(.fadeIn(duration: 0.3))
                 }
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + waitTime) {
+        
+        DispatchQueue.main.asyncAfter(deadline: now + waitTime) {
+//            self.showWeapon()
+            self.view?.showGameUI()
             self.view?.enableWeapon()
             self.view?.showStartLevel()
             self.enemyReadyToAttack = true
         }
     }
     
+    func preloadAllSounds() {
+        GameAudio.shared.playPortalPlacedSound(scene: scene, node: portal.node)
+        GameAudio.shared.playBulletFiredSound(scene: scene, bulletNode: portal.node)
+        GameAudio.shared.playBulletEnemyCollisionSound(scene: scene, node: portal.node)
+        GameAudio.shared.playEnemyPlayerCollisionSound(scene: scene, node: portal.node)
+    }
+    
     private func updateGameUI() {
         view?.updateLevelLabel(gameLevel.getLevel())
         view?.updatePlayerHealth(player.health)
         view?.updatePlayerScore(player.score)
+    }
+    
+    private func showGameUI() {
         view?.showGameUI()
+    }
+    
+    private func showWeapon() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.6) {
+                self.weapon.node?.opacity = 1
+            }
+        }
+    }
+    
+    private func hideWeapon() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.6) {
+                self.weapon.node?.opacity = 0
+            }
+        }
     }
     
     // Called from rendering loop once per frame
     func update(timeDelta: TimeInterval) {
-        if enemies.isEmpty {
+        if enemies.isEmpty && !isGameOver {
             advanceToNextLevel()
             return
         }
@@ -171,6 +254,7 @@ class GameManager: NSObject {
     func advanceToNextLevel() {
         gameLevel.setLevel(gameLevel.getLevel() + 1)
         Enemy.resetIndexCounter()
+        Enemy.resetWaitCounter()
         startLevel()
     }
     
@@ -185,7 +269,18 @@ class GameManager: NSObject {
         view?.updatePlayerScore(player.score)
         
         Enemy.resetIndexCounter()
+        Enemy.resetWaitCounter()
         startLevel()
+    }
+    
+    func resetVariables() {
+        player.resetHealth()
+        player.resetScore()
+        view?.updatePlayerHealth(player.health)
+        view?.updatePlayerScore(player.score)
+        
+        Enemy.resetIndexCounter()
+        Enemy.resetWaitCounter()
     }
     
     private func startLevel() {
@@ -230,11 +325,41 @@ class GameManager: NSObject {
             
         scene.rootNode.addChildNode(bulletNode)
         
+        GameAudio.shared.playBulletFiredSound(scene: scene, bulletNode: bulletNode)
+        
         bulletNode.runAction(.fadeOut(duration: 1.0)) {
             bulletNode.removeFromParentNode()
         }
         
         applyRecoilAnimation(node: weaponNode)
+    }
+    
+    private func handleBulletEnemyCollision(contact: SCNPhysicsContact, nodeAMask: Int) {
+        let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
+        let bulletNode = nodeAMask == CollisionMask.bullet.rawValue ? contact.nodeA : contact.nodeB
+        guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) else { return }
+        enemy.isAttackingPlayer = false
+        player.addToScore(points)
+        view?.updatePlayerScore(player.score)
+        GameAudio.shared.playBulletEnemyCollisionSound(scene: scene, node: enemyNode)
+        addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
+        bulletNode.removeFromParentNode()
+    }
+    
+    private func handlePlayerEnemyCollision(contact: SCNPhysicsContact, nodeAMask: Int) {
+        if !contactFinished { return }
+        let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
+        guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
+        player.takeDamage(damage)
+        view?.updatePlayerHealth(player.health)
+        GameAudio.shared.playEnemyPlayerCollisionSound(scene: scene, node: enemyNode)
+        addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
+        UIDevice.vibrate()
+        if player.health <= 0 {
+            endGame()
+        } else {
+            view?.showDamageScreen()
+        }
     }
     
     private func applyRecoilAnimation(node: SCNNode) {
@@ -256,10 +381,10 @@ class GameManager: NSObject {
         }
     }
     
-    private func addBreathingAnimation(to node: SCNNode?) {
-        let moveUp = SCNAction.moveBy(x: 0.0005, y: 0.003, z: 0, duration: 1.2)
+    private func addBreathingAnimation(to node: SCNNode?, dx: CGFloat = 0.0005, dy: CGFloat = 0.003) {
+        let moveUp = SCNAction.moveBy(x: dx, y: dy, z: 0, duration: 1.2)
         moveUp.timingMode = .easeInEaseOut
-        let moveDown = SCNAction.moveBy(x: -0.0005, y: -0.003, z: 0, duration: 1.2)
+        let moveDown = SCNAction.moveBy(x: -dx, y: -dy, z: 0, duration: 1.2)
         moveDown.timingMode = .easeInEaseOut
         let moveSequence = SCNAction.sequence([moveUp, moveDown])
         let breathingAction = SCNAction.repeatForever(moveSequence)
@@ -307,6 +432,29 @@ class GameManager: NSObject {
                                             highestLevel: gameLevel.getHighestLevel(),
                                             score: player.score,
                                             highestScore: player.getHighestScore()))
+        submitScoreToGC(score: player.score, level: gameLevel.getLevel())
+    }
+    
+    private func submitScoreToGC(score: Float, level: Int) {
+        let scoreInt = GKScore(leaderboardIdentifier: GameConstants.HIGH_SCORE_ID)
+        scoreInt.value = Int64(score)
+        GKScore.report([scoreInt]) { error in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("Score submitted to High Score Leaderboard!")
+            }
+        }
+        
+        let levelInt = GKScore(leaderboardIdentifier: GameConstants.HIGH_LEVEL_ID)
+        levelInt.value = Int64(level)
+        GKScore.report([levelInt]) { error in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print("Score submitted to High Level Leaderboard!")
+            }
+        }
     }
 }
 
@@ -318,27 +466,10 @@ extension GameManager: SCNPhysicsContactDelegate {
         let masks = nodeAMask | nodeBMask
         
         if masks == CollisionMask([.bullet, .enemy]).rawValue {
-            let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
-            let bulletNode = nodeAMask == CollisionMask.bullet.rawValue ? contact.nodeA : contact.nodeB
-            guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }) else { return }
-            player.addToScore(points)
-            view?.updatePlayerScore(player.score)
-            addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
-            bulletNode.removeFromParentNode()
+            handleBulletEnemyCollision(contact: contact, nodeAMask: nodeAMask)
         }
         else if masks == CollisionMask([.player, .enemy]).rawValue {
-            if !contactFinished { return }
-            let enemyNode = nodeAMask == CollisionMask.enemy.rawValue ? contact.nodeA : contact.nodeB
-            guard let enemy = enemies.first(where: { $0.node?.isEqual(enemyNode) ?? false }), enemy.isAttackingPlayer else { return }
-            player.takeDamage(damage)
-            view?.updatePlayerHealth(player.health)
-            addExplosionAnimation(enemyNode: enemyNode, geometryNode: enemy.childNodeWithGeometry, image: enemy.image)
-            UIDevice.vibrate()
-            if player.health <= 0 {
-                endGame()
-            } else {
-                view?.showDamageScreen()
-            }
+            handlePlayerEnemyCollision(contact: contact, nodeAMask: nodeAMask)
         }
     }
 }

@@ -48,7 +48,7 @@ extension float4x4 {
     }
     
     init(scale factor: Float) {
-        self.init(scale: float3(factor))
+        self.init(scale: float3(repeating: factor))
     }
     init(scale vector: float3) {
         self.init(float4(vector.x, 0, 0, 0),
@@ -69,7 +69,7 @@ func normalize(_ matrix: float4x4) -> float4x4 {
 }
 
 extension float4 {
-    static let zero = float4(0.0)
+    static let zero = float4(repeating: 0.0)
     
     var xyz: float3 {
         get {
